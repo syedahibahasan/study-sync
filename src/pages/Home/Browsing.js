@@ -6,7 +6,7 @@ const BrowsingPage = () => {
     <div className={styles.container}>
       <div className={styles.heroContainer}>
         <video autoPlay muted loop className={styles.backgroundVideo}>
-          <source src="/business_stock_video.mp4" type="video/mp4" />
+        <source src="/thumbnail/business_stock_video.mp4" type="video/mp4" />
         </video>
         
         <div className={styles.overlay} />

@@ -1,10 +1,18 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .container {
   margin-top: 110px;
   max-width: 100%;
+  height: 100vh; /* Ensures the container takes up the full viewport height */
+  overflow: hidden; /* Prevents any scrolling */
 }
 
 .heroContainer {
-  height: 100vh;
+  height: 100vh; /* Makes sure the hero container is 100% of the viewport height */
   width: 100%;
   display: flex;
   align-items: center;
@@ -19,12 +27,13 @@
 .backgroundVideo {
   position: absolute;
   object-fit: cover;
-  min-width: 100%;
-  min-height: 100vh;
+  width: 100%; /* Ensures the video takes the full width */
+  height: 100vh; /* Ensures the video takes the full height of the viewport */
   z-index: -1; /* Ensures the video is in the background */
-  opacity: 1;  /* Ensure the video is visible */
+  opacity: 1; /* Ensure the video is visible */
+  top: 0; /* Aligns the video to the top */
+  left: 0; /* Aligns the video to the left */
 }
-
 
 .overlay {
   position: absolute;
