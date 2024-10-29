@@ -1,0 +1,21 @@
+.input1 {
+  height: 100%;
+  width: 100%;
+  margin: 0.1rem;
+  padding: 20px;
+  border: none;
+  background-color: rgb(243, 243, 243);
+  border-radius: 10px;
+  transition: border-width 0.15s ease-out;
+  font-size: 16px;
+}
+
+.input:focus {
+  border-width: 2.9px;
+  color: rgb(4, 73, 39);
+}
+
+.error {
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+}

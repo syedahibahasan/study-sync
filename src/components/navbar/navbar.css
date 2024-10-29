@@ -1,0 +1,251 @@
+body {
+  font-family: serif, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  white-space: nowrap;
+}
+
+.top-bar {
+  background-color: #ffffff;
+  color: #040058;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin-right: 8px; /* Reduced from 20px */
+  margin-left: 5px; /* Reduced from 20px */
+  padding-top: 35%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.store-name {
+  padding-left: 3px; /* Reduced from 20px */
+  font-size: 24px;
+  text-decoration: none;
+  color: #fff;
+  text-decoration: none;
+  margin-top: 0;
+  margin-bottom: 21px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.logo:hover,
+.store-name:hover {
+  transform: scale(1.08);
+}
+
+.sign-in-shopping-cart {
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.sign-in-button {
+  text-decoration: none;
+  color: #fff;
+  background-color: #005823;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.quantamt {
+  color: white;
+  margin-right: 130px;
+}
+
+.shopping-cart-icon {
+  width: 60px; /* Adjust the size as needed */
+  cursor: pointer;
+  margin-right: -120px;
+  margin-left: 25px;
+  margin-top: 65px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.shopping-cart-icon:hover {
+  transform: scale(1.2);
+}
+.loginbutton {
+  margin-top: 45px;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0px;
+
+  margin-right: 80px;
+}
+.loginbutton:hover {
+  transform: scale(1.1);
+}
+
+.search-bar {
+  flex: 1;
+  text-align: center;
+  margin-left: 60px;
+  border: none;
+}
+
+input[type="text"] {
+  font-family: "Cabin";
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+}
+.shopping-cart {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-top: 35px;
+  /* Push the cart to the right */
+  padding-right: 75px;
+}
+.navigation-links {
+  display: flex;
+  align-items: center;
+  padding-right: 5px;
+  gap: 10px; /* Add space between items */
+}
+.navigation-links li {
+  margin-right: 5px; /* Adjust the spacing between links */
+  font-size: 16px; /* Decrease font size if necessary */
+}
+.navbar {
+  z-index: 2;
+  box-sizing: border-box;
+  justify-content: center;
+  width: 100%;
+  background-color: #000000;
+  color: rgb(0, 0, 0);
+  font-family: "Cabin";
+  display: flex;
+  position: fixed;
+  align-items: center;
+  height: 65px; /* Adjust the height as needed */
+  padding: 0 20px; /* Adjust the horizontal padding */
+  display: flex;
+  justify-content: space-between; /* Adjust to distribute space */
+  align-items: center;
+}
+.logo {
+  margin-top: 20px;
+  padding-left: 24px;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+ul {
+  padding-right: 30px;
+  list-style: none;
+  display: flex;
+  gap: 20px; /* Adjust gap for space between menu items */
+  text-decoration: none;
+  justify-content: center;
+}
+li {
+  font-size: 18px;
+}
+
+.headers {
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.headers:hover {
+  color: rgb(151, 151, 151);
+  font-weight: bold;
+}
+
+.sidebar {
+  right: 0;
+  width: 0;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  color: white;
+  background-color: rgb(151, 151, 151);
+  overflow-x: hidden;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.open {
+  display: flex;
+  width: 270px;
+
+  /* Adjust the width to your desired sidebar width */
+}
+
+.sidebar-content {
+  padding: 30px;
+  color: white;
+  justify-content: space;
+  text-align: left;
+  font-size: 40px;
+}
+
+.side-bar-name {
+  margin-top: -8px;
+  font-size: 22px;
+  padding-bottom: 20px;
+}
+.sidebar-toggle {
+  margin-right: 35px;
+
+  position: fixed;
+  top: 11px;
+  right: 0;
+
+  cursor: pointer;
+  font-size: 30px;
+}
+.hamicon {
+  color: white;
+  z-index: 1000;
+  position: absolute;
+  right: 0;
+  margin-top: -10px;
+  font-size: 45px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hamicon:hover {
+  transform: scale(1.2);
+}
+p {
+  font-weight: bold;
+  font-size: 20px;
+}
+li {
+  padding-bottom: 50px;
+  list-style: none;
+}
+
+.contentin {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  padding-top: 10px;
+}
+.contentin:hover {
+  color: rgb(144, 189, 158);
+  transform: scale(1.05);
+}
+
+.cont {
+  justify-content: left;
+}
+.wholenavbar {
+  position: fixed; /* or absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100; /* Higher than other content */
+}

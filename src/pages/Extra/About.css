@@ -1,0 +1,102 @@
+.wholeaboutpage {
+  font-family: "Cabin";
+  display: flex;
+  text-align: center;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  min-height: 100vh;
+}
+h2 {
+  font-family: "Cabin";
+}
+
+.auth-form-container,
+.login-form,
+.register-form {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+}
+.auth-form-container {
+  padding: 2.8rem;
+  border: 8px solid #005823;
+  border-radius: 10px;
+  margin: 0.4rem;
+}
+label {
+  text-align: left;
+  font-family: "Cabin";
+  padding: 0.25rem 0;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  background-color: rgb(243, 243, 243);
+  border-radius: 10px;
+}
+
+.loginbuttons {
+  border: none;
+  background-color: rgb(205, 221, 205); /*login button*/
+  padding: 20px;
+  border-radius: 10px;
+  font-family: "Cabin";
+  font-weight: bold;
+  cursor: pointer;
+  color: rgb(14, 74, 33);
+}
+
+.link-button {
+  padding-top: 15px;
+  text-decoration: underline;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #005823;
+}
+
+#title {
+  color: rgb(4, 73, 39);
+  font-family: "Cabin";
+  text-decoration: underline;
+}
+.about-us-container,
+.contact-container {
+    width: 100%; /* Full width */
+    max-width: 650px; /* Maximum width */
+    height: auto; /* Height set to auto to contain the content */
+    margin: 0 auto; /* This will center the container if it's not flexed */
+    padding: 20px; /* Padding inside the container */
+    border: 5px solid #005823;
+    border-radius: 10px;
+    text-align: center; /* Center the text inside the container */
+    background-color: white;
+    font-weight: bold;
+    font-size: 20px;
+    color: #005823;
+    white-space: nowrap;
+}
+
+.info {
+  font-family: "Cabin";
+  font-size: 20px;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  min-width: 500px;
+}
+.wholeaboutpage {
+  display: flex;
+  align-items: center; /* This will center the child vertically */
+  justify-content: center; /* This will center the child horizontally */
+  padding: 0; /* Removed the padding to allow true centering */
+  min-height: 100vh; /* Minimum height to take full viewport height */
+  word-wrap: break-word;
+  background: linear-gradient(to bottom, rgb(205, 221, 205), white);
+}

@@ -1,0 +1,15 @@
+.results {
+  margin-top: 18px;
+  font-family: "Cabin";
+  color: rgb(14, 74, 33)
+}
+
+.search-result-item {
+  margin-top: 30px;
+}
+.searchheader {
+  margin-top: 65px;
+}
+.searchfor {
+  padding: 30px;
+}

@@ -1,0 +1,28 @@
+.inputbar {
+  margin-top: 0;
+}
+
+.searchbutton {
+  position: absolute;
+  margin-left: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding-top: 10px;
+  padding-left: 5px;
+  color: white;
+  size-adjust: 30px;
+  font-size: 18px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.searchbutton:hover {
+  transform: scale(1.2);
+}
+
+.searchform {
+  position: relative;
+}
+
+.searchform {
+  position: relative;
+}
