@@ -23,7 +23,7 @@ function SearchBar() {
         <input
           className="inputbar"
           type="text"
-          placeholder="Search for Product..."
+          placeholder="Search for Study Group..."
           value={searchTerm}
           onChange={handleSearchChange}
         />

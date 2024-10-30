@@ -1,5 +1,5 @@
 .login {
-  background-image: linear-gradient(to bottom, rgb(151, 151, 151), white);
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255), white);
   font-family: "Cabin";
   display: flex;
   text-align: center;
@@ -18,7 +18,7 @@
 
 .loginbuttons {
   border: none;
-  background-color: rgb(151, 151, 151); /*login button*/
+  background-color: rgb(179, 236, 198); /*login button*/
   padding: 20px;
   border-radius: 10px;
   font-family: "Cabin";
