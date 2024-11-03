@@ -18,7 +18,7 @@ export default function LoginPage() {
   const submit = async ({ email, password }) => {
     try {
       await login(email, password);  // Call the login function
-      navigate("/");  // Redirect to main page after successful login
+      navigate("/profile");  // Redirect to main page after successful login
     } catch (err) {
       console.log(err);
     }

@@ -12,7 +12,7 @@ export default function Register() {
 
   useEffect(() => {
     if (!user) return;
-    navigate("/");  // Redirect to main page if user is already logged in
+    navigate("/profile");  // Redirect to main page if user is already logged in
   }, [user, navigate]);
 
   const {
