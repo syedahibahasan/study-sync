@@ -6,12 +6,6 @@
     padding: 10px;
   }
   
-  .grid-item {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-  }
-  
   .header {
     background-color: #f4f4f4;
     font-weight: bold;
@@ -23,9 +17,17 @@
   
   .cell {
     background-color: #fff;
-    grid-template-columns: repeat(8, 1fr); /* 1 column for Time/Day header, 7 columns for days */
-    grid-template-rows: auto repeat(7, 1fr); /* 1 row for the Time header, 7 rows for time slots */
-    gap: 5px;
+  }
+
+  .grid-item {
     padding: 10px;
-    
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .grid-item-filled {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #2a77ce;
   }
