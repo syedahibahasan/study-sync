@@ -1,8 +1,12 @@
 import React from "react";
+import { useState } from 'react';
+import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import "./UserProfile.css";
 
 const UserProfile = () => {
+  
   return (
+    
     <div className="profile-container">
       <h1>Welcome to your StudySync Profile!</h1>
       <p className="intro-text">
@@ -11,8 +15,10 @@ const UserProfile = () => {
 
       <form className="profile-form">
         <label>
-          Preferred Study Times:
-          <input type="text" placeholder="e.g., Monday 3-5 PM, Wednesday 2-4 PM" />
+        
+
+        <TimeSelector/>
+        
         </label>
         
         <label>
