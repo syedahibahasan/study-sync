@@ -4,6 +4,7 @@
     grid-template-rows: auto repeat(7, 1fr); /* 1 row for the Time header, 7 rows for time slots */
     gap: 5px;
     padding: 10px;
+    user-select: none;
   }
   
   .header {
