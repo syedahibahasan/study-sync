@@ -7,8 +7,9 @@ const LocationSelector = () => {
   const [selectedLocations, setSelectedLocations] = useState(user.preferredLocations || []);
 
   const buildings = [
-    { name: 'MLK Library', coords: { top: '10%', left: '5%' } },
-    { name: 'Engineering Building', coords: { top: '20%', left: '50%' } },
+    { name: 'MLK Library', coords: { top: '17%', left: '13%' } },
+    { name: 'Engineering Building', coords: { top: '17%', left: '57%' } },
+    {name: 'Student Union', coords: {top:'30%', left:'68%'}}
   ];
 
   const handleLocationClick = (building) => {
