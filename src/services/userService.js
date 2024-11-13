@@ -37,3 +37,46 @@ export const register = async (registerData) => {
   return data;
 };
 
+export const addCourse = async (userId, courseId) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `http://localhost:5001/api/users/${userId}/courses/add`,
+    { courseId },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+};
+
+export const removeCourse = async (userId, courseId) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `http://localhost:5001/api/users/${userId}/courses/remove`,
+    { courseId },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+};
+
+export const saveSchedule = async (userId, schedule) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `http://localhost:5001/api/users/${userId}/schedule`,
+    { schedule },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+};
+
+export const updatePreferredLocations = async (userId, preferredLocations) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.post(
+    `http://localhost:5001/api/users/${userId}/preferred-locations`,
+    { preferredLocations },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data.user;
+};
+
+
+
+

@@ -1,8 +1,8 @@
-//FRONTEND USER FUNCTIONS
 import { useState, createContext, useContext } from "react";
 import * as userService from "../services/userService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { updatePreferredLocations } from "../services/userService"; // Import the function from userService
 
 const AuthContext = createContext(null);
 
@@ -39,8 +39,38 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  // useAuth.js
+const saveSchedule = async (schedule) => {
+  // Ensure this function is defined here
+  try {
+    const updatedUser = await userService.saveSchedule(user._id, schedule);
+    setUser(updatedUser);
+    toast.success("Schedule saved successfully!");
+  } catch (err) {
+    console.error("Failed to save schedule", err);
+    toast.error("Could not save schedule");
+  }
+};
+
+  const savePreferredLocations = async (locations, operationType) => {
+  try {
+    const updatedUser = await userService.updatePreferredLocations(user._id, locations);
+    setUser(updatedUser);
+
+    // Show appropriate toast message based on the operation type
+    if (operationType === "added") {
+      toast.success("Preferred location added!");
+    } else {
+      toast.success("Preferred location removed!");
+    }
+  } catch (error) {
+    console.error("Failed to update preferred locations", error);
+    toast.error("Could not update preferred locations");
+  }
+};
+ 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, register, saveSchedule, savePreferredLocations }}>
       {children}
     </AuthContext.Provider>
   );

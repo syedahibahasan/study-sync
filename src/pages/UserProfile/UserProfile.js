@@ -1,38 +1,52 @@
-import React from "react";
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
+import CourseSelector from "../../components/CourseSelector/CourseSelector";
+import LocationSelector from "../../components/LocationSelector/LocationSelector";
+import { useAuth } from '../../hooks/useauth';
 import "./UserProfile.css";
 
 const UserProfile = () => {
-  
+  const { user, setUser } = useAuth();
+
+  // Get initial tab state from sessionStorage or default to 'map'
+  const initialTab = sessionStorage.getItem("activeTab") || 'map';
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  // Update sessionStorage whenever activeTab changes
+  useEffect(() => {
+    sessionStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
+
+  // Tab click handler
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  useEffect(() => {
+  }, [activeTab]);
+
   return (
-    
     <div className="profile-container">
       <h1>Welcome to your StudySync Profile!</h1>
-      <p className="intro-text">
-        Enter your preferred schedule and location to make study group organization easy and fun!
-      </p>
-
-      <form className="profile-form">
-        <label>
-        
-
-        <TimeSelector/>
-        
-        </label>
-        
-        <label>
-          Preferred Locations:
-          <input type="text" placeholder="e.g., Library, Room 204, Online" />
-        </label>
-        
-        <label>
-          Course Schedule:
-          <textarea placeholder="List your courses and timings here..." />
-        </label>
-        
-        <button type="submit" className="save-button">Save Preferences</button>
-      </form>
+      <CourseSelector user={user} setUser={setUser} />
+      <div className="tabs">
+        <button
+          className={`tab-button ${activeTab === 'schedule' ? 'active' : ''}`}
+          onClick={() => handleTabClick('schedule')}
+        >
+          Schedule
+        </button>
+        <button
+          className={`tab-button ${activeTab === 'map' ? 'active' : ''}`}
+          onClick={() => handleTabClick('map')}
+        >
+          Map
+        </button>
+      </div>
+      <div className="tab-content">
+        {activeTab === 'schedule' && <TimeSelector />}
+        {activeTab === 'map' && <LocationSelector />}
+      </div>
     </div>
   );
 };

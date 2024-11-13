@@ -1,0 +1,70 @@
+/* Wrapper for the map with padding and box styling */
+.location-selector-wrapper {
+  border: 1px solid #ddd;
+  padding: 25px 20px 20px; /* Increase top padding to fit legend */
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  font-family: Arial, sans-serif;
+}
+
+/* Legend container with items */
+.legend-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+/* Legend items */
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Legend icons */
+.legend-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* Specific colors for legend */
+.legend-gray {
+  background-color: gray;
+}
+
+.legend-green {
+  background-color: green;
+}
+
+/* Map container and marker styles */
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.sjsu-map-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.location-marker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: gray;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.location-marker.selected {
+  background-color: green;
+}
