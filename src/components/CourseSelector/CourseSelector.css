@@ -15,7 +15,7 @@
   border: 1px solid #ddd;
   padding: 8px;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -104,6 +104,14 @@
   background-color: #0055A2;
 }
 
+.course-selector-container .add-button:hover {
+  background-color: #003569;
+}
+
 .course-selector-container .remove-button {
   background-color: #E5A823;
+}
+
+.course-selector-container .remove-button:hover {
+  background-color: #9c7012;
 }

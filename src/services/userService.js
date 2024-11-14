@@ -1,10 +1,24 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 // Getting user data from local storage
 export const getUser = () => {
   const userJson = localStorage.getItem("user");
   return userJson ? JSON.parse(userJson) : null;
 };
+
+axios.interceptors.response.use(
+  response => response, // if response is OK, just return it
+  error => {
+    if (error.response && error.response.status === 401) {
+      toast.error("Session expired. Please log in again.");
+      // Redirect to login page or handle logout
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+    }
+    return Promise.reject(error);
+  }
+);
 
 // User login function
 export const login = async (email, password) => {

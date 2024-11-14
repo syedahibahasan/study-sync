@@ -68,7 +68,7 @@ const saveSchedule = async (schedule) => {
     toast.error("Could not update preferred locations");
   }
 };
- 
+
   return (
     <AuthContext.Provider value={{ user, setUser, login, logout, register, saveSchedule, savePreferredLocations }}>
       {children}
