@@ -12,37 +12,34 @@ const CourseSelector = ({ user, setUser }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const MAX_COURSES = 20;
 
-  // Load courses and categorize into available and saved lists
+  // Fetch and categorize courses
   const loadCourses = async () => {
-    const courseList = await getCourses();
-    if (user && user.enrolledCourses) {
-      const userCourseIds = user.enrolledCourses.map((id) => id.toString());
-      setSavedCourses(
-        courseList.filter((course) =>
-          userCourseIds.includes(course._id.toString())
-        )
-      );
+    try {
+      const courseList = await getCourses();
+      const userCourseIds = user?.enrolledCourses || [];
       setAvailableCourses(
-        courseList.filter(
-          (course) => !userCourseIds.includes(course._id.toString())
-        )
+        courseList.filter((course) => !userCourseIds.includes(course._id))
       );
-    } else {
-      setAvailableCourses(courseList);
-      setSavedCourses([]);
+      setSavedCourses(
+        courseList.filter((course) => userCourseIds.includes(course._id))
+      );
+    } catch (error) {
+      console.error("Error loading courses:", error);
     }
   };
 
   useEffect(() => {
     loadCourses();
-  }, [user]);
+  }, []);
 
-  // Add course to user and update lists
+  // Add course and update state
   const handleAddCourse = async (course) => {
     try {
-      const response = await addCourse(user._id, course._id);
-      setUser(response.user);
-      await loadCourses();
+      await addCourse(user._id, course._id);
+      setSavedCourses((prev) => [...prev, course]);
+      setAvailableCourses((prev) =>
+        prev.filter((availableCourse) => availableCourse._id !== course._id)
+      );
       toast.success("Course added successfully!");
     } catch (error) {
       console.error("Error adding course:", error);
@@ -50,12 +47,14 @@ const CourseSelector = ({ user, setUser }) => {
     }
   };
 
-  // Remove course from user and update lists
+  // Remove course and update state
   const handleRemoveCourse = async (course) => {
     try {
-      const response = await removeCourse(user._id, course._id);
-      setUser(response.user);
-      await loadCourses();
+      await removeCourse(user._id, course._id);
+      setAvailableCourses((prev) => [...prev, course]);
+      setSavedCourses((prev) =>
+        prev.filter((savedCourse) => savedCourse._id !== course._id)
+      );
       toast.success("Course removed successfully!");
     } catch (error) {
       console.error("Error removing course:", error);
@@ -63,19 +62,12 @@ const CourseSelector = ({ user, setUser }) => {
     }
   };
 
-  // Filter available courses based on search term (by course name or course code)
-  const filteredCourses = availableCourses
-    .filter(
-      (course) =>
-        course.section.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.course_title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .slice(0, MAX_COURSES);
-
-  // Display 20 courses maximum for the query
-  const displayCourses = searchTerm
-    ? filteredCourses
-    : availableCourses.slice(0, MAX_COURSES);
+  // Filter courses for display
+  const filteredCourses = availableCourses.filter(
+    (course) =>
+      course.section.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.course_title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="course-selector-container">
@@ -85,7 +77,7 @@ const CourseSelector = ({ user, setUser }) => {
         <div className="course-search-bar">
           <input
             type="text"
-            placeholder="      Search courses..."
+            placeholder="Search courses..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="course-search-input"
@@ -94,7 +86,7 @@ const CourseSelector = ({ user, setUser }) => {
         </div>
         <div className="course-list-container">
           <ul className="course-list">
-            {filteredCourses.map((course) => (
+            {filteredCourses.slice(0, MAX_COURSES).map((course) => (
               <li key={course._id} className="course-list-item">
                 {course.section} ({course.course_title})
                 <button
