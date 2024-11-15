@@ -84,6 +84,19 @@
   transition: background-color 0.3s ease;
 }
 
+.course-time {
+  background-color: #4CAF50 !important; 
+}
+
+.time-item.cell.course-time {
+  background-color: #4CAF50;
+  cursor: not-allowed;
+}
+
+.legend-circle.course-time {
+  background-color: #4CAF50;
+}
+
 .save-schedule-button {
   margin-top: 20px;
   padding: 10px 20px;
