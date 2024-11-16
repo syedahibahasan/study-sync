@@ -97,6 +97,13 @@
   background-color: #4CAF50;
 }
 
+.time-item.time {
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 .save-schedule-button {
   margin-top: 20px;
   padding: 10px 20px;
