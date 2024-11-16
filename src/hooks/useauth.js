@@ -52,6 +52,18 @@ const saveSchedule = async (schedule) => {
   }
 };
 
+const refreshSchedule = async () => {
+  try {
+    const schedule = await userService.fetchSchedule(user._id); 
+    setUser({ ...user, schedule }); 
+    toast.success("Schedule refreshed successfully!");
+  } catch (error) {
+    console.error("Error refreshing schedule:", error);
+    toast.error("Failed to refresh the schedule. Please try again.");
+  }
+};
+
+
   const savePreferredLocations = async (locations, operationType) => {
   try {
     const updatedUser = await userService.updatePreferredLocations(user._id, locations);
@@ -70,7 +82,7 @@ const saveSchedule = async (schedule) => {
 };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, register, saveSchedule, savePreferredLocations }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, register, saveSchedule, refreshSchedule, savePreferredLocations }}>
       {children}
     </AuthContext.Provider>
   );

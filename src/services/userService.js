@@ -81,6 +81,15 @@ export const saveSchedule = async (userId, schedule) => {
   return response.data;
 };
 
+export const fetchSchedule = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(
+    `http://localhost:5001/api/users/${userId}/schedule`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return data.schedule;
+};
+
 export const updatePreferredLocations = async (userId, preferredLocations) => {
   const token = localStorage.getItem("token");
   const response = await axios.post(

@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from "../../hooks/useauth";
+import { fetchSchedule } from "../../services/userService";
 import "./TimeSelector.css";
 
 const TimeSelector = () => {
-    const { user, saveSchedule } = useAuth();
+    const { user, saveSchedule, refreshSchedule } = useAuth();
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const times = ["9:00 AM", "9:30 AM","10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM"];
+    const times = ["9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", 
+        "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", 
+        "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM"];
     const [userTimes, setUserTimes] = useState(new Array(days.length * times.length).fill(false));
     const [mousePressed, setMousePressed] = useState(false);
 
     useEffect(() => {
         if (user && user.schedule) {
-            const tempUserTimes = new Array(days.length * times.length).fill(false);
-            user.schedule.forEach(({ day, busyTimes }) => {
-                const dayIndex = days.indexOf(day);
-                busyTimes.forEach((time) => {
-                    const timeIndex = times.indexOf(time);
-                    if (dayIndex !== -1 && timeIndex !== -1) {
-                        tempUserTimes[dayIndex * times.length + timeIndex] = true;
-                    }
-                });
-            });
-            setUserTimes(tempUserTimes);
+          updateScheduleState(user.schedule);
         }
-    }, [user]);
+      }, [user]);
+
+    const updateScheduleState = (schedule) => {
+        const tempUserTimes = new Array(days.length * times.length).fill(false);
+        schedule.forEach(({ day, busyTimes }) => {
+          const dayIndex = days.indexOf(day);
+          busyTimes.forEach((time) => {
+            const timeIndex = times.indexOf(time);
+            if (dayIndex !== -1 && timeIndex !== -1) {
+              tempUserTimes[dayIndex * times.length + timeIndex] = true;
+            }
+          });
+        });
+        setUserTimes(tempUserTimes);
+      };
 
     const getUserTime = (rowIndex, columnIndex) => userTimes[columnIndex * times.length + rowIndex];
 
@@ -97,6 +104,7 @@ const TimeSelector = () => {
                 ))}
             </div>
             <button onClick={handleSaveSchedule} className="save-schedule-button">Save Schedule</button>
+            <button onClick={refreshSchedule} className="save-schedule-button">Refresh Schedule</button>
         </div>
     );
 };
