@@ -104,7 +104,7 @@ const TimeSelector = () => {
                 ))}
             </div>
             <button onClick={handleSaveSchedule} className="save-schedule-button">Save Schedule</button>
-            <button onClick={refreshSchedule} className="save-schedule-button">Refresh Schedule</button>
+            <button onClick={refreshSchedule} className="refresh-schedule-button">Refresh Schedule</button>
         </div>
     );
 };

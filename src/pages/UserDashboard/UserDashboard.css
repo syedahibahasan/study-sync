@@ -1,0 +1,140 @@
+/* General Container */
+.container {
+    margin-top: 60px; /* Adjust this based on the height of your navbar */
+    display: flex;
+    height: calc(100vh - 60px); /* Adjusted for the navbar height */
+    width: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.sidebar-container {
+    width: 20%;
+    background-color: #0055A2; /* SJSU Blue */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px solid #D2D2D2; /* Divider for sidebar */
+    color: white;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #E5A823; /* SJSU Gold */
+    margin-bottom: 20px;
+}
+
+.sidebar-item {
+    padding: 12px 15px;
+    border-radius: 5px;
+    background-color: #1C88F4; /* Rollover Blue */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s;
+}
+
+.sidebar-item:hover {
+    background-color: #E5A823; /* SJSU Gold */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    overflow-y: auto; /* Makes the content scrollable */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.group-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.group-search-bar input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.filter-button {
+    padding: 8px 15px;
+    background-color: #E5A823; /* SJSU Gold */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #0055A2; /* SJSU Blue */
+}
+
+/* Group List */
+.group-list-title {
+    color: #0055A2; /* SJSU Blue */
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #D2D2D2; /* SJSU Light Gray */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.group-item-description {
+    font-size: 14px;
+    color: #666666; /* Dark Gray */
+}
+
+/* Action Buttons */
+.action-button {
+    padding: 8px 15px;
+    background-color: #0055A2; /* SJSU Blue */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: #E5A823; /* SJSU Gold */
+}
+
+/* Scrollable Sidebar */
+.sidebar-container {
+    overflow-y: auto;
+}

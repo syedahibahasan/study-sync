@@ -7,7 +7,8 @@ import Register from "./pages/Register/register";
 // import SearchResults from "./pages/Searchresult/searchresult";
 import About from "./pages/Extra/About";
 import Contact from "./pages/Extra/Contact";
-import UserProfile from "./pages/UserProfile/UserProfile";  // Import UserProfile
+import UserProfile from "./pages/UserProfile/UserProfile";  
+import UserDashboard from "./pages/UserDashboard/UserDashboard.js";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -30,6 +31,7 @@ export default function AppRoutes() {
       {/* <Route path="/search" element={<SearchResults />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/userdashboard" element={<UserDashboard/>} />
       
       {/* Protected UserProfile Route */}
       <Route

@@ -55,8 +55,9 @@
   background-color: #0055A2;
   color: #fff;
   font-weight: bold;
-  padding: 10px;
+  padding: 8px;
   text-align: center;
+  font-size: 14px;
 }
 
 /* Styling for Time Labels on the Left */
@@ -65,6 +66,7 @@
   font-weight: bold;
   padding: 8px;
   text-align: center;
+  font-size: 14px;
 }
 
 /* Styling for Each Cell */
@@ -119,3 +121,18 @@
   background-color: #1C88F4;
 }
 
+.refresh-schedule-button {
+  margin-top: 20px;
+  margin-left: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0055A2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.refresh-schedule-button:hover {
+  background-color: #1C88F4;
+}
