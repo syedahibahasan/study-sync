@@ -51,26 +51,50 @@ export const register = async (registerData) => {
   return data;
 };
 
+
+//Courses
+// Fetch all available courses
+export const getCourses = async () => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(`/api/courses`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data; // Return the array directly since backend sends the array
+};
+
+// Fetch enrolled courses for a specific user
+export const fetchEnrolledCourses = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(`/api/users/${userId}/enrolled-courses`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data.enrolledCourses;
+};
+
+// Add a course to the user's enrolled courses
 export const addCourse = async (userId, courseId) => {
   const token = localStorage.getItem("token");
   const response = await axios.put(
-    `http://localhost:5001/api/users/${userId}/courses/add`,
+    `/api/users/${userId}/courses/add`,
     { courseId },
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  return response.data;
+    { headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data.enrolledCourses; // Return updated enrolled courses
 };
 
+// Remove a course from the user's enrolled courses
 export const removeCourse = async (userId, courseId) => {
   const token = localStorage.getItem("token");
   const response = await axios.put(
-    `http://localhost:5001/api/users/${userId}/courses/remove`,
+    `/api/users/${userId}/courses/remove`,
     { courseId },
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  return response.data;
+    { headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data.enrolledCourses; // Return updated enrolled courses
 };
 
+
+//Schedule
 export const saveSchedule = async (userId, schedule) => {
   const token = localStorage.getItem("token");
   const response = await axios.put(
@@ -84,8 +108,8 @@ export const saveSchedule = async (userId, schedule) => {
 export const fetchSchedule = async (userId) => {
   const token = localStorage.getItem("token");
   const { data } = await axios.get(
-    `http://localhost:5001/api/users/${userId}/schedule`,
-    { headers: { Authorization: `Bearer ${token}` } }
+      `/api/users/${userId}/schedule`,
+      { headers: { Authorization: `Bearer ${token}` } }
   );
   return data.schedule;
 };
@@ -109,7 +133,3 @@ export const fetchPreferredLocations = async (userId) => {
   
   return data.preferredLocations;
 };
-
-
-
-

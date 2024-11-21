@@ -1,77 +1,127 @@
-import React, { useState } from 'react';
-import { Plus, UserRoundPlus, Filter } from 'lucide-react';
-import './UserDashboard.css';
+import React, { useState } from "react";
+import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
+import { Plus, UserRoundPlus, Filter } from "lucide-react";
+import "./UserDashboard.css";
+import { useAuth } from "../../hooks/useauth.js"; // Ensure correct path to useAuth
 
 export default function UserDashboard() {
-  const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+  const { user } = useAuth(); // Get the logged-in user
+  const userId = user?._id; // Ensure we retrieve the correct user ID
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isCreateGroupPanelOpen, setIsCreateGroupPanelOpen] = useState(false);
+  const items = ["Class", "Time", "Location"]; // Filter options
   const [checkedItems, setCheckedItems] = useState({});
-  
-  const togglePanel = () => {
-    setIsPanelOpen(!isPanelOpen);
+
+  const toggleFilter = () => {
+    setIsFilterOpen(!isFilterOpen);
   };
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
+  const toggleCreateGroupPanel = () => {
+    setIsCreateGroupPanelOpen(!isCreateGroupPanelOpen);
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
     setCheckedItems((prevCheckedItems) => ({
       ...prevCheckedItems,
       [name]: checked,
     }));
   };
 
+  const createGroup = async (groupData) => {
+    try {
+      const response = await fetch("http://localhost:5001/api/groups", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...groupData, userId }), // Include userId in group creation
+      });
+      if (response.ok) {
+        alert("Group created successfully");
+      } else {
+        alert("Failed to create group");
+      }
+    } catch (error) {
+      console.error("Failed to create group:", error);
+    }
+  };
+
   return (
     <div className="container">
-      {/* sidebar */}
+      {/* Sidebar */}
       <div className="sidebar-container">
         <span className="sidebar-title">My Study Groups</span>
-        {['CS-146', 'CMPE-131', 'Group 3'].map((group) => (
-        <div key={group} className="sidebar-item">
+        {["Group 1", "Group 2", "Group 3"].map((group) => (
+          <div key={group} className="sidebar-item">
             <span>{group}</span>
-        </div>
+          </div>
         ))}
       </div>
 
-      {/* main section */}
+      {/* Main Content */}
       <div className="main-content">
-        {/* header */}
+        {/* Header */}
         <div className="header-container">
           <div className="group-search-bar">
             <input type="text" placeholder="Search" />
-          <button className="filter-button"  onClick={togglePanel}><Filter/>
-          </button>
-          {isPanelOpen ? 
-            <div className="panel">
-              <h3>Filter by:</h3>
-              {items.map((item, index) => (
-                <div key={index}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name={item}
-                      checked={checkedItems[item] || false}
-                      onChange={handleCheckboxChange}
-                    />
-                    {item}
-                  </label>
+            {/* Filter */}
+            <button className="filter-button" onClick={toggleFilter}>
+              <Filter />
+            </button>
+            {isFilterOpen && (
+              <div className="panel">
+                <h3>Filter by:</h3>
+                <div className="filter-list">
+                  {items.map((item) => (
+                    <label key={item}>
+                      {item}
+                      <input
+                        type="checkbox"
+                        name={item}
+                        onChange={handleCheckboxChange}
+                      />
+                    </label>
+                  ))}
                 </div>
-              ))}
-            </div> 
-          : <></>}
-          <button className="action-button"><Plus/></button>
+              </div>
+            )}
+            {/* Create Group with Tooltip */}
+            <div className="tooltip-container">
+              <button
+                className="action-button"
+                onClick={toggleCreateGroupPanel}
+              >
+                <Plus />
+              </button>
+              <span className="tooltip-text">Create Group</span>
+            </div>
           </div>
         </div>
-        
-        {/* available groups list */}
+
+        {/* Create Group Panel */}
+        {isCreateGroupPanelOpen && (
+          <CreateGroupForm
+            onCreateGroup={createGroup}
+            onClose={toggleCreateGroupPanel}
+            userId={user?._id} // Pass userId from context 
+          />
+        )}
+
+        {/* Available Groups */}
         <div className="group-list">
           <h3 className="group-list-title">Available Study Groups</h3>
           {[1, 2, 3].map((group) => (
             <div key={group} className="group-item">
-                <div>
-                    <div className="group-name">Group {group}</div>
-                    <div className="group-item-description">Description</div>
-                </div>
-                <button className="action-button"><UserRoundPlus /> Join</button>
+              <div>
+                <div className="group-name">Group {group}</div>
+                <div className="group-item-description">Description</div>
+              </div>
+              <div className="tooltip-container">
+              <button className="action-button">
+                <UserRoundPlus /> 
+              </button>
+            <span className="tooltip-text">Join</span>
             </div>
+        </div>
           ))}
         </div>
       </div>

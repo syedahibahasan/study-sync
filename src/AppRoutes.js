@@ -31,8 +31,7 @@ export default function AppRoutes() {
       {/* <Route path="/search" element={<SearchResults />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/userdashboard" element={<UserDashboard/>} />
-      
+  
       {/* Protected UserProfile Route */}
       <Route
         path="/profile"
@@ -42,6 +41,16 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-    </Routes>
+
+     {/* Protected UserDashboard Route */}
+     <Route
+     path="/userdashboard"
+     element={
+       <ProtectedRoute>
+         <UserDashboard />
+       </ProtectedRoute>
+     }
+   />
+ </Routes>
   );
 }

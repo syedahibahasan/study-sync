@@ -36,7 +36,7 @@ const Navbar = () => {
         {/* <Link to="/" className="store-name">
           StudySync
         </Link> */}
-        <div className="search-bar">
+            <div className="search-bar">
           <SearchBar />
           {/*add searchbar component here*/}
         </div>

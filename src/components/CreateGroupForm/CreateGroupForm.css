@@ -1,0 +1,64 @@
+.create-group-panel {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 30%;
+  left: 60%;
+  transform: translate(-50%, -20%);
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  z-index: 1000;
+  width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.528);
+}
+
+.create-group-panel label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.create-group-panel h3 {
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.create-group-panel select,
+.create-group-panel input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.create-group-panel input[type="radio"] {
+  margin-right: 10px;
+}
+
+.create-group-panel .form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-action-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #0055A2; /* SJSU Blue */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-action-button:hover {
+  background-color: #1C88F4; /* Rollover Blue */
+}
+
+.cancel-button {
+  background-color: #E5A823; /* SJSU Gold */
+}

@@ -2,33 +2,26 @@ import React, { useState, useEffect } from 'react';
 import TimeSelector from "../../components/TimeSelector/TimeSelector";
 import CourseSelector from "../../components/CourseSelector/CourseSelector";
 import LocationSelector from "../../components/LocationSelector/LocationSelector";
-import { useAuth } from '../../hooks/useauth';
 import "./UserProfile.css";
 
 const UserProfile = () => {
-  const { user, setUser } = useAuth();
-
-  // Get initial tab state from sessionStorage or default to 'map'
+  // Managing tabs within the profile page
   const initialTab = sessionStorage.getItem("activeTab") || 'map';
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  // Update sessionStorage whenever activeTab changes
   useEffect(() => {
     sessionStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
-  // Tab click handler
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  useEffect(() => {
-  }, [activeTab]);
-
   return (
     <div className="profile-container">
       <h1>Welcome to your StudySync Profile!</h1>
-      <CourseSelector user={user} setUser={setUser} />
+      {/* Removed user and setUser props */}
+      <CourseSelector />
       <div className="tabs">
         <button
           className={`tab-button ${activeTab === 'schedule' ? 'active' : ''}`}

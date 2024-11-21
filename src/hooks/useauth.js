@@ -38,6 +38,30 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const fetchEnrolledCourses = async () => {
+    try {
+      return await userService.fetchEnrolledCourses(user._id); // Use the function from userService.js
+    } catch (error) {
+      console.error("Failed to fetch enrolled courses", error);
+      toast.error("Could not fetch enrolled courses");
+    }
+  };
+  
+  const saveEnrolledCourses = async (course, operationType) => {
+    try {
+      const updatedCourses =
+        operationType === "added"
+          ? await userService.addCourse(user._id, course._id)
+          : await userService.removeCourse(user._id, course._id);
+  
+      setUser({ ...user, enrolledCourses: updatedCourses }); // Update the user context with enrolled courses
+      toast.success(`Course ${operationType === "added" ? "added" : "removed"} successfully!`);
+    } catch (error) {
+      console.error("Failed to update enrolled courses", error);
+      toast.error("Could not update enrolled courses");
+    }
+  };
+  
   // useAuth.js
 const saveSchedule = async (schedule) => {
   // Ensure this function is defined here
@@ -91,10 +115,24 @@ const fetchPreferredLocations = async () => {
   }
 };
 
-  return (
-    <AuthContext.Provider value={{ user, setUser, login, logout, register, saveSchedule, fetchSchedule, fetchPreferredLocations, savePreferredLocations }}>
-      {children}
-    </AuthContext.Provider>
+return (
+  <AuthContext.Provider
+    value={{
+      user,
+      setUser,
+      login,
+      logout,
+      register,
+      fetchEnrolledCourses, 
+      saveEnrolledCourses, 
+      saveSchedule,
+      fetchSchedule,
+      fetchPreferredLocations,
+      savePreferredLocations,
+    }}
+  >
+    {children}
+  </AuthContext.Provider>
   );
 };
 

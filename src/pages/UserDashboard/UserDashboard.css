@@ -75,23 +75,51 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 14px;
-    background-color: #fff;
+    background-color: #e6e6e6;
+}
+
+/*Action, filter buttons */
+.action-button,
+.filter-button {
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    width: 40px; /* Circle size */
+    height: 40px; /* Circle size */
+    color: white;
+    border-radius: 50%; /* Makes it a circle */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0; /* Remove padding to avoid extra spacing */
 }
 
 .filter-button {
-    padding: 8px 15px;
-    background-color: #E5A823; /* SJSU Gold */
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    background-color: #E5A823;
+}
+
+.action-button{
+    background-color: #0055A2; /* SJSU Blue */
 }
 
 .filter-button:hover {
     background-color: #0055A2; /* SJSU Blue */
 }
+
+.action-button:hover {
+    background-color: #E5A823; /* SJSU Gold */
+}
+
+.action-button svg, .filter-button svg{
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Adjust icon size */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+  }
 
 /* Group List */
 .group-list-title {
@@ -118,23 +146,37 @@
     color: #666666; /* Dark Gray */
 }
 
-/* Action Buttons */
-.action-button {
-    padding: 8px 15px;
-    background-color: #0055A2; /* SJSU Blue */
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.action-button:hover {
-    background-color: #E5A823; /* SJSU Gold */
-}
-
 /* Scrollable Sidebar */
 .sidebar-container {
     overflow-y: auto;
 }
+
+/* Tooltip Styling */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip-text {
+    visibility: hidden;
+    background-color: #666666; 
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%; /* Position below the button */
+    left: 40%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
