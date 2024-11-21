@@ -1,5 +1,6 @@
 /* Outer container for the Time Selector */
 .time-selector-wrapper {
+  user-select: none;
   border: 1px solid #ddd;
   padding: 25px 20px 20px; /* Increase top padding to fit legend */
   border-radius: 10px;

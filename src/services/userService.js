@@ -90,7 +90,7 @@ export const fetchSchedule = async (userId) => {
   return data.schedule;
 };
 
-export const updatePreferredLocations = async (userId, preferredLocations) => {
+export const savePreferredLocations = async (userId, preferredLocations) => {
   const token = localStorage.getItem("token");
   const response = await axios.post(
     `http://localhost:5001/api/users/${userId}/preferred-locations`,
@@ -98,6 +98,16 @@ export const updatePreferredLocations = async (userId, preferredLocations) => {
     { headers: { Authorization: `Bearer ${token}` } }
   );
   return response.data.user;
+};
+
+export const fetchPreferredLocations = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(
+    `http://localhost:5001/api/users/${userId}/preferred-locations`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  
+  return data.preferredLocations;
 };
 
 

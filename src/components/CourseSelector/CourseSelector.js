@@ -13,7 +13,7 @@ const CourseSelector = ({ user, setUser }) => {
   const MAX_COURSES = 20;
 
   // Fetch and categorize courses
-  const loadCourses = async () => {
+  async function loadCourses(){
     try {
       const courseList = await getCourses();
       const userCourseIds = user?.enrolledCourses || [];

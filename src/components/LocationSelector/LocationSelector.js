@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useauth';
 import './LocationSelector.css';
 
 const LocationSelector = () => {
-  const { user, setUser, savePreferredLocations } = useAuth();
+  const { user, setUser, savePreferredLocations, fetchPreferredLocations } = useAuth();
   const [selectedLocations, setSelectedLocations] = useState(user.preferredLocations || []);
 
   const buildings = [
@@ -11,6 +11,19 @@ const LocationSelector = () => {
     { name: 'Engineering Building', coords: { top: '17%', left: '57%' } },
     {name: 'Student Union', coords: {top:'30%', left:'68%'}}
   ];
+
+  useEffect(() => {
+    loadLocationPreferences();
+  }, []);
+
+  async function loadLocationPreferences(){
+    const locations = await fetchPreferredLocations();
+    
+    setSelectedLocations(locations);
+  };
+
+  
+
 
   const handleLocationClick = (building) => {
     const isSelected = selectedLocations.includes(building.name);
