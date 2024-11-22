@@ -53,15 +53,6 @@ export const register = async (registerData) => {
 
 
 //Courses
-// Fetch all available courses
-export const getCourses = async () => {
-  const token = localStorage.getItem("token");
-  const { data } = await axios.get(`/api/courses`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return data; // Return the array directly since backend sends the array
-};
-
 // Fetch enrolled courses for a specific user
 export const fetchEnrolledCourses = async (userId) => {
   const token = localStorage.getItem("token");
