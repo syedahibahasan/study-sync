@@ -1,19 +1,33 @@
 import { Link, Navigate, useMatch, useResolvedPath } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../navbar/navbar.css";
 import { toast } from "react-toastify";
 
 import { useAuth } from "../../hooks/useauth.js";
 import SearchBar from "../Search/search";
 
-//add when u click on somewhere else menu closes
 const Navbar = () => {
   const { user, logout} = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleLogout = () => {
     logout();
   };
@@ -81,7 +95,7 @@ const Navbar = () => {
         </div>
 
         <ul className="navigation-links">
-          <div className="sidebar-toggle" onClick={toggleMenu}>
+          <div className="sidebar-toggle" onClick={toggleMenu} ref={menuRef}>
             <div className="hamicon">&#8801; </div>
             {/* Unicode hamburger icon */}
           </div>
