@@ -64,9 +64,11 @@ export default function UserDashboard() {
           <div className="group-search-bar">
             <input type="text" placeholder="Search" />
             {/* Filter */}
+            <div className="tooltip-container">
             <button className="filter-button" onClick={toggleFilter}>
               <Filter />
             </button>
+            <span className="tooltip-text">Filter</span></div>
             {isFilterOpen && (
               <div className="panel">
                 <h3>Filter by:</h3>

@@ -60,10 +60,8 @@ const CourseSelector = () => {
       setAvailableCourses((prev) =>
         prev.filter((availableCourse) => availableCourse._id !== course._id)
       ); // Remove locally
-      toast.success("Course added successfully!");
     } catch (error) {
       console.error("Error adding course:", error);
-      toast.error("Failed to add course");
     }
   };
 
@@ -74,10 +72,8 @@ const CourseSelector = () => {
       setSavedCourses((prev) =>
         prev.filter((savedCourse) => savedCourse._id !== course._id)
       ); // Remove locally
-      toast.success("Course removed successfully!");
     } catch (error) {
       console.error("Error removing course:", error);
-      toast.error("Failed to remove course");
     }
   };
 

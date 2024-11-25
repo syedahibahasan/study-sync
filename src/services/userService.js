@@ -7,14 +7,16 @@ export const getUser = () => {
   return userJson ? JSON.parse(userJson) : null;
 };
 
+// Axios interceptor to handle token expiration
 axios.interceptors.response.use(
-  response => response, // if response is OK, just return it
-  error => {
+  (response) => response,  
+  (error) => {
     if (error.response && error.response.status === 401) {
       toast.error("Session expired. Please log in again.");
-      // Redirect to login page or handle logout
+      // Clear storage and redirect to login
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+      window.location.href = "/login"; // Force redirect to login
     }
     return Promise.reject(error);
   }

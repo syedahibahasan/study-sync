@@ -1,7 +1,7 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as userService from "../services/userService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 
@@ -9,6 +9,56 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(userService.getUser());
   const navigate = useNavigate();
 
+  // Check session validity and handle token expiration
+  const checkSessionValidity = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      handleSessionExpired();
+      return false;
+    }
+
+    const decodedToken = parseJwt(token);
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    if (decodedToken.exp < currentTime) {
+      handleSessionExpired();
+      return false;
+    }
+
+    return true;
+  };
+
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split(".")[1]));
+    } catch (error) {
+      console.error("Error parsing token:", error);
+      return null;
+    }
+  };
+
+  const handleSessionExpired = () => {
+    toast.error("Session expired. Please log in again.");
+    logout();
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    // Check session validity on component mount
+    checkSessionValidity();
+
+    // Periodically check session validity every minute
+    const intervalId = setInterval(() => {
+      if (!checkSessionValidity()) {
+        clearInterval(intervalId);
+      }
+    }, 60000);
+
+    return () => clearInterval(intervalId); // Cleanup on component unmount
+  }, []);
+
+  //login
   const login = async (email, password) => {
     try {
       const response = await userService.login(email, password);
