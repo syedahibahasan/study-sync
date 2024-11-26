@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './browsing.module.css'; // Import CSS module
+import { useAuth } from "../../hooks/useauth";
 
 const BrowsingPage = () => {
+  const { user } = useAuth();
+
   return (
     <div className={styles.container}>
       <div className={styles.heroContainer}>
@@ -15,8 +18,17 @@ const BrowsingPage = () => {
           <h1>Welcome to StudySync</h1>
           <p>Find study buddies today!</p>
           <div id="centerBody">
-            <a href="/login/" className={styles.customButton}>Login</a>
-            <a href="/register/" className={styles.customButton}>Sign Up</a>
+            {user ? (
+              <>
+                <a href="/userdashboard/" className={styles.customButton}>Dashboard</a>
+                <a href="/profile/" className={styles.customButton}>Profile</a>
+              </>
+            ) : (
+              <>
+                <a href="/login/" className={styles.customButton}>Login</a>
+                <a href="/register/" className={styles.customButton}>Sign Up</a>
+              </>
+            )}
           </div>
         </div>
       </div>

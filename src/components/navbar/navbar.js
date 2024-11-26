@@ -69,6 +69,13 @@ const Navbar = () => {
                 <>
                   <CustomLink
                     className="contentin"
+                    to="/userdashboard"
+                    onClick={toggleMenu}
+                  >
+                    Dashboard
+                  </CustomLink>
+                  <CustomLink
+                    className="contentin"
                     to="/about"
                     onClick={toggleMenu}
                   >
