@@ -62,3 +62,27 @@
 .cancel-button {
   background-color: #E5A823; /* SJSU Gold */
 }
+
+.time-selector-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Dim background */
+  z-index: 1000; /* Ensure it's above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-selector-modal {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 50%;
+  max-width: 800px;
+  margin: auto;
+  z-index: 1010; /* Ensure modal content is on top of overlay */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

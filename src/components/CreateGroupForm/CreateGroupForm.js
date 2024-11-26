@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./CreateGroupForm.css";
 import { fetchEnrolledCourses, fetchSchedule, fetchPreferredLocations } from "../../services/userService";
+import Modal from "react-modal";
+import TimeSelector from "../TimeSelector/TimeSelector";
 
 export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
   const [groupName, setGroupName] = useState("");
@@ -13,6 +15,7 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
   const [courses, setCourses] = useState([]);
   const [suggestedTimes, setSuggestedTimes] = useState([]);
   const [preferredLocations, setPreferredLocations] = useState([]);
+  const [isTimeSelectorOpen, setIsTimeSelectorOpen] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -83,6 +86,15 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
         {/* Select Meeting Time */}
         <label>
           <h3>Select Meeting Time</h3>
+          <h4>Select time from time schedule</h4>
+          <button
+            type="button"
+            className="open-time-selector-button"
+            onClick={() => setIsTimeSelectorOpen(true)}
+          >
+            Open Time Selector
+          </button>
+          <h4>Or</h4>
           <h4>Suggested times based on your schedule:</h4>
           <select value={meetingTime} onChange={(e) => setMeetingTime(e.target.value)} required>
             <option value="">Select a time</option>
@@ -144,6 +156,24 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
           </button>
         </div>
       </form>
+
+      {/* Modal for TimeSelector */}
+      <Modal
+        isOpen={isTimeSelectorOpen}
+        onRequestClose={() => setIsTimeSelectorOpen(false)}
+        className="time-selector-modal"
+        overlayClassName="time-selector-overlay"
+      >
+        <h2>Time Selector</h2>
+        <TimeSelector />
+        <button
+          className="close-time-selector-button"
+          onClick={() => setIsTimeSelectorOpen(false)}
+        >
+          Close
+        </button>
+      </Modal>
+
     </div>
   );
 }
