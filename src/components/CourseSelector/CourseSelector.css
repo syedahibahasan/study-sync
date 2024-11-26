@@ -1,0 +1,117 @@
+.course-selector-container {
+  display: flex;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 20px;
+}
+
+/* Available and saved courses section styling */
+.course-selector-container .available-courses-section,
+.course-selector-container .saved-courses-section {
+  width: 44.5%;
+  max-height: 300px; /* Set a max height for scrolling */
+  overflow-y: auto; /* Enable scrolling */
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-selector-container .available-courses-section label,
+.course-selector-container .saved-courses-section label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Placeholder text styling */
+.placeholder-text {
+  color: #666;
+  font-size: 14px;
+  text-align: left;
+  margin: 10px 0;
+}
+
+/* Search bar styling */
+.course-selector-container .course-search-bar {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 10px; */
+  position: relative;
+}
+
+.course-selector-container .course-search-input {
+  width: 50%;
+  padding: 8px 35px 8px 12px; /* Padding adjusted for round look and space for icon */
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Rounder corners */
+  font-size: 14px;
+}
+
+.course-selector-container .course-search-bar .search-icon {
+  position: absolute;
+  left: 335px; /* Adjust for positioning */
+  font-size: 16px;
+  color: #000000;
+  pointer-events: none; /* Make icon non-clickable */
+}
+
+
+/* Override styles for course list */
+.course-selector-container ul.course-list {
+  list-style-type: none !important;
+  padding: 0 !important;
+  /* margin: 0 !important; */
+  margin-top: 10px;
+  display: block !important;
+  gap: 0 !important;
+  justify-content: flex-start !important;
+}
+
+/* Course list item styling */
+.course-selector-container .course-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add and remove button styling */
+.course-selector-container .add-button,
+.course-selector-container .remove-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  border: none;
+  margin-left: auto;
+}
+
+.course-selector-container .add-button {
+  background-color: #0055A2;
+}
+
+.course-selector-container .add-button:hover {
+  background-color: #003569;
+}
+
+.course-selector-container .remove-button {
+  background-color: #E5A823;
+}
+
+.course-selector-container .remove-button:hover {
+  background-color: #9c7012;
+}

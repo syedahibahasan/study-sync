@@ -1,0 +1,182 @@
+/* General Container */
+.container {
+    margin-top: 60px; /* Adjust this based on the height of your navbar */
+    display: flex;
+    height: calc(100vh - 60px); /* Adjusted for the navbar height */
+    width: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.sidebar-container {
+    width: 20%;
+    background-color: #0055A2; /* SJSU Blue */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px solid #D2D2D2; /* Divider for sidebar */
+    color: white;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #E5A823; /* SJSU Gold */
+    margin-bottom: 20px;
+}
+
+.sidebar-item {
+    padding: 12px 15px;
+    border-radius: 5px;
+    background-color: #1C88F4; /* Rollover Blue */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s;
+}
+
+.sidebar-item:hover {
+    background-color: #E5A823; /* SJSU Gold */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    overflow-y: auto; /* Makes the content scrollable */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.group-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.group-search-bar input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #e6e6e6;
+}
+
+/*Action, filter buttons */
+.action-button,
+.filter-button {
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    width: 40px; /* Circle size */
+    height: 40px; /* Circle size */
+    color: white;
+    border-radius: 50%; /* Makes it a circle */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0; /* Remove padding to avoid extra spacing */
+}
+
+.filter-button {
+    background-color: #E5A823;
+}
+
+.action-button{
+    background-color: #0055A2; /* SJSU Blue */
+}
+
+.filter-button:hover {
+    background-color: #0055A2; /* SJSU Blue */
+}
+
+.action-button:hover {
+    background-color: #E5A823; /* SJSU Gold */
+}
+
+.action-button svg, .filter-button svg{
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Adjust icon size */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+/* Group List */
+.group-list-title {
+    color: #0055A2; /* SJSU Blue */
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #D2D2D2; /* SJSU Light Gray */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.group-item-description {
+    font-size: 14px;
+    color: #666666; /* Dark Gray */
+}
+
+/* Scrollable Sidebar */
+.sidebar-container {
+    overflow-y: auto;
+}
+
+/* Tooltip Styling */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip-text {
+    visibility: hidden;
+    background-color: #666666; 
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%; /* Position below the button */
+    left: 40%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }

@@ -4,10 +4,11 @@ import { useAuth } from "./hooks/useauth.js";
 import LoginPage from "./pages/Login/Login";
 import Browsing from "./pages/Home/Browsing";
 import Register from "./pages/Register/register";
-import SearchResults from "./pages/Searchresult/searchresult";
+// import SearchResults from "./pages/Searchresult/searchresult";
 import About from "./pages/Extra/About";
 import Contact from "./pages/Extra/Contact";
-import UserProfile from "./pages/UserProfile/UserProfile";  // Import UserProfile
+import UserProfile from "./pages/UserProfile/UserProfile";  
+import UserDashboard from "./pages/UserDashboard/UserDashboard.js";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -27,10 +28,10 @@ export default function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Browsing />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/search" element={<SearchResults />} />
+      {/* <Route path="/search" element={<SearchResults />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
-      
+  
       {/* Protected UserProfile Route */}
       <Route
         path="/profile"
@@ -40,6 +41,16 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-    </Routes>
+
+     {/* Protected UserDashboard Route */}
+     <Route
+     path="/userdashboard"
+     element={
+       <ProtectedRoute>
+         <UserDashboard />
+       </ProtectedRoute>
+     }
+   />
+ </Routes>
   );
 }

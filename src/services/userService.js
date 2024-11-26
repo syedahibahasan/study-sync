@@ -1,10 +1,26 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 // Getting user data from local storage
 export const getUser = () => {
   const userJson = localStorage.getItem("user");
   return userJson ? JSON.parse(userJson) : null;
 };
+
+// Axios interceptor to handle token expiration
+axios.interceptors.response.use(
+  (response) => response,  
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      toast.error("Session expired. Please log in again.");
+      // Clear storage and redirect to login
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.location.href = "/login"; // Force redirect to login
+    }
+    return Promise.reject(error);
+  }
+);
 
 // User login function
 export const login = async (email, password) => {
@@ -37,3 +53,76 @@ export const register = async (registerData) => {
   return data;
 };
 
+
+//Courses
+// Fetch enrolled courses for a specific user
+export const fetchEnrolledCourses = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(`/api/users/${userId}/enrolled-courses`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data.enrolledCourses;
+};
+
+// Add a course to the user's enrolled courses
+export const addCourse = async (userId, courseId) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `/api/users/${userId}/courses/add`,
+    { courseId },
+    { headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data.enrolledCourses; // Return updated enrolled courses
+};
+
+// Remove a course from the user's enrolled courses
+export const removeCourse = async (userId, courseId) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `/api/users/${userId}/courses/remove`,
+    { courseId },
+    { headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data.enrolledCourses; // Return updated enrolled courses
+};
+
+
+//Schedule
+export const saveSchedule = async (userId, schedule) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `http://localhost:5001/api/users/${userId}/schedule`,
+    { schedule },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+};
+
+export const fetchSchedule = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(
+      `/api/users/${userId}/schedule`,
+      { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return data.schedule;
+};
+
+export const savePreferredLocations = async (userId, preferredLocations) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.post(
+    `http://localhost:5001/api/users/${userId}/preferred-locations`,
+    { preferredLocations },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data.user;
+};
+
+export const fetchPreferredLocations = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(
+    `http://localhost:5001/api/users/${userId}/preferred-locations`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  
+  return data.preferredLocations;
+};

@@ -1,0 +1,139 @@
+/* Outer container for the Time Selector */
+.time-selector-wrapper {
+  user-select: none;
+  border: 1px solid #ddd;
+  padding: 25px 20px 20px; /* Increase top padding to fit legend */
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  font-family: Arial, sans-serif;
+}
+
+/* Legend styling */
+.legend-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  color: #333;
+}
+
+.legend-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.busy-time {
+  background-color: #939597; /* Gray color for busy time */
+}
+
+.study-courses {
+  background-color: #E5A823; /* Yellow color for study courses */
+}
+
+/* Time Table Container */
+.time-container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr); /* 1 column for Time, 7 for days */
+  gap: 1px;
+  background-color: #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Header and Time Slot Styling */
+.header {
+  background-color: #0055A2;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Styling for Time Labels on the Left */
+.time {
+  background-color: #e7e7e7;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Styling for Each Cell */
+.cell {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Filled Cell Styling */
+.time-item-filled {
+  background-color: #939597;
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.course-time {
+  background-color: #4CAF50 !important; 
+}
+
+.time-item.cell.course-time {
+  background-color: #4CAF50;
+  cursor: not-allowed;
+}
+
+.legend-circle.course-time {
+  background-color: #4CAF50;
+}
+
+.time-item.time {
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.save-schedule-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0055A2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-schedule-button:hover {
+  background-color: #1C88F4;
+}
+
+.refresh-schedule-button {
+  margin-top: 20px;
+  margin-left: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #0055A2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.refresh-schedule-button:hover {
+  background-color: #1C88F4;
+}

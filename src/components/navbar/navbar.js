@@ -1,77 +1,84 @@
-import { Link, Navigate, useMatch, useResolvedPath } from "react-router-dom";
-import { useState } from "react";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
 import "../navbar/navbar.css";
-import { toast } from "react-toastify";
-
-import { useAuth } from "../../hooks/useauth.js";
+import { useAuth } from "../../hooks/useauth";
 import SearchBar from "../Search/search";
 
-//add when u click on somewhere else menu closes
 const Navbar = () => {
-  const { user, logout} = useAuth();
-
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleLogout = () => {
     logout();
+    setIsOpen(false); // Close the sidebar
   };
-
-  <html>
-    <head>
-      <link
-        href="https://fonts.googleapis.com/css?family=Cabin"
-        rel="stylesheet"
-      ></link>
-    </head>
-  </html>;
 
   return (
     <div className="wholenavbar">
       <nav className="navbar">
         <CustomLink className="headers" to="/">
-          <img src="/thumbnail/StudySyncTransparent.png" alt="Home Page" className="logo" />
+          <img
+            src="/thumbnail/StudySyncTransparent.png"
+            alt="Home Page"
+            className="logo"
+          />
         </CustomLink>
-        {/* <Link to="/" className="store-name">
-          StudySync
-        </Link> */}
         <div className="search-bar">
           <SearchBar />
-          {/*add searchbar component here*/}
         </div>
-        <div className={`sidebar ${isOpen ? "open" : ""}`}>
+        <div className={`sidebar ${isOpen ? "open" : ""}`} ref={menuRef}>
           <div className="sidebar-content">
             <p className="side-bar-name">Menu</p>
             <div className="cont">
-              <CustomLink className="contentin" to="/">
+              <CustomLink className="contentin" to="/" onClick={toggleMenu}>
                 Home
               </CustomLink>
               {user ? (
-                <>
-                  <div className="logout-container">
-                    <CustomLink
-                      href="#"
-                      onClick={handleLogout}
-                      className="contentin logout"
-                      to="/"
-                    >
-                      Logout
+                <div className="logout-container">
+                  <CustomLink
+                    className="contentin logout"
+                    onClick={handleLogout}
+                  >
+                    Logout
                     </CustomLink>
-                  </div>
-                </>
+                </div>
               ) : (
-                <CustomLink className="contentin" to="/login">
+                <CustomLink className="contentin" to="/login" onClick={toggleMenu}>
                   Login
                 </CustomLink>
               )}
-              {/* Show About and Contact for non-admins */}
               {!user?.isAdmin && (
                 <>
-                  <CustomLink className="contentin" to="/About">
+                  <CustomLink
+                    className="contentin"
+                    to="/about"
+                    onClick={toggleMenu}
+                  >
                     About
                   </CustomLink>
-                  <CustomLink className="contentin" to="/Contact">
+                  <CustomLink
+                    className="contentin"
+                    to="/contact"
+                    onClick={toggleMenu}
+                  >
                     Contact
                   </CustomLink>
                 </>
@@ -79,11 +86,9 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-
         <ul className="navigation-links">
           <div className="sidebar-toggle" onClick={toggleMenu}>
-            <div className="hamicon">&#8801; </div>
-            {/* Unicode hamburger icon */}
+            <div className="hamicon">&#8801;</div>
           </div>
           <div className="loginbutton">
             {user ? (
@@ -107,7 +112,7 @@ function CustomLink({ to, children, ...props }) {
   const isActive = useMatch({ path: resolvedPath.pathname, end: true });
 
   return (
-    <li className={isActive ? " active" : ""}>
+    <li className={isActive ? "active" : ""}>
       <Link to={to} {...props}>
         {children}
       </Link>

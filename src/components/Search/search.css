@@ -1,16 +1,16 @@
 .inputbar {
-  margin-top: 0;
+  /* margin-top: 0; */
 }
 
 .searchbutton {
   position: absolute;
-  margin-left: 8px;
+  left: 870px;
   border: none;
   background: transparent;
   cursor: pointer;
-  padding-top: 10px;
+  padding-top: 18px;
   padding-left: 5px;
-  color: white;
+  color: rgb(0, 0, 0);
   size-adjust: 30px;
   font-size: 18px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
