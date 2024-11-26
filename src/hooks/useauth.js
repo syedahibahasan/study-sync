@@ -136,6 +136,36 @@ const fetchSchedule = async () => {
   }
 };
 
+// Groups
+const createGroup = async (groupData) => {
+  try {
+    const groups = await userService.createGroup(user._id, groupData); 
+    return groups;
+  } catch (error) {
+    console.error("Error creating group:", error);
+    toast.error("Failed to create group. Please try again.");
+  }
+}
+
+const fetchMatchingGroups = async () => {
+  try {
+    const groups = await userService.fetchMatchingGroups(user._id); 
+    return groups;
+  } catch (error) {
+    console.error("Error fetching groups:", error);
+    toast.error("Failed to get groups. Please try again.");
+  }
+}
+
+const fetchMyGroups = async () => {
+  try {
+    const groups = await userService.fetchMyGroups(user._id); 
+    return groups;
+  } catch (error) {
+    console.error("Error fetching user's groups:", error);
+    toast.error("Failed to get user's groups. Please try again.");
+  }
+}
 
 const savePreferredLocations = async (locations, operationType) => {
   try {
@@ -179,6 +209,9 @@ return (
       fetchSchedule,
       fetchPreferredLocations,
       savePreferredLocations,
+      fetchMatchingGroups,
+      fetchMyGroups,
+      createGroup,
     }}
   >
     {children}

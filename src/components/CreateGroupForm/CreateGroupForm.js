@@ -3,7 +3,7 @@ import "./CreateGroupForm.css";
 import { fetchEnrolledCourses, fetchSchedule, fetchPreferredLocations } from "../../services/userService";
 
 export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
-  const [groupName, setGroupName] = useState("");
+  const [groupName, setGroupName] = useState("New Study Group");
   const [course, setCourse] = useState("");
   const [meetingTime, setMeetingTime] = useState("");
   const [meetingType, setMeetingType] = useState("In-Person");
@@ -66,6 +66,12 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
   return (
     <div className="create-group-panel">
       <form onSubmit={handleSubmit}>
+
+        {/* Enter Group Name */}
+        <label>
+          <h3>Enter Group Name</h3>
+          <input type="text" value={groupName} onChange={(e) => setGroupName(e.target.value)} required />
+        </label>
 
         {/* Select Course */}
         <label>
