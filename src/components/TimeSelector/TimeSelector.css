@@ -87,6 +87,14 @@
   transition: background-color 0.3s ease;
 }
 
+.busy-time-filled {
+  background-color: #939597;
+}
+
+.study-time-filled {
+  background-color: #E5A823;
+}
+
 .course-time {
   background-color: #4CAF50 !important; 
 }

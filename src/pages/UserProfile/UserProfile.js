@@ -37,7 +37,7 @@ const UserProfile = () => {
         </button>
       </div>
       <div className="tab-content">
-        {activeTab === 'schedule' && <TimeSelector />}
+        {activeTab === 'schedule' && <TimeSelector type="busy" />}
         {activeTab === 'map' && <LocationSelector />}
       </div>
     </div>

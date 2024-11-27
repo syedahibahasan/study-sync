@@ -165,7 +165,7 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
         overlayClassName="time-selector-overlay"
       >
         <h2>Time Selector</h2>
-        <TimeSelector />
+        <TimeSelector type="study" />
         <button
           className="close-time-selector-button"
           onClick={() => setIsTimeSelectorOpen(false)}
