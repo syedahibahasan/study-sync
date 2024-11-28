@@ -112,7 +112,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   
-  // useAuth.js
+//Schedule
 const saveSchedule = async (schedule) => {
   // Ensure this function is defined here
   try {
@@ -124,6 +124,7 @@ const saveSchedule = async (schedule) => {
     toast.error("Could not save schedule");
   }
 };
+
 
 const fetchSchedule = async () => {
   try {
@@ -165,6 +166,23 @@ const fetchPreferredLocations = async () => {
   }
 };
 
+const saveGroupSchedule = async (userId, groupTimes) => {
+  if (!userId || !Array.isArray(groupTimes)) {
+    console.error("Invalid inputs for saving group schedule");
+    return;
+  }
+  try {
+    const response = await userService.updateUserGroupTime(userId, groupTimes);
+    toast.success("Group times saved successfully!");
+    return response; // Return data if needed
+  } catch (error) {
+    console.error("Failed to save group times:", error?.response?.data || error.message);
+    toast.error(error?.response?.data?.message || "Could not save group times. Please try again.");
+  }
+};
+
+
+
 return (
   <AuthContext.Provider
     value={{
@@ -179,6 +197,7 @@ return (
       fetchSchedule,
       fetchPreferredLocations,
       savePreferredLocations,
+      saveGroupSchedule,
     }}
   >
     {children}

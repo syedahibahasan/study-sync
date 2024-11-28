@@ -3,8 +3,15 @@ import { useAuth } from "../../hooks/useauth";
 
 import "./TimeSelector.css";
 
-const TimeSelector = () => {
-    const { saveSchedule, fetchSchedule } = useAuth();
+const TimeSelector = ({
+    userSchedule = [], // Array of busy times from the backend
+    selectedTimes = [], // Array for group times
+    setSelectedTimes = () => {}, // Function to update selected group times
+    highlightType = "busy", // Default to busy time selector
+    editable = false, // Default to false if not provided
+    showSaveSchedule = true, // Control visibility of Save Schedule button
+}) => {
+    const { saveSchedule, fetchSchedule, saveGroupSchedule } = useAuth();
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const times = ["9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", 
         "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", 
@@ -14,54 +21,94 @@ const TimeSelector = () => {
     const [mousePressed, setMousePressed] = useState(false);
 
     useEffect(() => {
-        loadSchedule();
-    }, []);
+        if (highlightType === "busy") {
+            loadBusySchedule(); // Ensure correct function call
+        }
+    }, [highlightType]);
 
-    async function loadSchedule(){
-        const loadSchedule = await fetchSchedule();
-        updateScheduleState(loadSchedule);
+    const loadBusySchedule = async () => {
+        try {
+            const schedule = await fetchSchedule();
+            if (!Array.isArray(schedule)) {
+                console.error("Invalid schedule format:", schedule);
+                return;
+            }
+            updateScheduleState(schedule);
+        } catch (error) {
+            console.error("Failed to load schedule:", error);
+        }
     };
 
     const updateScheduleState = (schedule) => {
         const tempUserTimes = new Array(days.length * times.length).fill(false);
         schedule.forEach(({ day, busyTimes }) => {
-          const dayIndex = days.indexOf(day);
-          busyTimes.forEach((time) => {
-            const timeIndex = times.indexOf(time);
-            if (dayIndex !== -1 && timeIndex !== -1) {
-              tempUserTimes[dayIndex * times.length + timeIndex] = true;
-            }
-          });
+            const dayIndex = days.indexOf(day);
+            busyTimes.forEach((time) => {
+                const timeIndex = times.indexOf(time);
+                if (dayIndex !== -1 && timeIndex !== -1) {
+                    tempUserTimes[dayIndex * times.length + timeIndex] = true;
+                }
+            });
         });
-        setUserTimes(tempUserTimes);
+        setUserTimes(tempUserTimes); // Update state with loaded schedule
+    };
+
+    // const isBusyTime = (rowIndex, columnIndex) => userTimes[columnIndex * times.length + rowIndex];
+    const isBusyTime = (rowIndex, columnIndex) => {
+        if (editable) {
+          return userTimes[columnIndex * times.length + rowIndex]; // Editable in UserProfile
+        } else {
+          const day = days[columnIndex];
+          const time = times[rowIndex];
+          return userSchedule.some(
+            (entry) => entry.day === day && entry.busyTimes.includes(time)
+          ); // Non-editable in CreateGroupForm
+        }
       };
+      
 
-    const getUserTime = (rowIndex, columnIndex) => userTimes[columnIndex * times.length + rowIndex];
+      
+    const isGroupTime = (rowIndex, columnIndex) => selectedTimes.some(
+        (time) => time.day === days[columnIndex] && time.time === times[rowIndex]
+    );
 
-    const selectUpdateUserTime = (rowIndex, columnIndex) => {
+    const toggleBusyTime = (rowIndex, columnIndex) => {
+        if (highlightType !== "busy") return; // Ensure only busy times can be toggled
         const tempUserTimes = [...userTimes];
         tempUserTimes[columnIndex * times.length + rowIndex] = !tempUserTimes[columnIndex * times.length + rowIndex];
         setUserTimes(tempUserTimes);
     };
 
-    const dragUpdateUserTime = (rowIndex, columnIndex) => {
-        if (mousePressed) {
-            const tempUserTimes = [...userTimes];
-            tempUserTimes[columnIndex * times.length + rowIndex] = !tempUserTimes[columnIndex * times.length + rowIndex];
-            setUserTimes(tempUserTimes);
+    const toggleGroupTime = (rowIndex, columnIndex) => {
+        if (highlightType === "group" && isBusyTime(rowIndex, columnIndex)) return; // Prevent modifying busy times
+        const time = { day: days[columnIndex], time: times[rowIndex] };
+        const updatedTimes = isGroupTime(rowIndex, columnIndex)
+            ? selectedTimes.filter((t) => !(t.day === time.day && t.time === time.time))
+            : [...selectedTimes, time];
+        setSelectedTimes(updatedTimes);
+    };
+
+    const handleSaveSchedule = () => {
+        if (highlightType === "busy") {
+            // Save busy times
+            const schedule = formatUserTimesForDatabase();
+            saveSchedule(schedule);
+        } else if (highlightType === "group") {
+            // Save group times
+            const groupTimes = selectedTimes.map(({ day, time }) => ({ day, time }));
+            saveGroupSchedule(groupTimes); // Ensure this function is defined to handle group times
+        } else {
+            console.warn("Unsupported highlightType:", highlightType);
         }
     };
+    
+    
 
     const formatUserTimesForDatabase = () => {
         return days.map((day, dayIndex) => ({
             day,
             busyTimes: times.filter((_, timeIndex) => userTimes[dayIndex * times.length + timeIndex]),
         }));
-    };
-
-    const handleSaveSchedule = () => {
-        const schedule = formatUserTimesForDatabase();
-        saveSchedule(schedule);
     };
 
     useEffect(() => {
@@ -82,8 +129,8 @@ const TimeSelector = () => {
                     Busy Time
                 </div>
                 <div className="legend-item">
-                    <div className="legend-circle study-courses"></div>
-                    Study Courses
+                    <div className="legend-circle group-time"></div>
+                    Group Time
                 </div>
             </div>
 
@@ -99,16 +146,31 @@ const TimeSelector = () => {
                         {days.map((_, columnIndex) => (
                             <div
                                 key={`cell-${rowIndex}-${columnIndex}`}
-                                onMouseDown={() => selectUpdateUserTime(rowIndex, columnIndex)}
-                                onMouseOver={() => dragUpdateUserTime(rowIndex, columnIndex)}
-                                className={getUserTime(rowIndex, columnIndex) ? "time-item-filled cell" : "time-item cell"}
+                                onMouseDown={() => (highlightType === "busy" ? toggleBusyTime(rowIndex, columnIndex) : toggleGroupTime(rowIndex, columnIndex))}
+                                onMouseOver={() => mousePressed && (highlightType === "busy" ? toggleBusyTime(rowIndex, columnIndex) : toggleGroupTime(rowIndex, columnIndex))}
+                                className={
+                                    isBusyTime(rowIndex, columnIndex)
+                                        ? "time-item cell busy-time"
+                                        : isGroupTime(rowIndex, columnIndex)
+                                            ? "time-item cell group-time"
+                                            : "time-item cell"
+                                }
                             />
                         ))}
                     </React.Fragment>
                 ))}
             </div>
-            <button onClick={handleSaveSchedule} className="save-schedule-button">Save Schedule</button>
-            <button onClick={loadSchedule} className="refresh-schedule-button">Refresh Schedule</button>
+            {/* Conditionally render Save Schedule button */}
+            {showSaveSchedule && (
+                <>
+                    <button onClick={handleSaveSchedule} className="save-schedule-button"> 
+                        Save Schedule 
+                    </button>
+                    <button onClick={loadBusySchedule} className="refresh-schedule-button">
+                        Refresh Schedule
+                    </button>
+                </>
+            )}
         </div>
     );
 };

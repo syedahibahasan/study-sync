@@ -104,7 +104,7 @@ export const fetchSchedule = async (userId) => {
       `/api/users/${userId}/schedule`,
       { headers: { Authorization: `Bearer ${token}` } }
   );
-  return data.schedule;
+  return data.schedule; 
 };
 
 export const savePreferredLocations = async (userId, preferredLocations) => {
@@ -125,4 +125,18 @@ export const fetchPreferredLocations = async (userId) => {
   );
   
   return data.preferredLocations;
+};
+
+export const updateUserGroupTime = async (userId, studyGroupTime) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.post(
+    `/api/users/${userId}/studyGroupTime`,
+    { studyGroupTime },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return data;
 };

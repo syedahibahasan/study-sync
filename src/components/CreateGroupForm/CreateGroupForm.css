@@ -62,3 +62,44 @@
 .cancel-button {
   background-color: #E5A823; /* SJSU Gold */
 }
+
+.schedule-popup {
+  position: fixed;
+  top: 80%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   /* Adjust the width to fit most screens */
+  /* max-width: 600px; Constrain maximum width */
+  max-height: 80%; /* Limit height to fit the viewport */
+  overflow-y: auto; /* Enable scrolling for content */
+}
+
+.schedule-popup .time-selector-wrapper {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.schedule-popup .close-button {
+  padding: 8px 12px;
+  background-color: #E5A823; /* SJSU Gold */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.schedule-popup .close-button:hover {
+  background-color: #F0C75E; /* Lighter Gold */
+}
+
+.time-item.highlighted-time {
+  background-color: #E5A823;
+}

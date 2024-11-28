@@ -137,3 +137,16 @@
 .refresh-schedule-button:hover {
   background-color: #1C88F4;
 }
+
+/* Yellow highlight for group times */
+.group-time {
+  background-color: #E5A823; /* SJSU Gold */
+  border: 1px solid #cc8c19; /* Darker gold for contrast */
+  cursor: pointer;
+}
+
+/* Prevent overlap: gray cells remain unclickable */
+.time-item.cell.busy-time {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
