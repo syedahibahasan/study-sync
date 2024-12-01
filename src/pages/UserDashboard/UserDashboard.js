@@ -1,16 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
 import { Plus, UserRoundPlus, Filter } from "lucide-react";
 import "./UserDashboard.css";
 import { useAuth } from "../../hooks/useauth.js"; // Ensure correct path to useAuth
 
 export default function UserDashboard() {
-  const { user } = useAuth(); // Get the logged-in user
+  const { user, fetchMatchingGroups, fetchMyGroups, createGroup } = useAuth(); // Get the logged-in user
   const userId = user?._id; // Ensure we retrieve the correct user ID
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isCreateGroupPanelOpen, setIsCreateGroupPanelOpen] = useState(false);
   const items = ["Class", "Time", "Location"]; // Filter options
   const [checkedItems, setCheckedItems] = useState({});
+
+  const [machingGroups, setMachingGroups] = useState([]);
+  const [myGroups, setMyGroups] = useState([]);
+
+  async function loadMachingGroups(){
+    const groups = await fetchMatchingGroups();
+    
+    setMachingGroups(groups);
+  };
+
+  async function loadMyGroups(){
+    const groups = await fetchMyGroups();
+    console.log(groups.groups)
+    setMyGroups(groups);
+  };
+
+  useEffect(() => {
+    loadMachingGroups();
+    loadMyGroups();
+  }, []);
+
+  
 
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -28,21 +50,8 @@ export default function UserDashboard() {
     }));
   };
 
-  const createGroup = async (groupData) => {
-    try {
-      const response = await fetch("http://localhost:5001/api/groups", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...groupData, userId }), // Include userId in group creation
-      });
-      if (response.ok) {
-        alert("Group created successfully");
-      } else {
-        alert("Failed to create group");
-      }
-    } catch (error) {
-      console.error("Failed to create group:", error);
-    }
+  const actionCreateGroup = async (groupData) => {
+    createGroup(groupData);
   };
 
   return (
@@ -50,11 +59,16 @@ export default function UserDashboard() {
       {/* Sidebar */}
       <div className="sidebar-container">
         <span className="sidebar-title">My Study Groups</span>
-        {["Group 1", "Group 2", "Group 3"].map((group) => (
-          <div key={group} className="sidebar-item">
-            <span>{group}</span>
-          </div>
-        ))}
+        {myGroups && myGroups.length > 0 ? (
+          myGroups.map((group) => (
+            <div key={group._id} className="sidebar-item">
+              <span>{group.name}</span>
+              <span>{group.location}</span>
+            </div>
+          ))
+        ) : (
+          <div>Loading Your Groups...</div>
+        )}
       </div>
 
       {/* Main Content */}
@@ -102,7 +116,7 @@ export default function UserDashboard() {
         {/* Create Group Panel */}
         {isCreateGroupPanelOpen && (
           <CreateGroupForm
-            onCreateGroup={createGroup}
+            onCreateGroup={actionCreateGroup}
             onClose={toggleCreateGroupPanel}
             userId={user?._id} // Pass userId from context 
           />
@@ -111,20 +125,24 @@ export default function UserDashboard() {
         {/* Available Groups */}
         <div className="group-list">
           <h3 className="group-list-title">Available Study Groups</h3>
-          {[1, 2, 3].map((group) => (
-            <div key={group} className="group-item">
-              <div>
-                <div className="group-name">Group {group}</div>
-                <div className="group-item-description">Description</div>
+          {machingGroups && machingGroups.length > 0 ? (
+            machingGroups.map((group) => (
+              <div key={group._id} className="group-item">
+                <div>
+                  <div className="group-name">{group.name}</div>
+                  <div className="group-item-description">{group.course} - {group.location}</div>
+                </div>
+                <div className="tooltip-container">
+                <button className="action-button">
+                  <UserRoundPlus /> 
+                </button>
+                <span className="tooltip-text">Join</span>
+                </div>
               </div>
-              <div className="tooltip-container">
-              <button className="action-button">
-                <UserRoundPlus /> 
-              </button>
-            <span className="tooltip-text">Join</span>
-            </div>
-        </div>
-          ))}
+            ))
+          ) : (
+            <div>Loading Groups Matching Your Preferences...</div>
+          )}
         </div>
       </div>
     </div>
