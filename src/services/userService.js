@@ -160,7 +160,7 @@ export const fetchMatchingGroups = async (userId) => {
   const { data } = await axios.get(`/api/groups/${userId}/matchingGroups`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  return data.groups;
+  return data;
 };
 
 // Fetch groups that user has joined
@@ -169,5 +169,5 @@ export const fetchMyGroups = async (userId) => {
   const { data } = await axios.get(`/api/groups/${userId}/myGroups`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  return data.groups;
+  return data;
 };

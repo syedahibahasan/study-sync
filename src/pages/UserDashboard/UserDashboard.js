@@ -12,23 +12,22 @@ export default function UserDashboard() {
   const items = ["Class", "Time", "Location"]; // Filter options
   const [checkedItems, setCheckedItems] = useState({});
 
-  const [machingGroups, setMachingGroups] = useState([]);
+  const [matchingGroups, setMatchingGroups] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
 
-  async function loadMachingGroups(){
+  async function loadMatchingGroups(){
     const groups = await fetchMatchingGroups();
-    
-    setMachingGroups(groups);
+    setMatchingGroups(groups.matchingGroups);
   };
 
   async function loadMyGroups(){
     const groups = await fetchMyGroups();
-    console.log(groups.groups)
-    setMyGroups(groups);
+
+    setMyGroups(groups.joinedGroups);
   };
 
   useEffect(() => {
-    loadMachingGroups();
+    loadMatchingGroups();
     loadMyGroups();
   }, []);
 
@@ -62,7 +61,7 @@ export default function UserDashboard() {
         {myGroups && myGroups.length > 0 ? (
           myGroups.map((group) => (
             <div key={group._id} className="sidebar-item">
-              <span>{group.name}</span>
+              <span>{group}</span>
               <span>{group.location}</span>
             </div>
           ))
@@ -125,8 +124,8 @@ export default function UserDashboard() {
         {/* Available Groups */}
         <div className="group-list">
           <h3 className="group-list-title">Available Study Groups</h3>
-          {machingGroups && machingGroups.length > 0 ? (
-            machingGroups.map((group) => (
+          {matchingGroups && matchingGroups.length > 0 ? (
+            matchingGroups.map((group) => (
               <div key={group._id} className="group-item">
                 <div>
                   <div className="group-name">{group.name}</div>
