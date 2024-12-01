@@ -9,8 +9,11 @@ import { createStudyGroup, saveStudyGroupTimes } from "../../services/groupServi
 import TimeSelector from "../TimeSelector/TimeSelector";
 import { toast } from "react-toastify";
 import { useCallback } from "react";
+import { useAuth } from "../../hooks/useauth";
+
 
 export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
+  const { createGroup } = useAuth();
   const [groupName, setGroupName] = useState("");
   const [course, setCourse] = useState("");
   const [meetingType, setMeetingType] = useState("In-Person");
@@ -84,7 +87,7 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
     const groupedSelectedTimes = groupTimesByDay(selectedTimes);
   
     try {
-      await createStudyGroup({
+      await createGroup({
         groupName,
         course,
         meetingType,

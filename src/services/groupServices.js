@@ -18,6 +18,7 @@ export const saveStudyGroupTimes = async (userId, selectedTimes) => {
   }
 };
 
+/*
 // Fetch study group times
 export const fetchStudyGroupTimes = async (groupId) => {
   try {
@@ -34,7 +35,7 @@ export const fetchStudyGroupTimes = async (groupId) => {
 export const createStudyGroup = async (groupData) => {
     try {
       console.log("Submitting group data:", groupData); // Debug
-      const response = await axios.post(`/api/groups`, groupData, getAuthHeaders());
+      const response = await axios.post(`/api/createGroup`, groupData, getAuthHeaders());
       return response.data;
     } catch (error) {
       console.error("Failed to create study group:", error);
@@ -54,3 +55,5 @@ export const fetchUserStudyGroups = async (userId) => {
     throw error;
   }
 };
+
+*/
