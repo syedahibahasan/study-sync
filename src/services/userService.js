@@ -140,3 +140,34 @@ export const updateUserGroupTime = async (userId, studyGroupTime) => {
   );
   return data;
 };
+
+
+// Groups
+
+// Create group
+export const createGroup = async (userId, groupData) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.post(`/api/groups/${userId}/createGroup`, 
+    { groupData: groupData },
+    { headers: { Authorization: `Bearer ${token}` },
+  });
+  return data;
+};
+
+// Fetch groups that match user's preferences
+export const fetchMatchingGroups = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(`/api/groups/${userId}/matchingGroups`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data.groups;
+};
+
+// Fetch groups that user has joined
+export const fetchMyGroups = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(`/api/groups/${userId}/myGroups`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data.groups;
+};
