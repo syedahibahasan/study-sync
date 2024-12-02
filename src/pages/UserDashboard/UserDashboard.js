@@ -22,8 +22,7 @@ export default function UserDashboard() {
 
   async function loadMyGroups(){
     const groups = await fetchMyGroups();
-
-    setMyGroups(groups.joinedGroups);
+    setMyGroups(groups.myGroups);
   };
 
   useEffect(() => {
@@ -61,8 +60,7 @@ export default function UserDashboard() {
         {myGroups && myGroups.length > 0 ? (
           myGroups.map((group) => (
             <div key={group._id} className="sidebar-item">
-              <span>{group}</span>
-              <span>{group.location}</span>
+              <span>{group.name} - {group.courseName}</span>
             </div>
           ))
         ) : (
@@ -129,7 +127,7 @@ export default function UserDashboard() {
               <div key={group._id} className="group-item">
                 <div>
                   <div className="group-name">{group.name}</div>
-                  <div className="group-item-description">{group.course} - {group.location}</div>
+                  <div className="group-item-description">{group.courseName} - {group.location}</div>
                 </div>
                 <div className="tooltip-container">
                 <button className="action-button">
