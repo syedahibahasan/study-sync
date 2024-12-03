@@ -148,6 +148,16 @@ const createGroup = async (groupData) => {
   }
 }
 
+const joinGroup = async (groupData) => {
+  try {
+    const groups = await userService.joinGroup(user._id, groupData); 
+    return groups;
+  } catch (error) {
+    console.error("Error joining group:", error);
+    toast.error("Failed to join group. Please try again.");
+  }
+}
+
 const fetchMatchingGroups = async () => {
   try {
     const groups = await userService.fetchMatchingGroups(user._id); 
@@ -231,6 +241,7 @@ return (
       fetchMatchingGroups,
       fetchMyGroups,
       createGroup,
+      joinGroup,
     }}
   >
     {children}

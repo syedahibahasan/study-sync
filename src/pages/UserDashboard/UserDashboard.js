@@ -6,7 +6,7 @@ import "./UserDashboard.css";
 import { useAuth } from "../../hooks/useauth.js";
 
 export default function UserDashboard() {
-  const { user, fetchMatchingGroups, fetchMyGroups, createGroup } = useAuth();
+  const { user, fetchMatchingGroups, fetchMyGroups, createGroup, joinGroup } = useAuth();
   const userId = user?._id;
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -33,6 +33,10 @@ export default function UserDashboard() {
   const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
 
   const toggleCreateGroupPanel = () => setIsCreateGroupPanelOpen(!isCreateGroupPanelOpen);
+
+  const joinGivenGroup = async (groupData) => {
+    joinGroup(groupData);
+  };
 
   const actionCreateGroup = async (groupData) => {
     await createGroup(groupData);
@@ -128,7 +132,7 @@ export default function UserDashboard() {
                       </div>
                     </div>
                     <div className="tooltip-container">
-                      <button className="action-button">
+                      <button onClick={()=>joinGivenGroup(group)} className="action-button">
                         <UserRoundPlus />
                       </button>
                       <span className="tooltip-text">Join</span>
