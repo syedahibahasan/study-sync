@@ -1,3 +1,23 @@
+/* Independent styling for group-name-section */
+.group-name-section h3 {
+  font-size: 18px; /* Adjust heading size */
+  color: #333; /* Set color */
+}
+
+.create-group-panel .group-name-section input {
+  background-color: #ffffff;
+  width: 95.5%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.create-group-panel .group-name-section input:focus {
+  border-color: #0055A2; /* Highlight border on focus */
+  outline: none; /* Remove default outline */
+}
+
 .create-group-panel {
   display: flex;
   flex-direction: column;
@@ -15,7 +35,7 @@
 
 .create-group-panel label {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .create-group-panel h3 {
@@ -24,8 +44,9 @@
   margin-bottom: 5px;
 }
 
+.create-group-panel > label:not(.group-name-section),
 .create-group-panel select,
-.create-group-panel input[type="text"] {
+.create-group-panel input[type="text"]:not(.group-name-section input) {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -62,11 +83,20 @@
 .cancel-button {
   background-color: #E5A823; /* SJSU Gold */
 }
+.schedule-popup-button{
+  padding: 8px 12px;
+  background-color: #00000031; /* SJSU Gold */
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
 
 .schedule-popup {
   position: fixed;
-  top: 80%;
-  left: 80%;
+  top: 76%;
+  left: 78%;
   transform: translate(-50%, -50%);
   z-index: 1050;
   background: white;
@@ -75,7 +105,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    /* Adjust the width to fit most screens */
   /* max-width: 600px; Constrain maximum width */
-  max-height: 80%; /* Limit height to fit the viewport */
+  max-height: 55%; /* Limit height to fit the viewport */
   overflow-y: auto; /* Enable scrolling for content */
 }
 
@@ -86,20 +116,46 @@
   max-width: 100%;
 }
 
-.schedule-popup .close-button {
-  padding: 8px 12px;
-  background-color: #E5A823; /* SJSU Gold */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;  
+  height: 30px;  
+  font-size: 18px;  
+  color: #ffffff;
   cursor: pointer;
+  font-weight: bold;
+  background-color: #ee4040;  
+  border-radius: 50%; 
+  display: flex;  
+  align-items: center; 
+  justify-content: center;  
+  transition: background-color 0.3s ease, color 0.3s ease;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.schedule-popup .close-button:hover {
-  background-color: #F0C75E; /* Lighter Gold */
+.popup-close:hover {
+  background-color: #F56565; /* Softer red on hover */
 }
+
 
 .time-item.highlighted-time {
   background-color: #E5A823;
+}
+
+.meeting-type-options {
+  display: flex;
+  gap: 20px; /* Add space between the options */
+  align-items: center; /* Vertically center the text with the radio button */
+}
+
+.meeting-type-options label {
+  display: flex;
+  align-items: center; /* Align text next to the radio button */
+  font-size: 14px; /* Adjust font size for better readability */
+}
+
+.meeting-type-options input[type="radio"] {
+  cursor: pointer;
 }

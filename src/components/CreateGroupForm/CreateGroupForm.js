@@ -109,17 +109,16 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
   return (
     <div className="create-group-panel">
       <form onSubmit={handleSubmit}>
-        <label>
-          <h3>Group Name:</h3>
-          <input
-            type="text"
-            value={groupName}
-            onChange={(e) => setGroupName(e.target.value)}
-            placeholder="Enter group name"
-            required
-          />
-        </label>
-
+      <label className="group-name-section">
+        <h3>Group Name:</h3>
+        <input
+          type="text"
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
+          placeholder="Enter group name"
+          required
+        />
+      </label>
         <label>
           <h3>Select Course</h3>
           <select value={course} onChange={(e) => setCourse(e.target.value)} required>
@@ -145,6 +144,7 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
 
         {showSchedulePopup && (
   <div className="schedule-popup">
+      <div className="popup-close" onClick={handleCloseSchedulePopup}>×</div>
     <TimeSelector
       userSchedule={userSchedule}
       selectedTimes={selectedTimes}
@@ -159,39 +159,40 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
     >
       Save Group Times
     </button>
-    <button
+    {/* <button
       className="close-button"
       onClick={() => setShowSchedulePopup(false)}
     >
       Close
-    </button>
+    </button> */}
   </div>
 )}
 
 
-        <label>
-          <h3>Is this an In-Person or Online Group?</h3>
-          <div>
-            <label>
-              <input
-                type="radio"
-                value="In-Person"
-                checked={meetingType === "In-Person"}
-                onChange={() => setMeetingType("In-Person")}
-              />
-              In-Person
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="Online"
-                checked={meetingType === "Online"}
-                onChange={() => setMeetingType("Online")}
-              />
-              Online
-            </label>
-          </div>
-        </label>
+<label>
+  <h3>Is this an In-Person or Online Group?</h3>
+  <div className="meeting-type-options">
+    <label>
+      <input
+        type="radio"
+        value="In-Person"
+        checked={meetingType === "In-Person"}
+        onChange={() => setMeetingType("In-Person")}
+      />
+      In-Person
+    </label>
+    <label>
+      <input
+        type="radio"
+        value="Online"
+        checked={meetingType === "Online"}
+        onChange={() => setMeetingType("Online")}
+      />
+      Online
+    </label>
+  </div>
+</label>
+
 
         {meetingType === "In-Person" && (
           <label>
