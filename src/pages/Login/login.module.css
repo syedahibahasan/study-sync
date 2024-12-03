@@ -1,75 +1,82 @@
 .login {
-  background-image: linear-gradient(to bottom, rgb(255, 255, 255), white);
-  font-family: "Cabin";
   display: flex;
-  text-align: center;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  min-height: 100vh;
+  flex-direction: row;
   align-items: center;
-
-  justify-content: center;
-  color: rgb(0, 0, 0);
-  justify-content: center;
   height: 100vh;
+  background-color: #ffffff;
+  font-family: "Cabin";
 }
-@media screen and (min-width: 600px) {
+
+.leftContainer {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.rightContainer {
+  flex: 2;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: linear-gradient(to bottom right, #fcfcfc, #ffffff);  */
+}
+
+.loginImage {
+  max-width: 80%;
+  height: auto;
+  /* margin-top: 10%; */
+  border-radius: 15px;
+}
+
+.authformcontainer {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  color: #1d4ed8;
+  text-align: center;
+}
+
+.loginform {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .loginbuttons {
   border: none;
-  background-color: rgb(179, 236, 198); /*login button*/
-  padding: 20px;
-  border-radius: 10px;
-  font-family: "Cabin";
-  font-weight: bold;
-  font-size: 23px;
+  background-color: #0055A2;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
-  color: rgb(0, 0, 0);
-  align-items: center;
-  width: 100%;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  margin-top: 22px;
+  transition: background-color 0.3s ease;
 }
 
-.authformcontainer,
-.loginform {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
+.loginbuttons:hover {
+  background-color: #1747b0e3;
 }
 
-.authformcontainer {
-  margin: auto;
-  width: 30%;
-  padding: 2.8rem;
-  border: 8px solid #000000;
-  border-radius: 10px;
-  margin: 0.4rem;
-}
-
-h2 {
-  color: rgb(0, 0, 0);
-  font-family: "Cabin";
-  text-decoration: underline;
-  font-family: "Cabin";
-}
-.loginform {
-  margin-right: 30px;
-  justify-content: center;
-}
-
-a {
-  padding-top: 20px;
-
-  margin-top: 10px;
-  text-decoration: underline;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: #000000;
-}
 .registerlink {
-  padding-bottom: 10px;
+  text-align: center;
+  font-size: 0.9rem;
 }
+
+.registerlink a {
+  color: #0055A2;
+  text-decoration: none;
+}
+
+.registerlink a:hover {
+  text-decoration: underline;
+}
+

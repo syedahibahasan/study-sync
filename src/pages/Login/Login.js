@@ -17,8 +17,8 @@ export default function LoginPage() {
 
   const submit = async ({ email, password }) => {
     try {
-      await login(email, password);  // Call the login function
-      navigate("/profile");  // Redirect to main page after successful login
+      await login(email, password);
+      navigate("/profile");
     } catch (err) {
       console.log(err);
     }
@@ -26,34 +26,39 @@ export default function LoginPage() {
 
   return (
     <div className={styles.login}>
-      <div className={styles.authformcontainer}>
-        <h2>Login</h2>
-        <form className={styles.loginform} onSubmit={handleSubmit(submit)} noValidate>
-          <Input
-            type="email"
-            label="Email"
-            placeholder="youremail@gmail.com"
-            {...register("email", {
-              required: "This Field Is Required",
-              pattern: {
-                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,63}$/i,
-                message: "Email Is Not Valid",
-              },
-            })}
-            error={errors.email}
-          />
-          <Input
-            type="password"
-            label="Password"
-            placeholder="********"
-            {...register("password", { required: true })}
-            error={errors.password}
-          />
-          <button className={styles.loginbuttons} type="submit">Login</button>
-          <div className={styles.registerlink}>
-            <Link to="/register">Don't have an account? Register here.</Link>
-          </div>
-        </form>
+      <div className={styles.leftContainer}>
+        <div className={styles.authformcontainer}>
+          <h2>Login</h2>
+          <form className={styles.loginform} onSubmit={handleSubmit(submit)} noValidate>
+            <Input
+              type="email"
+              label="Email"
+              placeholder="youremail@gmail.com"
+              {...register("email", {
+                required: "This Field Is Required",
+                pattern: {
+                  value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,63}$/i,
+                  message: "Email Is Not Valid",
+                },
+              })}
+              error={errors.email}
+            />
+            <Input
+              type="password"
+              label="Password"
+              placeholder="********"
+              {...register("password", { required: true })}
+              error={errors.password}
+            />
+            <button className={styles.loginbuttons} type="submit">Login</button>
+            <div className={styles.registerlink}>
+              <Link to="/register">Don't have an account? Register here.</Link>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className={styles.rightContainer}>
+        <img src="/thumbnail/group1.gif" alt="Study Group" className={styles.loginImage} />
       </div>
     </div>
   );

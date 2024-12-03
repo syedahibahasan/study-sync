@@ -41,8 +41,15 @@
 }
 
 .sidebar-item:hover {
-    background-color: #E5A823; /* SJSU Gold */
+    background-color: #3b49556f; /* SJSU Gold */
 }
+
+.sidebar-item.selected {
+    background-color: #E5A823; /* Highlight color */
+    color: white; /* Text color for the selected group */
+    font-weight: bold; /* Make the text bold */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for better visibility */
+  }
 
 /* Main Content */
 .main-content {

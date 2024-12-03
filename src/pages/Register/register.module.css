@@ -1,71 +1,87 @@
-.login {
-  background-image: linear-gradient(to bottom, rgb(255, 255, 255), white);
-  font-family: "Cabin";
+.register {
   display: flex;
-  text-align: center;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  min-height: 100vh;
+  flex-direction: row;
   align-items: center;
-
-  justify-content: center;
-  color: rgb(0, 0, 0);
-  justify-content: center;
-  height: 150vh;
-}
-@media screen and (min-width: 600px) {
-}
-
-.loginbuttons {
-  border: none;
-  background-color: rgb(179, 236, 198); /*login button*/
-  padding: 20px;
-  border-radius: 10px;
+  height: 100vh;
+  background-color: #ffffff;
   font-family: "Cabin";
-  font-weight: bold;
-  font-size: 23px;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
-  align-items: center;
-  width: 100%;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  margin-top: 22px;
 }
 
-.authformcontainer,
-.loginform {
-  background-color: white;
+.leftContainer {
+  flex: 2;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem; /* Reduced padding */
+}
+
+.rightContainer {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registerImage {
+  max-width: 80%;
+  height: auto;
+  border-radius: 15px;
 }
 
 .authformcontainer {
-  margin: auto;
-  width: 30%;
-  padding: 2.8rem;
-  border: 8px solid #000000;
-  border-radius: 10px;
-  margin: 0.4rem;
+  width: 100%;
+  max-width: 400px; /* Width is good */
+  margin-top: 10%; /* Reduced top margin to minimize height */
+  background-color: white;
+  padding: 1.5rem; /* Reduced padding */
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
-  color: rgb(0, 0, 0);
-  font-family: "Cabin";
-  text-decoration: underline;
-  font-family: "Cabin";
-}
-.loginform {
-  margin-right: 30px;
-  justify-content: center;
+  margin-bottom: 0.5rem; /* Further reduced margin for heading */
+  font-size: 1.4rem; /* Slightly smaller font size */
+  color: #0055A2;
+  text-align: center;
 }
 
-a {
-  padding-top: 20px;
-  margin-top: 10px;
-  text-decoration: underline;
+.registerform {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem; /* Reduced gap between fields */
+}
+
+.registerbuttons {
   border: none;
-  background: none;
+  background-color: #0055A2;
+  color: white;
+  padding: 0.5rem 1rem; /* Adjusted padding for smaller button */
+  font-size: 0.9rem; /* Reduced font size */
+  border-radius: 8px;
   cursor: pointer;
-  color: #005823;
+  transition: background-color 0.3s ease;
+}
+
+.registerbuttons:hover {
+  background-color: #1747b0e3;
+}
+
+.loginlink {
+  text-align: center;
+  font-size: 0.9rem; /* Slightly smaller font for link */
+}
+
+.loginlink a {
+  color: #0055A2;
+  text-decoration: none;
+}
+
+.loginlink a:hover {
+  text-decoration: underline;
+}
+
+.registerImage {
+  max-width: 80%;
+  height: auto;
+  border-radius: 15px;
 }

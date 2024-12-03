@@ -1,10 +1,11 @@
 .container {
-  padding: 20px;
+  padding: 12px;
   border: none;
   border-radius: 10px;
+  margin-left: -15px; /* Adjust this value to move it to the left */
 }
 .parentcontainer {
-  padding-left: 15px;
+  padding: 10px;
   text-align: left;
   padding-bottom: 7px;
 }
@@ -12,7 +13,7 @@
   display: inline-block;
   justify-content: center;
   color: rgb(4, 73, 39);
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .content {

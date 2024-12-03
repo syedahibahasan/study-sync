@@ -57,7 +57,7 @@ export default function UserDashboard() {
           myGroups.map((group) => (
             <div
               key={group._id}
-              className={`sidebar-item ${selectedGroup === group ? "selected" : ""}`}
+              className={`sidebar-item ${selectedGroup?._id === group._id ? "selected" : ""}`}
               onClick={() => handleGroupSelect(group)}
             >
               <span>{group.name || "Untitled Group"}</span>
