@@ -35,8 +35,14 @@ export default function UserDashboard() {
   const toggleCreateGroupPanel = () => setIsCreateGroupPanelOpen(!isCreateGroupPanelOpen);
 
   const joinGivenGroup = async (groupData) => {
-    joinGroup(groupData);
+    try {
+      await joinGroup(groupData); // Wait for the group to be joined
+      await loadMyGroups(); // Refresh "My Study Groups" to reflect the joined group
+    } catch (error) {
+      console.error("Error joining group:", error);
+    }
   };
+  
 
   const actionCreateGroup = async (groupData) => {
     await createGroup(groupData);
@@ -116,6 +122,8 @@ export default function UserDashboard() {
                 onCreateGroup={actionCreateGroup}
                 onClose={toggleCreateGroupPanel}
                 userId={userId}
+                loadMyGroups={loadMyGroups} // Pass the function
+                loadMatchingGroups={loadMatchingGroups} // Pass the function
               />
             )}
 

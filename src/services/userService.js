@@ -157,10 +157,11 @@ export const createGroup = async (userId, groupData) => {
 // Join group
 export const joinGroup = async (userId, groupData) => {
   const token = localStorage.getItem("token");
-  const { data } = await axios.post(`/api/groups/${userId}/joinGroup`, 
+  const { data } = await axios.post(
+    `/api/groups/${userId}/joinGroup`,
     { groupData: groupData },
-    { headers: { Authorization: `Bearer ${token}` },
-  });
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
   return data;
 };
 

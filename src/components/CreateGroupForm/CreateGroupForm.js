@@ -12,7 +12,7 @@ import { useCallback } from "react";
 import { useAuth } from "../../hooks/useauth";
 
 
-export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
+export default function CreateGroupForm({ onCreateGroup, onClose, userId, loadMyGroups, loadMatchingGroups}) {
   const { createGroup } = useAuth();
   const [groupName, setGroupName] = useState("");
   const [course, setCourse] = useState("");
@@ -96,6 +96,8 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId }) {
         userId,
       });
       toast.success("Study group created successfully!");
+      await loadMyGroups();
+      await loadMatchingGroups();
       onClose();
     } catch (error) {
       console.error("Error creating study group:", error);

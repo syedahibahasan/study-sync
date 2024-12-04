@@ -148,15 +148,19 @@ const createGroup = async (groupData) => {
   }
 }
 
+
 const joinGroup = async (groupData) => {
   try {
-    const groups = await userService.joinGroup(user._id, groupData); 
-    return groups;
+    const response = await userService.joinGroup(user._id, groupData); 
+    const updatedGroups = await fetchMyGroups(); // Fetch the updated list of joined groups
+    setUser({ ...user, groups: updatedGroups.myGroups.map((g) => g._id) }); // Update the user context with new groups
+    toast.success("Successfully joined the group!");
+    return response;
   } catch (error) {
     console.error("Error joining group:", error);
-    toast.error("Failed to join group. Please try again.");
+    toast.error("Failed to join the group. Please try again.");
   }
-}
+};
 
 const fetchMatchingGroups = async () => {
   try {
