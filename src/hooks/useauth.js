@@ -1,6 +1,7 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as userService from "../services/userService";
+import * as groupServices from "../services/groupServices"
 import { toast } from "react-toastify";
 
 const AuthContext = createContext(null);
@@ -225,6 +226,29 @@ const saveGroupSchedule = async (userId, groupTimes) => {
   }
 };
 
+const deleteGroup = async (userId, groupId) => {
+  try {
+    // Call the deleteGroup API in groupServices
+    await groupServices.deleteGroup(userId, groupId);
+
+    // Optionally refresh the user's groups after deletion
+    const updatedGroups = await fetchMyGroups();
+    setUser({ ...user, groups: updatedGroups.myGroups.map((g) => g._id) });
+
+    toast.success("Group deleted successfully!");
+  } catch (error) {
+    console.error("Error deleting group:", error);
+
+    // Check the response for specific error message
+    if (error.response && error.response.status === 403) {
+      toast.error("Only the admin can delete the group!");
+    } else {
+      toast.error("Failed to delete the group. Please try again.");
+    }
+  }
+};
+
+
 
 
 return (
@@ -246,6 +270,7 @@ return (
       fetchMyGroups,
       createGroup,
       joinGroup,
+      deleteGroup,
     }}
   >
     {children}
