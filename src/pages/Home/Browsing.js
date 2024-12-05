@@ -1,21 +1,6 @@
-import React, {useEffect} from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styles from './browsing.module.css'; // Import CSS module
 
 const BrowsingPage = () => {
-  const navigate = useNavigate(); // Initialize navigate
-  
-  // Check if user is logged in on component mount
-  useEffect(() => {
-    const token = localStorage.getItem('token'); // Replace with your actual token key
-
-    if (token) {
-      // If the token exists, navigate to the UserDashboard
-      navigate('/userdashboard');
-    }
-  }, [navigate]); // Empty dependency array ensures this only runs once on component mount
-
-  
 
   return (
     <div className={styles.container}>

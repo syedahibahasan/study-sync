@@ -12,7 +12,7 @@ export default function LoginPage() {
   const { user, login } = useAuth();
 
   useEffect(() => {
-    if (user) navigate("/");  // Redirect to main page if already logged in
+    if (user) navigate("/profile");  // Redirect to main page if already logged in
   }, [user, navigate]);
 
   const submit = async ({ email, password }) => {
