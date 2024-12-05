@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
 
 // Getting user data from local storage
 export const getUser = () => {
@@ -12,7 +11,6 @@ axios.interceptors.response.use(
   (response) => response,  
   (error) => {
     if (error.response && error.response.status === 401) {
-      toast.error("Session expired. Please log in again.");
       // Clear storage and redirect to login
       localStorage.removeItem("user");
       localStorage.removeItem("token");

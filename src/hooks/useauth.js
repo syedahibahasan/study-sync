@@ -39,10 +39,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  let sessionExpiredHandled = false; // To track if the session expiration has been handled
+
   const handleSessionExpired = () => {
+    if (sessionExpiredHandled) return; // Prevent duplicate calls
+    sessionExpiredHandled = true;
+
     toast.error("Session expired. Please log in again.");
-    logout();
-    navigate("/login");
+    logout(); // Logs out the user
+    // navigate("/login");
   };
 
   useEffect(() => {
@@ -141,14 +146,14 @@ const fetchSchedule = async () => {
 // Groups
 const createGroup = async (groupData) => {
   try {
-    const groups = await userService.createGroup(user._id, groupData); 
-    return groups;
+    const createdGroup = await userService.createGroup(user._id, groupData);
+    return createdGroup; // Return the created group directly
   } catch (error) {
     console.error("Error creating group:", error);
     toast.error("Failed to create group. Please try again.");
+    throw error; // Ensure the caller can handle errors
   }
-}
-
+};
 
 const joinGroup = async (groupData) => {
   try {
@@ -242,6 +247,8 @@ const deleteGroup = async (userId, groupId) => {
     // Check the response for specific error message
     if (error.response && error.response.status === 403) {
       toast.error("Only the admin can delete the group!");
+    } else if (error.response && error.response.status === 404) {
+      toast.error("Group not found. It may have already been deleted.");
     } else {
       toast.error("Failed to delete the group. Please try again.");
     }
@@ -249,7 +256,48 @@ const deleteGroup = async (userId, groupId) => {
 };
 
 
+// Send a message to a group
+const sendMessage = async (groupId, message) => {
+  try {
+    const messages = await groupServices.sendMessage(groupId, message);
+    toast.success("Message sent successfully!");
+    return messages; // Return the updated message list
+  } catch (error) {
+    console.error("Failed to send message:", error);
+    toast.error("Failed to send the message. Please try again.");
+  }
+};
 
+// Fetch messages for a group
+const fetchMessages = async (groupId) => {
+  try {
+    const response = await groupServices.fetchMessages(groupId);
+    return response.messages || []; // Ensure it returns an array
+  } catch (error) {
+    console.error("Failed to fetch messages:", error);
+    toast.error("Could not fetch messages");
+    return [];
+  }
+};
+
+// Fetch details of a specific group
+const fetchGroupDetails = async (groupId) => {
+  try {
+    // API call to fetch group details
+    const response = await groupServices.fetchGroupDetails(groupId);
+
+    if (!response) {
+      throw new Error("Failed to fetch group details. Response is empty.");
+    }
+
+    // Return the group details
+    return response;
+  } catch (error) {
+    console.error("Error fetching group details:", error);
+    toast.error("Could not fetch group details. Please try again.");
+    throw error; // Rethrow the error to be handled by the caller
+  }
+};
 
 return (
   <AuthContext.Provider
@@ -271,6 +319,9 @@ return (
       createGroup,
       joinGroup,
       deleteGroup,
+      sendMessage,
+      fetchMessages,
+      fetchGroupDetails,
     }}
   >
     {children}

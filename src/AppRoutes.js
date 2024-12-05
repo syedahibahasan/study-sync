@@ -9,6 +9,7 @@ import About from "./pages/Extra/About";
 import Contact from "./pages/Extra/Contact";
 import UserProfile from "./pages/UserProfile/UserProfile";  
 import UserDashboard from "./pages/UserDashboard/UserDashboard.js";
+import ChatGroup from "./components/ChatGroup/ChatGroup.js";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -32,7 +33,7 @@ export default function AppRoutes() {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
   
-      {/* Protected UserProfile Route */}
+      {/* Protected Routes */}
       <Route
         path="/profile"
         element={
@@ -41,16 +42,22 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
-     {/* Protected UserDashboard Route */}
-     <Route
-     path="/userdashboard"
-     element={
-       <ProtectedRoute>
-         <UserDashboard />
-       </ProtectedRoute>
-     }
-   />
- </Routes>
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/userdashboard/*"
+        element={
+          <ProtectedRoute>
+            <UserDashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
