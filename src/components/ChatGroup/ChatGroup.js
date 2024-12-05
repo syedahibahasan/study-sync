@@ -60,12 +60,25 @@ export default function ChatGroup({ group, onBack, userId, onDeleteGroup, onSend
     </div>
     <div className="group-info-content">
         <p><strong>Course:</strong> {group.courseName}</p>
-        <p><strong>Time:</strong> {group.time}</p>
         <p><strong>Location:</strong> {group.location}</p>
+        <p><strong>Meeting Times:</strong></p>
+        <div className="scrollable-context">
+          {group.selectedTimes.map((schedule) => (
+            <div key={schedule._id} style={{ marginBottom: "20px" }}>
+              <h2>{schedule.day}</h2>
+              <ul>
+                {schedule.times.map((time, index) => (
+                  <li key={index}>{time}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        
         <p><solid>_________________________________________</solid></p>
         <p><strong>Admin:</strong> {group.admin?.username}</p>
         <p><strong>Members:</strong></p>
-        <ul>
+        <ul className="group-info-content">
             {group.members?.map((member) => (
             <li key={member._id}>{member.username}</li>
             ))}

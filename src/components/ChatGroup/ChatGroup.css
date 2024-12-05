@@ -75,6 +75,15 @@
     cursor: pointer;
 }
 
+.scrollable-context {
+
+    width: 300px;  /* Set the width of the div */
+    height: 200px; /* Set the height of the div */
+    overflow: auto; /* Enable scrolling when content overflows */
+    padding: 10px; /* Optional: Add padding inside the div */
+
+}
+
 .group-info-content {
     text-align: left;
     color: #333;
