@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PlaneIcon, ArrowLeftIcon, Trash2Icon } from "lucide-react";
+import { PlaneIcon, ArrowLeftIcon, InfoIcon } from "lucide-react";
 import { io } from "socket.io-client";
 import { useAuth } from "../../hooks/useauth";
 import { useParams, useNavigate } from "react-router-dom";
@@ -84,6 +84,14 @@ export default function ChatGroup({ userId }) {
     }
   };
 
+  // Handle keypress in the input field
+const handleKeyPress = (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault(); // Prevent default form submission
+    handleSendMessage();
+  }
+};
+
   // Handle deleting the group
   const handleDeleteGroup = async () => {
     try {
@@ -114,22 +122,30 @@ export default function ChatGroup({ userId }) {
     <div className="chat-group-container">
       {/* Header */}
       <div className="group-header">
-        <div className="tooltip-container">
-          <button
-            className="back-button"
-            onClick={() => navigate("/userdashboard")}
-          >
-            <ArrowLeftIcon />
-          </button>
-          <span className="tooltip-text">Back</span>
-        </div>
-        <div className="tooltip-container">
-          <h3 className="group-name" onClick={toggleGroupInfo}>
-            {group.name}
-          </h3>
-          <span className="tooltip-text">Group Info</span>
-        </div>
+  <div className="tooltip-container">
+    <button
+      className="back-button"
+      onClick={() => navigate("/userdashboard")}
+    >
+      <ArrowLeftIcon />
+    </button>
+    <span className="tooltip-text">Back</span>
+
       </div>
+      <h3 className="group-name">
+        {group.name}
+      </h3>
+      <div className="tooltip-container info-button-container">
+        <button
+          className="info-button"
+          onClick={toggleGroupInfo}
+          aria-label="Group Info"
+        >
+          <InfoIcon />
+        </button>
+        <span className="tooltip-text">Group Info</span>
+      </div>
+    </div>
 
       {/* Group Info */}
       {showGroupInfo && (
@@ -194,9 +210,6 @@ export default function ChatGroup({ userId }) {
   ))}
 </div>
 
-
-
-
       {/* Message Input */}
       <div className="message-input-container">
         <input
@@ -204,11 +217,15 @@ export default function ChatGroup({ userId }) {
           placeholder="Type a message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyPress} // Listen for Enter key
         />
+        <div className="tooltip-container info-button-container">
         <button className="send-button" onClick={handleSendMessage}>
           <PlaneIcon />
         </button>
+        <span className="tooltip-text">Send</span>
       </div>
+    </div>
     </div>
   );
 }

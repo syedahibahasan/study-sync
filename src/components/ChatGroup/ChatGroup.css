@@ -11,6 +11,7 @@
 .group-header {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Push content to the sides */
     background-color: #f4f4f4; /* Light gray background */
     padding: 5px;
     border-radius: 5px;
@@ -43,8 +44,8 @@
 /* Group Info Popup */
 .group-info-popup {
     position: fixed;
-    top: 35%;
-    left: 38%; /* Adjusted to move more to the left */
+    top: 33%;
+    left: 78%; /* Adjusted to move more to the left */
     transform: translate(-30%, -30%);
     background-color: #ffffff;
     padding: 20px;
@@ -241,3 +242,21 @@
 .message-input-container .send-button:hover {
     background-color: #E5A823;
 }
+
+.info-button-container {
+    margin-left: auto; /* Push the button to the far right */
+  }
+  
+  .info-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    color: #000000;
+  }
+  
+  .info-button:hover {
+    color: #0056b3; /* Darker shade for hover effect */
+  }
+  

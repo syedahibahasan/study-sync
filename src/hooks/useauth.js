@@ -260,7 +260,6 @@ const deleteGroup = async (userId, groupId) => {
 const sendMessage = async (groupId, message) => {
   try {
     const messages = await groupServices.sendMessage(groupId, message);
-    toast.success("Message sent successfully!");
     return messages; // Return the updated message list
   } catch (error) {
     console.error("Failed to send message:", error);
