@@ -1,13 +1,6 @@
-.filter-list {
-    display: flex;
-    flex-direction: column;
-}
-
 .filter-panel {
     margin-bottom: 20px; 
-    padding-top: 0px;
-    padding-left: 12px;
-    padding-bottom: 0px;
+    padding: 10px 12px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -19,26 +12,50 @@
 }
 
 .filter-panel.open {
-    max-height: 300px; 
+    max-height: 500px; 
     opacity: 1;
-    padding-top: 0px;
-    padding-bottom: 10px;
+    padding: 10px 12px;
 }
 
 .filter-panel h4 {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     text-align: left;
     color: #0055A2; /* SJSU Blue */
 }
 
-.filter-panel .filter-list label {
-    margin-bottom: 1px;
-    font-size: 15px;
+.filter-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.course-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f2f2f2;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.course-name {
+    margin-right: 5px;
+    font-size: 14px;
     color: #333;
 }
 
-.filter-panel .filter-list input[type="checkbox"] {
-    margin-left: 10px;
-    transform: scale(1.2);
-    cursor: pointer;
+.filter-panel .filter-list p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
 }

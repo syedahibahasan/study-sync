@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
 import FilterPanel from "../../components/FilterPanel/FilterPanel";
 import ChatGroup from "../../components/ChatGroup/ChatGroup"; // Chat area component
@@ -12,10 +12,12 @@ export default function UserDashboard() {
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isCreateGroupPanelOpen, setIsCreateGroupPanelOpen] = useState(false);
+  const [allMatchingGroups, setAllMatchingGroups] = useState([]);
   const [matchingGroups, setMatchingGroups] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [expandedGroups, setExpandedGroups] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
 
   useEffect(() => {
     loadMatchingGroups();
@@ -23,8 +25,13 @@ export default function UserDashboard() {
   }, []);
 
   async function loadMatchingGroups() {
-    const groups = await fetchMatchingGroups();
-    setMatchingGroups(groups.matchingGroups || []);
+    try {
+      const groups = await fetchMatchingGroups(userId);
+      setAllMatchingGroups(groups.matchingGroups || []);
+      setMatchingGroups(groups.matchingGroups || []);
+    } catch (error) {
+      console.error("Error fetching matching groups:", error);
+    }
   }
 
   async function loadMyGroups() {
@@ -53,6 +60,21 @@ export default function UserDashboard() {
   };
 
   const handleGroupSelect = (group) => setSelectedGroup(group);
+
+  const handleFilterChange = useCallback((selectedCourseIds) => {
+    setSelectedCourses(selectedCourseIds);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCourses.length > 0) {
+      const filtered = allMatchingGroups.filter(group =>
+        selectedCourses.includes(group.courseId)
+      );
+      setMatchingGroups(filtered);
+    } else {
+      setMatchingGroups(allMatchingGroups);
+    }
+  }, [selectedCourses, allMatchingGroups]);
 
   const handleBack = () => setSelectedGroup(null);
 
@@ -156,7 +178,10 @@ export default function UserDashboard() {
             )}
 
             {/* Filter Panel */}
-            <FilterPanel isOpen={isFilterOpen} />
+            <FilterPanel
+              isOpen={isFilterOpen}
+              onFilterChange={handleFilterChange}
+            />
 
             {/* Available Groups */}
             <div className="group-list">
