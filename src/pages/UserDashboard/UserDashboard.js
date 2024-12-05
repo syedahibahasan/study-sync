@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
+import FilterPanel from "../../components/FilterPanel/FilterPanel";
 import ChatGroup from "../../components/ChatGroup/ChatGroup"; // Chat area component
 import { Plus, UserRoundPlus, Filter, ChevronDown, ChevronUp } from "lucide-react";
 import "./UserDashboard.css";
@@ -54,7 +55,7 @@ export default function UserDashboard() {
   const handleGroupSelect = (group) => setSelectedGroup(group);
 
   const handleBack = () => setSelectedGroup(null);
-  
+
   const toggleGroupExpansion = (groupId) => {
     setExpandedGroups((prev) =>
     prev.includes(groupId) ? prev.filter(id => id !== groupId) : [...prev, groupId]
@@ -130,19 +131,6 @@ export default function UserDashboard() {
                   </button>
                   <span className="tooltip-text">Filter</span>
                 </div>
-                {isFilterOpen && (
-                  <div className="panel">
-                    <h3>Filter by:</h3>
-                    <div className="filter-list">
-                      {["Class", "Time", "Location"].map((item) => (
-                        <label key={item}>
-                          {item}
-                          <input type="checkbox" name={item} />
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
                 <div className="tooltip-container">
                   <button
                     className="action-button"
@@ -166,6 +154,9 @@ export default function UserDashboard() {
                 loadMatchingGroups={loadMatchingGroups} // Pass the function
               />
             )}
+
+            {/* Filter Panel */}
+            <FilterPanel isOpen={isFilterOpen} />
 
             {/* Available Groups */}
             <div className="group-list">

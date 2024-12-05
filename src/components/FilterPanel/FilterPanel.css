@@ -1,0 +1,44 @@
+.filter-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-panel {
+    margin-bottom: 20px; 
+    padding-top: 0px;
+    padding-left: 12px;
+    padding-bottom: 0px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
+}
+
+.filter-panel.open {
+    max-height: 300px; 
+    opacity: 1;
+    padding-top: 0px;
+    padding-bottom: 10px;
+}
+
+.filter-panel h4 {
+    margin-bottom: 5px;
+    text-align: left;
+    color: #0055A2; /* SJSU Blue */
+}
+
+.filter-panel .filter-list label {
+    margin-bottom: 1px;
+    font-size: 15px;
+    color: #333;
+}
+
+.filter-panel .filter-list input[type="checkbox"] {
+    margin-left: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
