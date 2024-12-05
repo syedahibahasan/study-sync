@@ -20,9 +20,11 @@ const TimeSelector = ({
     const [mousePressed, setMousePressed] = useState(false);
     const [busyTimesState, setBusyTimesState] = useState(new Array(days.length * times.length).fill(false));
     const [studyGroupTimesState, setStudyGroupTimesState] = useState(new Array(days.length * times.length).fill(false));
+    const [courseTimesState, setCourseTimesState] = useState(new Array(days.length * times.length).fill(false));
 
     useEffect(() => {
         loadBusySchedule();
+        loadCourseTimes();
     }, []);
 
     const loadBusySchedule = async () => {
@@ -37,6 +39,103 @@ const TimeSelector = ({
             console.error("Failed to load schedule:", error);
         }
     };
+
+    // Enrolled Courses related functions
+    const loadCourseTimes = async () => {
+        try {
+            const courses = await fetchEnrolledCourses();
+            const parsedCourseTimes = parseCourseTimes(courses);
+            updateCourseTimesState(parsedCourseTimes);
+        } catch (error) {
+            console.error("Failed to load course times:", error);
+        }
+    };
+
+    const parseCourseTimes = (courses) => {
+        const parsedTimes = [];
+
+        courses.forEach((course) => {
+            const courseDays = mapCourseDays(course.days);
+            const courseTimeSlots = getTimeSlots(course.times);
+
+            courseDays.forEach((day) => {
+                parsedTimes.push({ day, times: courseTimeSlots });
+            });
+        });
+
+        return parsedTimes;
+    };
+
+    const mapCourseDays = (daysString) => {
+        const dayMap = {
+            M: "Monday",
+            T: "Tuesday",
+            W: "Wednesday",
+            Th: "Thursday",
+            F: "Friday",
+            S: "Saturday",
+            Su: "Sunday",
+        };
+
+        const daysArray = [];
+        let index = 0;
+        while (index < daysString.length) {
+            let dayChar = daysString[index];
+            if (dayChar === 'T' && daysString[index + 1] === 'h') {
+                dayChar = 'Th';
+                index++;
+            }
+            daysArray.push(dayMap[dayChar]);
+            index++;
+        }
+
+        return daysArray;
+    };
+
+    const getTimeSlots = (timeRange) => {
+        const [startTime, endTime] = timeRange.split('-').map(convertToMinutes);
+
+        const timeSlots = [];
+        let currentTime = startTime;
+        while (currentTime < endTime) {
+            const formattedTime = formatTime(currentTime);
+            if (times.includes(formattedTime)) {
+                timeSlots.push(formattedTime);
+            }
+            currentTime += 30;
+        }
+
+        return timeSlots;
+    };
+
+    const convertToMinutes = (timeStr) => {
+        const [time, modifier] = timeStr.match(/(\d{1,2}:\d{2})(AM|PM)/i).slice(1);
+        let [hours, minutes] = time.split(':').map(Number);
+
+        if (modifier.toUpperCase() === 'PM' && hours !== 12) {
+            hours += 12;
+        }
+        if (modifier.toUpperCase() === 'AM' && hours === 12) {
+            hours = 0;
+        }
+
+        return hours * 60 + minutes;
+    };
+
+    const formatTime = (minutes) => {
+        let hours = Math.floor(minutes / 60);
+        let mins = minutes % 60;
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours > 12) {
+            hours -= 12;
+        }
+
+        return `${hours}:${mins.toString().padStart(2, '0')} ${ampm}`;
+    };
+    // ---------------------------------------------------------------
 
     const updateScheduleState = (schedule) => {
         const tempBusyTimes = new Array(days.length * times.length).fill(false);
@@ -64,6 +163,23 @@ const TimeSelector = ({
         setStudyGroupTimesState(tempStudyGroupTimes);
     };
 
+    const updateCourseTimesState = (parsedCourseTimes) => {
+        const tempCourseTimes = new Array(days.length * times.length).fill(false);
+
+        parsedCourseTimes.forEach(({ day, times: courseTimes }) => {
+            const dayIndex = days.indexOf(day);
+
+            courseTimes.forEach((time) => {
+                const timeIndex = times.indexOf(time);
+                if (dayIndex !== -1 && timeIndex !== -1) {
+                    tempCourseTimes[dayIndex * times.length + timeIndex] = true;
+                }
+            });
+        });
+
+        setCourseTimesState(tempCourseTimes);
+    };
+
     const isBusyTime = (rowIndex, columnIndex) => {
         return busyTimesState[columnIndex * times.length + rowIndex];
     };
@@ -76,6 +192,10 @@ const TimeSelector = ({
         return selectedTimes.some(
             (time) => time.day === days[columnIndex] && time.time === times[rowIndex]
         );
+    };
+
+    const isCourseTime = (rowIndex, columnIndex) => {
+        return courseTimesState[columnIndex * times.length + rowIndex];
     };
 
     const toggleBusyTime = (rowIndex, columnIndex) => {
@@ -159,6 +279,7 @@ const TimeSelector = ({
                             <div
                                 key={`cell-${rowIndex}-${columnIndex}`}
                                 onMouseDown={() => {
+                                    if (isCourseTime(rowIndex, columnIndex)) return;
                                     if (editable && highlightType === "busy") {
                                         toggleBusyTime(rowIndex, columnIndex);
                                     } else if (highlightType === "group") {
@@ -167,6 +288,7 @@ const TimeSelector = ({
                                 }}
                                 onMouseOver={() => {
                                     if (mousePressed) {
+                                        if (isCourseTime(rowIndex, columnIndex)) return;
                                         if (editable && highlightType === "busy") {
                                             toggleBusyTime(rowIndex, columnIndex);
                                         } else if (highlightType === "group") {
@@ -175,15 +297,17 @@ const TimeSelector = ({
                                     }
                                 }}
                                 className={
-                                    isBusyTime(rowIndex, columnIndex) && isStudyGroupTime(rowIndex, columnIndex)
-                                        ? "time-item cell both-times"
-                                        : isBusyTime(rowIndex, columnIndex)
-                                            ? "time-item cell busy-time"
-                                            : isStudyGroupTime(rowIndex, columnIndex)
-                                                ? "time-item cell group-time"
-                                                : isSelectedGroupTime(rowIndex, columnIndex)
-                                                    ? "time-item cell selected-group-time"
-                                                    : "time-item cell"
+                                    isCourseTime(rowIndex, columnIndex)
+                                        ? "time-item cell course-time"
+                                        : isBusyTime(rowIndex, columnIndex) && isStudyGroupTime(rowIndex, columnIndex)
+                                            ? "time-item cell both-times"
+                                            : isBusyTime(rowIndex, columnIndex)
+                                                ? "time-item cell busy-time"
+                                                : isStudyGroupTime(rowIndex, columnIndex)
+                                                    ? "time-item cell group-time"
+                                                    : isSelectedGroupTime(rowIndex, columnIndex)
+                                                        ? "time-item cell selected-group-time"
+                                                        : "time-item cell"
                                 }
                             />
                         ))}
