@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <div className="wholenavbar">
       <nav className="navbar">
-        <CustomLink className="headers" to="/">
+        <CustomLink className="headers" to={user ? "/userdashboard" : "/login"}>
           <img
             src="/thumbnail/StudySyncTransparent.png"
             alt="Home Page"
@@ -59,6 +59,13 @@ const Navbar = () => {
                   >
                     Logout
                     </CustomLink>
+                  <CustomLink
+                    className="contentin"
+                    to="/userdashboard"
+                    onClick={toggleMenu}
+                  >
+                    Dashboard
+                  </CustomLink>
                 </div>
               ) : (
                 <CustomLink className="contentin" to="/login" onClick={toggleMenu}>

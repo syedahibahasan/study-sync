@@ -18,6 +18,7 @@
     gap: 10px;
     border-right: 1px solid #D2D2D2; /* Divider for sidebar */
     color: white;
+    overflow-y: auto;
 }
 
 .sidebar-title {
@@ -30,6 +31,9 @@
 }
 
 .sidebar-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 12px 15px;
     border-radius: 5px;
     background-color: #1C88F4; /* Rollover Blue */
@@ -49,7 +53,69 @@
     color: white; /* Text color for the selected group */
     font-weight: bold; /* Make the text bold */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for better visibility */
-  }
+}
+
+/* Expanded Details */
+.expanded-details {
+    max-height: 0;
+    opacity: 0;
+    padding: 5px 10px;
+    background-color: white;
+    border-left: 3px solid #0055A2; /* Highlight with SJSU Blue */
+    margin-top: 3px;
+    border-radius: 5px;
+}
+
+.expanded-details.expanded {
+    max-height: 500px; /* A value greater than the expected content height */
+    opacity: 1;
+}
+
+.expanded-details p {
+    margin: 7px 0;
+    font-size: 15px;
+    color: black;
+    text-align: left;
+    margin-left: 5px;
+    font-family: Arial, sans-serif
+}
+
+.expanded-details {
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.detail-value {
+    font-weight: normal;                   
+    color: #333333;                  
+}
+
+.members-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.members-list li {
+    font-size: 14px;
+    margin: 3px 0;
+}
+
+/* Expand/Collapse Button */
+.expand-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.expand-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
 
 /* Main Content */
 .main-content {
@@ -85,7 +151,7 @@
     background-color: #e6e6e6;
 }
 
-/*Action, filter buttons */
+/* Action, filter buttons */
 .action-button,
 .filter-button {
     display: flex; /* Use flexbox for centering */
@@ -126,7 +192,7 @@
 .filter-list {
     display: flex;
     flex-direction: column;
-  }
+}
 
 /* Group List */
 .group-list-title {
@@ -140,7 +206,7 @@
 .group-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 15px;
     background-color: #D2D2D2; /* SJSU Light Gray */
     border-radius: 5px;
@@ -148,24 +214,43 @@
     transition: background-color 0.3s ease;
 }
 
-.group-item-description {
-    font-size: 14px;
-    color: #4f4f4f; /* Dark Gray */
-    margin-top: 10px;
+.group-item:hover {
+    background-color: #c0c0c0;
 }
 
-/* Scrollable Sidebar */
-.sidebar-container {
-    overflow-y: auto;
+/* Adjust Group Item Info */
+.group-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+.group-item-description p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  
+  .group-item-description strong {
+    color: #555;
+  }
+  
+  /* Optional: Add some spacing and borders for better separation */
+  .group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left
+  }
 
 /* Tooltip Styling */
 .tooltip-container {
     position: relative;
     display: inline-block;
-  }
+}
   
-  .tooltip-text {
+.tooltip-text {
     visibility: hidden;
     background-color: #666666; 
     color: #fff;
@@ -182,9 +267,27 @@
     transition: opacity 0.3s ease;
     font-size: 12px;
     font-weight: bold;
-  }
-  
-  .tooltip-container:hover .tooltip-text {
+}
+
+.tooltip-container:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
-  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar-container {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #D2D2D2;
+    }
+
+    .main-content {
+        height: auto;
+    }
+}

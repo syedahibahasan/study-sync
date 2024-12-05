@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
 import ChatGroup from "../../components/ChatGroup/ChatGroup"; // Chat area component
-import { Plus, UserRoundPlus, Filter } from "lucide-react";
+import { Plus, UserRoundPlus, Filter, ChevronDown, ChevronUp } from "lucide-react";
 import "./UserDashboard.css";
 import { useAuth } from "../../hooks/useauth.js";
 
@@ -14,6 +14,7 @@ export default function UserDashboard() {
   const [matchingGroups, setMatchingGroups] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [expandedGroups, setExpandedGroups] = useState([]);
 
   useEffect(() => {
     loadMatchingGroups();
@@ -53,6 +54,12 @@ export default function UserDashboard() {
   const handleGroupSelect = (group) => setSelectedGroup(group);
 
   const handleBack = () => setSelectedGroup(null);
+  
+  const toggleGroupExpansion = (groupId) => {
+    setExpandedGroups((prev) =>
+    prev.includes(groupId) ? prev.filter(id => id !== groupId) : [...prev, groupId]
+    );
+  };
 
   return (
     <div className="container">
@@ -61,12 +68,45 @@ export default function UserDashboard() {
         <span className="sidebar-title">My Study Groups</span>
         {myGroups && myGroups.length > 0 ? (
           myGroups.map((group) => (
-            <div
-              key={group._id}
-              className={`sidebar-item ${selectedGroup?._id === group._id ? "selected" : ""}`}
-              onClick={() => handleGroupSelect(group)}
-            >
-              <span>{group.name || "Untitled Group"}</span>
+            <div key={group._id}>
+              <div
+                className={`sidebar-item ${selectedGroup?._id === group._id ? "selected" : ""}`}
+                onClick={() => handleGroupSelect(group)}
+              >
+                <span>{group.name || "Untitled Group"}</span>
+                {/* Expand/Collapse Button */}
+                <button
+                  className="expand-button"
+                  onClick={(e) => {
+                    e.stopPropagation(); 
+                    toggleGroupExpansion(group._id);
+                  }}
+                  aria-label="Expand group details"
+                >
+                  {expandedGroups.includes(group._id) ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </button>
+              </div>
+              {/* Expanded Details */}
+              <div
+                className={`expanded-details ${
+                  expandedGroups.includes(group._id) ? "expanded" : ""
+                }`}
+              >
+                <p>
+                  <span className="label">Course:</span> <span className="detail-value">{group.courseName || "N/A"}</span>
+                </p>
+                <p>
+                  <span className="label">Location:</span> <span className="detail-value">{group.location || "N/A"}</span>
+                </p>
+                <p>
+                  <span className="label">Members:</span> <span className="detail-value">{group.members?.length || 0}</span>
+                </p>
+                <p className="members-joined">
+                  <span className="label">Members joined:</span> <span className="detail-value">
+                    {group.members && group.members.length > 0 ? group.members.map(member => member.username).join(", ") : "No members joined yet."}
+                  </span>
+                </p>
+              </div>
             </div>
           ))
         ) : (
@@ -136,7 +176,9 @@ export default function UserDashboard() {
                     <div>
                       <div className="group-name">{group.name}</div>
                       <div className="group-item-description">
-                        {group.courseName} - {group.location}
+                        <p><strong>Course:</strong> {group.courseName || "N/A"}</p>
+                        <p><strong>Location:</strong> {group.location || "N/A"}</p>
+                        <p><strong>Members:</strong> {group.members?.length || 0}</p>
                       </div>
                     </div>
                     <div className="tooltip-container">
