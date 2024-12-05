@@ -19,6 +19,11 @@
     border-right: 1px solid #D2D2D2; /* Divider for sidebar */
     color: white;
     overflow-y: auto;
+
+    background-image: url('../../../public/thumbnail/sjsucampus.png'); 
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }
 
 .sidebar-title {
@@ -214,14 +219,14 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 15px;
-    background-color: #D2D2D2; /* SJSU Light Gray */
+    background-color: #e6e6e6; /* SJSU Light Gray */
     border-radius: 5px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease;
 }
 
 .group-item:hover {
-    background-color: #c0c0c0;
+    background-color: #d1d1d1;
 }
 
 /* Adjust Group Item Info */
