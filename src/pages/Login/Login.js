@@ -31,7 +31,7 @@ export default function LoginPage() {
           <h2>Login</h2>
           <form className={styles.loginform} onSubmit={handleSubmit(submit)} noValidate>
             <Input
-              type="email"
+              type="email" 
               label="Email"
               placeholder="youremail@gmail.com"
               {...register("email", {
