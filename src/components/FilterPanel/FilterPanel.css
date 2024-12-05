@@ -1,0 +1,61 @@
+.filter-panel {
+    margin-bottom: 20px; 
+    padding: 10px 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
+}
+
+.filter-panel.open {
+    max-height: 500px; 
+    opacity: 1;
+    padding: 10px 12px;
+}
+
+.filter-panel h4 {
+    margin-bottom: 10px;
+    text-align: left;
+    color: #0055A2; /* SJSU Blue */
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.course-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f2f2f2;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.course-name {
+    margin-right: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.filter-panel .filter-list p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}

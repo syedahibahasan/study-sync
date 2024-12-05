@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
+import FilterPanel from "../../components/FilterPanel/FilterPanel";
 import ChatGroup from "../../components/ChatGroup/ChatGroup"; // Chat area component
 import { Plus, UserRoundPlus, Filter, ChevronDown, ChevronUp } from "lucide-react";
 import "./UserDashboard.css";
@@ -11,10 +12,12 @@ export default function UserDashboard() {
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isCreateGroupPanelOpen, setIsCreateGroupPanelOpen] = useState(false);
+  const [allMatchingGroups, setAllMatchingGroups] = useState([]);
   const [matchingGroups, setMatchingGroups] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [expandedGroups, setExpandedGroups] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
 
   useEffect(() => {
     loadMatchingGroups();
@@ -22,8 +25,13 @@ export default function UserDashboard() {
   }, []);
 
   async function loadMatchingGroups() {
-    const groups = await fetchMatchingGroups();
-    setMatchingGroups(groups.matchingGroups || []);
+    try {
+      const groups = await fetchMatchingGroups(userId);
+      setAllMatchingGroups(groups.matchingGroups || []);
+      setMatchingGroups(groups.matchingGroups || []);
+    } catch (error) {
+      console.error("Error fetching matching groups:", error);
+    }
   }
 
   async function loadMyGroups() {
@@ -53,8 +61,23 @@ export default function UserDashboard() {
 
   const handleGroupSelect = (group) => setSelectedGroup(group);
 
+  const handleFilterChange = useCallback((selectedCourseIds) => {
+    setSelectedCourses(selectedCourseIds);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCourses.length > 0) {
+      const filtered = allMatchingGroups.filter(group =>
+        selectedCourses.includes(group.courseId)
+      );
+      setMatchingGroups(filtered);
+    } else {
+      setMatchingGroups(allMatchingGroups);
+    }
+  }, [selectedCourses, allMatchingGroups]);
+
   const handleBack = () => setSelectedGroup(null);
-  
+
   const toggleGroupExpansion = (groupId) => {
     setExpandedGroups((prev) =>
     prev.includes(groupId) ? prev.filter(id => id !== groupId) : [...prev, groupId]
@@ -130,19 +153,6 @@ export default function UserDashboard() {
                   </button>
                   <span className="tooltip-text">Filter</span>
                 </div>
-                {isFilterOpen && (
-                  <div className="panel">
-                    <h3>Filter by:</h3>
-                    <div className="filter-list">
-                      {["Class", "Time", "Location"].map((item) => (
-                        <label key={item}>
-                          {item}
-                          <input type="checkbox" name={item} />
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
                 <div className="tooltip-container">
                   <button
                     className="action-button"
@@ -166,6 +176,12 @@ export default function UserDashboard() {
                 loadMatchingGroups={loadMatchingGroups} // Pass the function
               />
             )}
+
+            {/* Filter Panel */}
+            <FilterPanel
+              isOpen={isFilterOpen}
+              onFilterChange={handleFilterChange}
+            />
 
             {/* Available Groups */}
             <div className="group-list">
