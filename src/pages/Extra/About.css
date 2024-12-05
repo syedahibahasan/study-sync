@@ -22,7 +22,7 @@ h2 {
 }
 .auth-form-container {
   padding: 2.8rem;
-  border: 8px solid #005823;
+  border: 8px solid #040058;
   border-radius: 10px;
   margin: 0.4rem;
 }
@@ -59,11 +59,11 @@ input {
   border: none;
   background: none;
   cursor: pointer;
-  color: #005823;
+  color: #040058;
 }
 
 #title {
-  color: rgb(4, 73, 39);
+  color: #040058;
   font-family: "Cabin";
   text-decoration: underline;
 }
@@ -74,13 +74,13 @@ input {
     height: auto; /* Height set to auto to contain the content */
     margin: 0 auto; /* This will center the container if it's not flexed */
     padding: 20px; /* Padding inside the container */
-    border: 5px solid #005823;
+    border: 5px solid #040058;
     border-radius: 10px;
     text-align: center; /* Center the text inside the container */
     background-color: white;
     font-weight: bold;
     font-size: 20px;
-    color: #005823;
+    color: #040058;
     white-space: nowrap;
 }
 
@@ -98,5 +98,5 @@ input {
   padding: 0; /* Removed the padding to allow true centering */
   min-height: 100vh; /* Minimum height to take full viewport height */
   word-wrap: break-word;
-  background: linear-gradient(to bottom, rgb(205, 221, 205), white);
+  background: linear-gradient(to bottom, #7b74ff, white);
 }

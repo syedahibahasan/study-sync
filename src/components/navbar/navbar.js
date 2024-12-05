@@ -41,9 +41,6 @@ const Navbar = () => {
             className="logo"
           />
         </CustomLink>
-        <div className="search-bar">
-          <SearchBar />
-        </div>
         <div className={`sidebar ${isOpen ? "open" : ""}`} ref={menuRef}>
           <div className="sidebar-content">
             <p className="side-bar-name">Menu</p>
