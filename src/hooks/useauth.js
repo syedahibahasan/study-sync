@@ -309,29 +309,6 @@ const fetchMessages = async (groupId) => {
   }
 };
 
-// Send a message to a group
-const sendMessage = async (groupId, message) => {
-  try {
-    const messages = await groupServices.sendMessage(groupId, message);
-    return messages; // Return the updated message list
-  } catch (error) {
-    console.error("Failed to send message:", error);
-    toast.error("Failed to send the message. Please try again.");
-  }
-};
-
-// Fetch messages for a group
-const fetchMessages = async (groupId) => {
-  try {
-    const response = await groupServices.fetchMessages(groupId);
-    return response.messages || []; // Ensure it returns an array
-  } catch (error) {
-    console.error("Failed to fetch messages:", error);
-    toast.error("Could not fetch messages");
-    return [];
-  }
-};
-
 // Fetch details of a specific group
 const fetchGroupDetails = async (groupId) => {
   try {
