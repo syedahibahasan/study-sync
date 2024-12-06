@@ -10,21 +10,12 @@ const Navbar = () => {
   const menuRef = useRef(null);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((isOpen) => !isOpen);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const closeMenu = () => {
+    setIsOpen(false);
+  }
 
   const handleLogout = () => {
     logout();
@@ -41,7 +32,9 @@ const Navbar = () => {
             className="logo"
           />
         </CustomLink>
-        <div className={`sidebar ${isOpen ? "open" : ""}`} ref={menuRef}>
+        <div className={`sidebar ${isOpen ? "open" : ""}`}>
+          {/* Clicking empty space on sidebar will trigger closeMenu, but links work */}
+        {isOpen && <div className="overlay" onClick={closeMenu}></div>}
           <div className="sidebar-content">
             <p className="side-bar-name">Menu</p>
             <div className="cont">
@@ -91,7 +84,7 @@ const Navbar = () => {
           </div>
         </div>
         <ul className="navigation-links">
-          <div className="sidebar-toggle" onClick={toggleMenu} ref={menuRef}>
+          <div className="sidebar-toggle" onClick={toggleMenu}>
             <div className="hamicon">&#8801;</div>
           </div>
           <div className="loginbutton">

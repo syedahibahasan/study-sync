@@ -124,7 +124,7 @@ input[type="text"] {
   width: 100%;
   background-color: #0055A2;
   color: rgb(0, 0, 0);
-  font-family: "Cabin";
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   position: fixed;
   align-items: center;
@@ -157,6 +157,7 @@ li {
   color: #fff;
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Cabin";
 }
 .headers:hover {
   color: rgb(151, 151, 151);
@@ -215,6 +216,8 @@ li {
   margin-top: -10px;
   font-size: 45px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Cabin";
+  user-select: none;
 }
 .hamicon:hover {
   transform: scale(1.2);
@@ -235,7 +238,7 @@ li {
   padding-top: 10px;
 }
 .contentin:hover {
-  color: rgb(144, 189, 158);
+  color: #E5A823;
   transform: scale(1.05);
 }
 
@@ -257,7 +260,7 @@ li {
   width: 100%;
   background-color: #0055A2;
   color: rgb(0, 0, 0);
-  font-family: "Cabin";
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   position: fixed;
   align-items: center;
@@ -277,5 +280,15 @@ li {
   width: 100%;
   height: 5px; /* Height of the yellow gradient line */
   background: linear-gradient(to right, #FFEB3B, #FF9800); /* Yellow gradient */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  z-index: -999;
 }
 

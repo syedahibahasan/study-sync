@@ -16,7 +16,7 @@ const BrowsingPage = () => {
           <h1>Welcome to StudySync</h1>
           <p>Find study buddies today!</p>
           <div id="centerBody">
-            <a href="/login/" className={styles.customButton}>Login</a>
+            <a href="/login/" className={styles.customButton}>Log In</a>
             <a href="/register/" className={styles.customButton}>Sign Up</a>
           </div>
         </div>
