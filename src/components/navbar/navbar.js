@@ -91,7 +91,7 @@ const Navbar = () => {
           </div>
         </div>
         <ul className="navigation-links">
-          <div className="sidebar-toggle" onClick={toggleMenu}>
+          <div className="sidebar-toggle" onClick={toggleMenu} ref={menuRef}>
             <div className="hamicon">&#8801;</div>
           </div>
           <div className="loginbutton">
