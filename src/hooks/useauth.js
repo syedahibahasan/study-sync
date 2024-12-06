@@ -270,6 +270,21 @@ const leaveGroup = async (userId, groupId) => {
   }
 };
 
+const removeGroupUser = async (userId, removedUserId, groupId) => {
+  try {
+    // Call the remove user from group API in groupServices
+    await groupServices.removeGroupUser(userId, removedUserId, groupId);
+
+    // Optionally refresh the user's groups after deletion
+    const updatedGroups = await fetchMyGroups();
+    setUser({ ...user, groups: updatedGroups.myGroups.map((g) => g._id) });
+
+    toast.success("Removed user successfully!");
+  } catch (error) {
+    console.error("Error removing user from group:", error);
+  }
+};
+
 
 // Send a message to a group
 const sendMessage = async (groupId, message) => {
@@ -337,6 +352,7 @@ return (
       fetchMessages,
       fetchGroupDetails,
       leaveGroup,
+      removeGroupUser,
     }}
   >
     {children}

@@ -10,7 +10,7 @@ const socket = io("http://localhost:5001");
 
 export default function ChatGroup({ userId }) {
   const { groupId } = useParams(); // Fetch groupId from URL
-  const { user, deleteGroup, leaveGroup, sendMessage, fetchGroupDetails } = useAuth();
+  const { user, deleteGroup, leaveGroup, removeGroupUser, sendMessage, fetchGroupDetails } = useAuth();
   const navigate = useNavigate();
 
   const [group, setGroup] = useState(null);
@@ -113,6 +113,24 @@ const handleKeyPress = (e) => {
     }
   };
 
+  // Handle remove user from group
+  const handleRemoveGroupUser = async (deletedUser) => {
+    try {
+
+        if (group.admin?._id === user._id) {
+            await removeGroupUser(user._id, deletedUser._id, group._id);
+
+            // Update UI - remove from local group state or navigate
+            setGroup(null); // Clear group data
+            navigate("/userdashboard"); // Redirect after deletion
+        } else {
+            console.error("User is not authorized to remove other users.");
+        }
+    } catch (error) {
+        console.error("Error removing user:", error);
+    }
+  };
+
   // Handle leave the group
   const handleLeaveGroup = async () => {
     try {
@@ -185,7 +203,8 @@ const handleKeyPress = (e) => {
             </p>
             <ul>
               {group.members?.map((member) => (
-                <li key={member._id}>{member.username}</li>
+                <li key={member._id}>{member.username} {isAdmin && (<button className="close-popup" onClick={() => handleRemoveGroupUser(member)}> × </button>)}</li> 
+                
               ))}
             </ul>
             {isAdmin ? (
