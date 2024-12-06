@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PlaneIcon, ArrowLeftIcon, InfoIcon } from "lucide-react";
+import { PlaneIcon, SendHorizontal, ArrowLeftIcon, InfoIcon, Trash2 } from "lucide-react";
 import { io } from "socket.io-client";
 import { useAuth } from "../../hooks/useauth";
 import { useParams, useNavigate } from "react-router-dom";
@@ -59,7 +59,6 @@ export default function ChatGroup({ userId }) {
     };
   }, [groupId, fetchGroupDetails]);
   
-
   // Handle sending a message
   const handleSendMessage = async () => {
     if (message.trim()) {
@@ -213,10 +212,10 @@ const handleKeyPress = (e) => {
                   className="delete-button"
                   onClick={handleDeleteGroup}
                 >
-                  Delete Group
+                  <Trash2/>
                 </button>
                 <span className="tooltip-text">
-                  Only admin can delete group!
+                  Delete Group!
                 </span>
               </div>
             ):(

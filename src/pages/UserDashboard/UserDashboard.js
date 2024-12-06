@@ -86,7 +86,7 @@ export default function UserDashboard() {
   return (
     <div className="container">
       <GroupSidebar />
-
+      
       <div className="main-content">
       <Routes>
   <Route
@@ -142,7 +142,6 @@ export default function UserDashboard() {
             loadMatchingGroups={fetchMatchingGroups}
           />
         )}
-
         <div className="group-list">
           <h3 className="group-list-title">Available Study Groups</h3>
           {matchingGroups && matchingGroups.length > 0 ? (

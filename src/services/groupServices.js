@@ -78,7 +78,6 @@ export const leaveGroup = async (userId, groupId) => {
   }
 };
 
-
   //Chatting 
   export const sendMessage = async (groupId, message) => {
     try {
