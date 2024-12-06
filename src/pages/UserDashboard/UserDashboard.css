@@ -59,73 +59,8 @@
     color: white; /* Text color for the selected group */
     font-weight: bold; /* Make the text bold */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for better visibility */
-}
-
-/* Expanded Details */
-.expanded-details {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    max-height: 0;
-    opacity: 0;
-    padding: 0 10px; /* Remove vertical padding when collapsed */
-    background-color: white;
-    border-left: 3px solid #0055A2; /* Highlight with SJSU Blue */
-    margin-top: 3px;
-    border-radius: 5px;
-    overflow: hidden; /* Prevent content spill */
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
-}
-
-.expanded-details.expanded {
-    max-height: 500px; /* Adjust as necessary */
-    opacity: 1;
-    padding: 5px 10px; /* Add vertical padding when expanded */
-}
-
-.expanded-details p {
-    margin: 7px 0;
-    font-size: 15px;
-    color: black;
-    text-align: left;
-    margin-left: 5px;
-    font-family: Arial, sans-serif;
-}
-
-.expanded-details {
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
-}
-
-.detail-value {
-    font-weight: normal;                   
-    color: #333333;                  
-}
-
-.members-list {
-    list-style-type: disc;
-    margin-left: 20px;
-    padding-left: 0;
-}
-
-.members-list li {
-    font-size: 14px;
-    margin: 3px 0;
-}
-
-/* Expand/Collapse Button */
-.expand-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-}
-
-.expand-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-}
+  }
+  
 
 /* Main Content */
 .main-content {
