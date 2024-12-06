@@ -11,7 +11,7 @@
 /* Sidebar */
 .sidebar-container {
     width: 20%;
-    background-color: #0055A2; /* SJSU Blue */
+    background-color: #ffffff; /* SJSU Blue */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -25,16 +25,16 @@
     text-align: left;
     font-weight: bold;
     text-transform: uppercase;
-    color: #E5A823; /* SJSU Gold */
+    color: #0055A2; /* SJSU Blue */
     margin-bottom: 20px;
+    margin-top: 8px;
 }
 
 .sidebar-item {
     padding: 12px 15px;
     border-radius: 5px;
-    background-color: #1C88F4; /* Rollover Blue */
-    color: white;
-    font-weight: bold;
+    background-color: #e3e3e3; /* Rollover Blue */
+    color: rgb(0, 0, 0);
     cursor: pointer;
     text-align: left;
     transition: background-color 0.3s;
@@ -55,8 +55,8 @@
 /* Main Content */
 .main-content {
     flex: 1;
-    background-color: #f9f9f9;
-    padding: 20px;
+    background-color: #f5f5f5;
+    padding: 10px;
     overflow-y: auto; /* Makes the content scrollable */
     display: flex;
     flex-direction: column;
@@ -143,7 +143,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background-color: #D2D2D2; /* SJSU Light Gray */
+    background-color: #e3e3e3; /* SJSU Light Gray */
     border-radius: 5px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease;

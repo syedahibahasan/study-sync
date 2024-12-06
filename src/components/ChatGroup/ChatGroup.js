@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PlaneIcon, ArrowLeftIcon, InfoIcon } from "lucide-react";
+import { SendHorizontal, ArrowLeftIcon, InfoIcon, Trash2 } from "lucide-react";
 import { io } from "socket.io-client";
 import { useAuth } from "../../hooks/useauth";
 import { useParams, useNavigate } from "react-router-dom";
@@ -183,10 +183,10 @@ const handleKeyPress = (e) => {
                   className="delete-button"
                   onClick={handleDeleteGroup}
                 >
-                  Delete Group
+                  <Trash2/>
                 </button>
                 <span className="tooltip-text">
-                  Only admin can delete group!
+                  Delete Group!
                 </span>
               </div>
             )}
@@ -221,7 +221,7 @@ const handleKeyPress = (e) => {
         />
         <div className="tooltip-container info-button-container">
         <button className="send-button" onClick={handleSendMessage}>
-          <PlaneIcon />
+          <SendHorizontal />
         </button>
         <span className="tooltip-text">Send</span>
       </div>
