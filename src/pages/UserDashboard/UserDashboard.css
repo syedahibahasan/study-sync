@@ -18,6 +18,12 @@
     gap: 10px;
     border-right: 1px solid #D2D2D2; /* Divider for sidebar */
     color: white;
+    overflow-y: auto;
+
+    background-image: url('../../../public/thumbnail/sjsucampus.png'); 
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }
 
 .sidebar-title {
@@ -31,6 +37,10 @@
 }
 
 .sidebar-item {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 12px 15px;
     border-radius: 5px;
     background-color: #e3e3e3; /* Rollover Blue */
@@ -86,7 +96,7 @@
     background-color: #e6e6e6;
 }
 
-/*Action, filter buttons */
+/* Action, filter buttons */
 .action-button,
 .filter-button {
     display: flex; /* Use flexbox for centering */
@@ -127,7 +137,7 @@
 .filter-list {
     display: flex;
     flex-direction: column;
-  }
+}
 
 /* Group List */
 .group-list-title {
@@ -139,34 +149,54 @@
 }
 
 .group-item {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 15px;
-    background-color: #e3e3e3; /* SJSU Light Gray */
+    background-color: #e6e6e6; /* SJSU Light Gray */
     border-radius: 5px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease;
 }
 
-.group-item-description {
-    font-size: 14px;
-    color: #4f4f4f; /* Dark Gray */
-    margin-top: 10px;
+.group-item:hover {
+    background-color: #d1d1d1;
 }
 
-/* Scrollable Sidebar */
-.sidebar-container {
-    overflow-y: auto;
+/* Adjust Group Item Info */
+.group-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+.group-item-description p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  
+  .group-item-description strong {
+    color: #555;
+  }
+  
+  /* Optional: Add some spacing and borders for better separation */
+  .group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left
+  }
 
 /* Tooltip Styling */
 .tooltip-container {
     position: relative;
     display: inline-block;
-  }
+}
   
-  .tooltip-text {
+.tooltip-text {
     visibility: hidden;
     background-color: #666666; 
     color: #fff;
@@ -183,9 +213,27 @@
     transition: opacity 0.3s ease;
     font-size: 12px;
     font-weight: bold;
-  }
-  
-  .tooltip-container:hover .tooltip-text {
+}
+
+.tooltip-container:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
-  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar-container {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #D2D2D2;
+    }
+
+    .main-content {
+        height: auto;
+    }
+}

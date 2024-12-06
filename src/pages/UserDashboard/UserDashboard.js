@@ -12,6 +12,7 @@ export default function UserDashboard() {
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isCreateGroupPanelOpen, setIsCreateGroupPanelOpen] = useState(false);
+  const [allMatchingGroups, setAllMatchingGroups] = useState([]);
   const [matchingGroups, setMatchingGroups] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   
@@ -24,8 +25,13 @@ export default function UserDashboard() {
   }, []);
 
   async function loadMatchingGroups() {
-    const groups = await fetchMatchingGroups();
-    setMatchingGroups(groups.matchingGroups || []);
+    try {
+      const groups = await fetchMatchingGroups(userId);
+      setAllMatchingGroups(groups.matchingGroups || []);
+      setMatchingGroups(groups.matchingGroups || []);
+    } catch (error) {
+      console.error("Error fetching matching groups:", error);
+    }
   }
 
   async function loadMyGroups() {
@@ -80,7 +86,7 @@ export default function UserDashboard() {
   return (
     <div className="container">
       <GroupSidebar />
-
+      
       <div className="main-content">
       <Routes>
   <Route
@@ -100,19 +106,7 @@ export default function UserDashboard() {
               </button>
               <span className="tooltip-text">Filter</span>
             </div>
-            {isFilterOpen && (
-              <div className="panel">
-                <h3>Filter by:</h3>
-                <div className="filter-list">
-                  {["Class", "Time", "Location"].map((item) => (
-                    <label key={item}>
-                      {item}
-                      <input type="checkbox" name={item} />
-                    </label>
-                  ))}
-                </div>
-              </div>
-            )}
+            
             <div className="tooltip-container">
               <button
                 className="action-button"
@@ -124,8 +118,21 @@ export default function UserDashboard() {
               <span className="tooltip-text">Create Group</span>
             </div>
           </div>
+          
         </div>
-
+        {isFilterOpen && (
+          <div className="panel">
+            <h3>Filter by:</h3>
+            <div className="filter-list">
+              {["Class: ", "Time: ", "Location: "].map((item) => (
+                <label key={item}>
+                  {item}
+                  <input type="checkbox" name={item} />
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
         {isCreateGroupPanelOpen && (
           <CreateGroupForm
             onCreateGroup={actionCreateGroup}
@@ -135,7 +142,6 @@ export default function UserDashboard() {
             loadMatchingGroups={fetchMatchingGroups}
           />
         )}
-
         <div className="group-list">
           <h3 className="group-list-title">Available Study Groups</h3>
           {matchingGroups && matchingGroups.length > 0 ? (

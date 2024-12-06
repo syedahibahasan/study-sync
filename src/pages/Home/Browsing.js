@@ -1,7 +1,7 @@
-import React from 'react';
 import styles from './browsing.module.css'; // Import CSS module
 
 const BrowsingPage = () => {
+
   return (
     <div className={styles.container}>
       <div className={styles.heroContainer}>

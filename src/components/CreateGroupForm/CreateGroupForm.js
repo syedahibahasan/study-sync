@@ -155,12 +155,12 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId, loadMy
       editable={false}
       showSaveSchedule={false} // Hide Save Schedule button in this context
     />
-    <button
+    {/*<button
       className="save-schedule-button"
       onClick={handleSaveGroupTimes} // Call only the save schedule logic
     >
       Save Group Times
-    </button>
+    </button>*/}
     {/* <button
       className="close-button"
       onClick={() => setShowSchedulePopup(false)}

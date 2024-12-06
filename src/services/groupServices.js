@@ -47,6 +47,36 @@ export const deleteGroup = async (userId, groupId) => {
   }
 };
 
+//delete group
+export const removeGroupUser = async (userId, removedUserId, groupId) => {
+  const token = localStorage.getItem("token");
+  const url = `/api/groups/${userId}/removeGroupUser/${groupId}/${removedUserId}`;
+  try {
+    const response = await axios.delete(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error removing user from group:", error);
+    throw error;
+  }
+};
+
+//leave group
+export const leaveGroup = async (userId, groupId) => {
+  const token = localStorage.getItem("token");
+  const url = `/api/groups/${userId}/leaveGroup/${groupId}`;
+
+  try {
+    const response = await axios.delete(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting group:", error);
+    throw error;
+  }
+};
 
   //Chatting 
   export const sendMessage = async (groupId, message) => {

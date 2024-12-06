@@ -34,16 +34,13 @@ const Navbar = () => {
   return (
     <div className="wholenavbar">
       <nav className="navbar">
-        <CustomLink className="headers" to="/">
+        <CustomLink className="headers" to={user ? "/userdashboard" : "/login"}>
           <img
             src="/thumbnail/StudySyncTransparent.png"
             alt="Home Page"
             className="logo"
           />
         </CustomLink>
-        <div className="search-bar">
-          <SearchBar />
-        </div>
         <div className={`sidebar ${isOpen ? "open" : ""}`} ref={menuRef}>
           <div className="sidebar-content">
             <p className="side-bar-name">Menu</p>
@@ -59,6 +56,13 @@ const Navbar = () => {
                   >
                     Logout
                     </CustomLink>
+                  <CustomLink
+                    className="contentin"
+                    to="/userdashboard"
+                    onClick={toggleMenu}
+                  >
+                    Dashboard
+                  </CustomLink>
                 </div>
               ) : (
                 <CustomLink className="contentin" to="/login" onClick={toggleMenu}>
@@ -87,7 +91,7 @@ const Navbar = () => {
           </div>
         </div>
         <ul className="navigation-links">
-          <div className="sidebar-toggle" onClick={toggleMenu}>
+          <div className="sidebar-toggle" onClick={toggleMenu} ref={menuRef}>
             <div className="hamicon">&#8801;</div>
           </div>
           <div className="loginbutton">

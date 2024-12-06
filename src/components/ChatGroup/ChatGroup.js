@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SendHorizontal, ArrowLeftIcon, InfoIcon, Trash2 } from "lucide-react";
+import { PlaneIcon, SendHorizontal, ArrowLeftIcon, InfoIcon, Trash2 } from "lucide-react";
 import { io } from "socket.io-client";
 import { useAuth } from "../../hooks/useauth";
 import { useParams, useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ const socket = io("http://localhost:5001");
 
 export default function ChatGroup({ userId }) {
   const { groupId } = useParams(); // Fetch groupId from URL
-  const { user, deleteGroup, sendMessage, fetchGroupDetails } = useAuth();
+  const { user, deleteGroup, leaveGroup, removeGroupUser, sendMessage, fetchGroupDetails } = useAuth();
   const navigate = useNavigate();
 
   const [group, setGroup] = useState(null);
@@ -59,7 +59,6 @@ export default function ChatGroup({ userId }) {
     };
   }, [groupId, fetchGroupDetails]);
   
-
   // Handle sending a message
   const handleSendMessage = async () => {
     if (message.trim()) {
@@ -111,7 +110,36 @@ const handleKeyPress = (e) => {
     } catch (error) {
         console.error("Error deleting group:", error);
     }
-};
+  };
+
+  // Handle remove user from group
+  const handleRemoveGroupUser = async (deletedUser) => {
+    try {
+
+        if (group.admin?._id === user._id) {
+            await removeGroupUser(user._id, deletedUser._id, group._id);
+
+            // Update UI - remove from local group state or navigate
+            setGroup(null); // Clear group data
+            navigate("/userdashboard"); // Redirect after deletion
+        } else {
+            console.error("User is not authorized to remove other users.");
+        }
+    } catch (error) {
+        console.error("Error removing user:", error);
+    }
+  };
+
+  // Handle leave the group
+  const handleLeaveGroup = async () => {
+    try {
+      
+      await leaveGroup(user._id, group._id);
+
+    } catch (error) {
+        console.error("Error deleting group:", error);
+    }
+  };
 
 
   const toggleGroupInfo = () => setShowGroupInfo(!showGroupInfo);
@@ -174,10 +202,11 @@ const handleKeyPress = (e) => {
             </p>
             <ul>
               {group.members?.map((member) => (
-                <li key={member._id}>{member.username}</li>
+                <li key={member._id}>{member.username} {isAdmin && (<button className="close-popup" onClick={() => handleRemoveGroupUser(member)}> × </button>)}</li> 
+                
               ))}
             </ul>
-            {isAdmin && (
+            {isAdmin ? (
               <div className="tooltip-container">
                 <button
                   className="delete-button"
@@ -189,6 +218,15 @@ const handleKeyPress = (e) => {
                   Delete Group!
                 </span>
               </div>
+            ):(
+              <div className="tooltip-container">
+              <button
+                className="delete-button"
+                onClick={handleLeaveGroup}
+              >
+                Leave Group
+              </button>
+            </div>
             )}
           </div>
         </div>
@@ -221,7 +259,7 @@ const handleKeyPress = (e) => {
         />
         <div className="tooltip-container info-button-container">
         <button className="send-button" onClick={handleSendMessage}>
-          <SendHorizontal />
+          <PlaneIcon />
         </button>
         <span className="tooltip-text">Send</span>
       </div>

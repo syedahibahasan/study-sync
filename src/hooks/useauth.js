@@ -255,6 +255,59 @@ const deleteGroup = async (userId, groupId) => {
   }
 };
 
+const leaveGroup = async (userId, groupId) => {
+  try {
+    // Call the leave group API in groupServices
+    await groupServices.leaveGroup(userId, groupId);
+
+    // Optionally refresh the user's groups after deletion
+    const updatedGroups = await fetchMyGroups();
+    setUser({ ...user, groups: updatedGroups.myGroups.map((g) => g._id) });
+
+    toast.success("Group left successfully!");
+  } catch (error) {
+    console.error("Error leaving group:", error);
+  }
+};
+
+const removeGroupUser = async (userId, removedUserId, groupId) => {
+  try {
+    // Call the remove user from group API in groupServices
+    await groupServices.removeGroupUser(userId, removedUserId, groupId);
+
+    // Optionally refresh the user's groups after deletion
+    const updatedGroups = await fetchMyGroups();
+    setUser({ ...user, groups: updatedGroups.myGroups.map((g) => g._id) });
+
+    toast.success("Removed user successfully!");
+  } catch (error) {
+    console.error("Error removing user from group:", error);
+  }
+};
+
+
+// Send a message to a group
+const sendMessage = async (groupId, message) => {
+  try {
+    const messages = await groupServices.sendMessage(groupId, message);
+    return messages; // Return the updated message list
+  } catch (error) {
+    console.error("Failed to send message:", error);
+    toast.error("Failed to send the message. Please try again.");
+  }
+};
+
+// Fetch messages for a group
+const fetchMessages = async (groupId) => {
+  try {
+    const response = await groupServices.fetchMessages(groupId);
+    return response.messages || []; // Ensure it returns an array
+  } catch (error) {
+    console.error("Failed to fetch messages:", error);
+    toast.error("Could not fetch messages");
+    return [];
+  }
+};
 
 // Send a message to a group
 const sendMessage = async (groupId, message) => {
@@ -284,11 +337,9 @@ const fetchGroupDetails = async (groupId) => {
   try {
     // API call to fetch group details
     const response = await groupServices.fetchGroupDetails(groupId);
-
     if (!response) {
       throw new Error("Failed to fetch group details. Response is empty.");
     }
-
     // Return the group details
     return response;
   } catch (error) {
@@ -321,6 +372,8 @@ return (
       sendMessage,
       fetchMessages,
       fetchGroupDetails,
+      leaveGroup,
+      removeGroupUser,
     }}
   >
     {children}

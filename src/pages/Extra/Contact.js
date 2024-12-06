@@ -12,13 +12,11 @@ const Contact = () => {
           ></link>
         </head>
         <h1 id="title">Contact Us</h1>
-        <p>Email: onlinefoodstore@gmail.com</p>
+        <p>Email: studysync@gmail.com</p>
 
-        <p>Phone: 408-498-2294</p>
+        <p>Phone: (111) 111-1111 </p>
 
-        <p>Instagram: Online_Food_Store</p>
-
-        <p>Website Developed By: Alan, Connie, Hiba, Tanya, Phuc</p>
+        <p>Website Developed By: Alan, Hiba, Jeremy, James</p>
       </div>
     </div>
   );

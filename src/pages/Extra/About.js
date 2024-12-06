@@ -15,24 +15,22 @@ const About = () => {
         <h1 id="title">About Us</h1>
         <div className="info">
           <p>
-            "OFS" (Online Food Store) aims to establish an online platform to
+          Study Sync is an online platform designed to help 
             <br></br>
-            conveniently allow customers to purchase organic grocery items
-            through a<br></br>
-            digital payment process. OFS aims to serve customers located within
+            SJSU students easily connect with peers who share the same 
             <br></br>
-            delivery distance around downtown San Jose. Customers should have a
+            course, schedule, and location preferences.
             <br></br>
-            pleasant shopping experience where they can see what grocery items
-            are
+            By streamlining the process of forming and joining study 
             <br></br>
-            available, add them to a virtual cart, have a secure payment
-            process,
+            groups, Study Sync offers a convenient and efficient way 
             <br></br>
-            and receive their groceries delivered to their home.
+            for students to collaborate, fostering a collaborative 
+            <br></br>
+            learning environment with just a few clicks.
           </p>
           <br></br>
-          <p>Website Developed By: Alan, Connie, Hiba, Tanya, Phuc</p>
+          <p>Website Developed By: Alan, Hiba, Jeremy, James</p>
         </div>
       </div>
     </div>
