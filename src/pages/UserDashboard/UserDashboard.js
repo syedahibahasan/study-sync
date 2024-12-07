@@ -127,7 +127,7 @@ export default function UserDashboard() {
   if (selectedTimes.length > 0) {
     filtered = filtered.filter((group) =>
       Array.isArray(group.selectedTimes) && group.selectedTimes.some((meeting) =>
-        Array.isArray(meeting.times) && meeting.times.some((time) =>
+        Array.isArray(meeting.times) && meeting.times.every((time) =>
           selectedTimes.includes(time)
         )
       )

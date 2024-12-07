@@ -258,4 +258,10 @@
   .info-button:hover {
     color: #E5A823; /* Darker shade for hover effect */
   }
+
+  .scrollable-context {
+    width: 300px;
+    height: 200px;
+    overflow: auto;
+  }
   
