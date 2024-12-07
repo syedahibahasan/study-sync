@@ -197,7 +197,7 @@ export default function FilterPanel({ isOpen, onFilterChange }) {
         <div className="filter-section">
           <h4>Filter by Time ⌚:</h4>
           <div className="filter-list">
-            <div className="time-container">
+            <div className="filter-time-container">
               {timeSlots.map((time) => (
                 <span key={`cell-${time}`}
                 onMouseDown={() => {
