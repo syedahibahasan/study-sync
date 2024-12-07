@@ -10,21 +10,12 @@ const Navbar = () => {
   const menuRef = useRef(null);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((isOpen) => !isOpen);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const closeMenu = () => {
+    setIsOpen(false);
+  }
 
   const handleLogout = () => {
     logout();
@@ -34,17 +25,16 @@ const Navbar = () => {
   return (
     <div className="wholenavbar">
       <nav className="navbar">
-        <CustomLink className="headers" to="/">
+        <CustomLink className="headers" to={user ? "/userdashboard" : "/login"}>
           <img
             src="/thumbnail/StudySyncTransparent.png"
             alt="Home Page"
             className="logo"
           />
         </CustomLink>
-        <div className="search-bar">
-          <SearchBar />
-        </div>
-        <div className={`sidebar ${isOpen ? "open" : ""}`} ref={menuRef}>
+        <div className={`sidebar ${isOpen ? "open" : ""}`}>
+          {/* Clicking empty space on sidebar will trigger closeMenu, but links work */}
+        {isOpen && <div className="overlay" onClick={closeMenu}></div>}
           <div className="sidebar-content">
             <p className="side-bar-name">Menu</p>
             <div className="cont">
@@ -59,6 +49,13 @@ const Navbar = () => {
                   >
                     Logout
                     </CustomLink>
+                  <CustomLink
+                    className="contentin"
+                    to="/userdashboard"
+                    onClick={toggleMenu}
+                  >
+                    Dashboard
+                  </CustomLink>
                 </div>
               ) : (
                 <CustomLink className="contentin" to="/login" onClick={toggleMenu}>

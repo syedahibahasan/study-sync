@@ -11,13 +11,19 @@
 /* Sidebar */
 .sidebar-container {
     width: 20%;
-    background-color: #0055A2; /* SJSU Blue */
+    background-color: #ffffff; /* SJSU Blue */
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     border-right: 1px solid #D2D2D2; /* Divider for sidebar */
     color: white;
+    overflow-y: auto;
+
+    background-image: url('../../../public/thumbnail/sjsucampus.png'); 
+    background-size: cover;
+    background-position: center;
+    position: relative;
 }
 
 .sidebar-title {
@@ -25,30 +31,42 @@
     text-align: left;
     font-weight: bold;
     text-transform: uppercase;
-    color: #E5A823; /* SJSU Gold */
+    color: #0055A2; /* SJSU Blue */
     margin-bottom: 20px;
+    margin-top: 8px;
 }
 
 .sidebar-item {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 12px 15px;
     border-radius: 5px;
-    background-color: #1C88F4; /* Rollover Blue */
-    color: white;
-    font-weight: bold;
+    background-color: #e3e3e3; /* Rollover Blue */
+    color: rgb(0, 0, 0);
     cursor: pointer;
     text-align: left;
     transition: background-color 0.3s;
 }
 
 .sidebar-item:hover {
-    background-color: #E5A823; /* SJSU Gold */
+    background-color: #3b49556f; /* SJSU Gold */
 }
+
+.sidebar-item.selected {
+    background-color: #E5A823; /* Highlight color */
+    color: white; /* Text color for the selected group */
+    font-weight: bold; /* Make the text bold */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for better visibility */
+  }
+  
 
 /* Main Content */
 .main-content {
     flex: 1;
-    background-color: #f9f9f9;
-    padding: 20px;
+    background-color: #f5f5f5;
+    padding: 10px;
     overflow-y: auto; /* Makes the content scrollable */
     display: flex;
     flex-direction: column;
@@ -78,7 +96,7 @@
     background-color: #e6e6e6;
 }
 
-/*Action, filter buttons */
+/* Action, filter buttons */
 .action-button,
 .filter-button {
     display: flex; /* Use flexbox for centering */
@@ -119,7 +137,7 @@
 .filter-list {
     display: flex;
     flex-direction: column;
-  }
+}
 
 /* Group List */
 .group-list-title {
@@ -131,33 +149,54 @@
 }
 
 .group-item {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 15px;
-    background-color: #D2D2D2; /* SJSU Light Gray */
+    background-color: #e6e6e6; /* SJSU Light Gray */
     border-radius: 5px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease;
 }
 
-.group-item-description {
-    font-size: 14px;
-    color: #666666; /* Dark Gray */
+.group-item:hover {
+    background-color: #d1d1d1;
 }
 
-/* Scrollable Sidebar */
-.sidebar-container {
-    overflow-y: auto;
+/* Adjust Group Item Info */
+.group-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+.group-item-description p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  
+  .group-item-description strong {
+    color: #555;
+  }
+  
+  /* Optional: Add some spacing and borders for better separation */
+  .group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left
+  }
 
 /* Tooltip Styling */
 .tooltip-container {
     position: relative;
     display: inline-block;
-  }
+}
   
-  .tooltip-text {
+.tooltip-text {
     visibility: hidden;
     background-color: #666666; 
     color: #fff;
@@ -174,9 +213,27 @@
     transition: opacity 0.3s ease;
     font-size: 12px;
     font-weight: bold;
-  }
-  
-  .tooltip-container:hover .tooltip-text {
+}
+
+.tooltip-container:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
-  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar-container {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #D2D2D2;
+    }
+
+    .main-content {
+        height: auto;
+    }
+}

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from 'react-toastify';
 
 // Getting user data from local storage
 export const getUser = () => {
@@ -12,7 +11,6 @@ axios.interceptors.response.use(
   (response) => response,  
   (error) => {
     if (error.response && error.response.status === 401) {
-      toast.error("Session expired. Please log in again.");
       // Clear storage and redirect to login
       localStorage.removeItem("user");
       localStorage.removeItem("token");
@@ -104,7 +102,7 @@ export const fetchSchedule = async (userId) => {
       `/api/users/${userId}/schedule`,
       { headers: { Authorization: `Bearer ${token}` } }
   );
-  return data.schedule;
+  return data.schedule; 
 };
 
 export const savePreferredLocations = async (userId, preferredLocations) => {
@@ -125,4 +123,60 @@ export const fetchPreferredLocations = async (userId) => {
   );
   
   return data.preferredLocations;
+};
+
+export const updateUserGroupTime = async (userId, studyGroupTime) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.post(
+    `/api/users/${userId}/studyGroupTime`,
+    { studyGroupTime },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return data;
+};
+
+
+// Groups
+
+// Create group
+export const createGroup = async (userId, groupData) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.post(`/api/groups/${userId}/createGroup`, 
+    { groupData: groupData },
+    { headers: { Authorization: `Bearer ${token}` },
+  });
+  return data;
+};
+
+// Join group
+export const joinGroup = async (userId, groupData) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.post(
+    `/api/groups/${userId}/joinGroup`,
+    { groupData: groupData },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return data;
+};
+
+// Fetch groups that match user's preferences
+export const fetchMatchingGroups = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(`/api/groups/${userId}/matchingGroups`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data;
+};
+
+// Fetch groups that user has joined
+export const fetchMyGroups = async (userId) => {
+  const token = localStorage.getItem("token");
+  const { data } = await axios.get(`/api/groups/${userId}/myGroups`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data;
 };

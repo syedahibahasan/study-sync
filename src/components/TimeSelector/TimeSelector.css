@@ -91,13 +91,13 @@
   background-color: #4CAF50 !important; 
 }
 
-.time-item.cell.course-time {
-  background-color: #4CAF50;
-  cursor: not-allowed;
+.time-item.cell.selected-group-time {
+  background-color: #E5A823;
+  cursor: pointer;
 }
 
-.legend-circle.course-time {
-  background-color: #4CAF50;
+.legend-circle.selected-group-time {
+  background-color: #44aafd;
 }
 
 .time-item.time {
@@ -136,4 +136,21 @@
 
 .refresh-schedule-button:hover {
   background-color: #1C88F4;
+}
+
+/* Yellow highlight for group times */
+.group-time {
+  background-color: #E5A823; /* SJSU Gold */
+  border: 1px solid #cc8c19; /* Darker gold for contrast */
+  cursor: not-allowed;
+}
+
+/* Prevent overlap: gray cells remain unclickable */
+.time-item.cell.busy-time {
+  opacity: 0.6;
+}
+
+/* CSS for non-editable cells */
+.time-item.cell.non-editable {
+  opacity: 0.8;
 }
