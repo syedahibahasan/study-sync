@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
+import FilterPanel from "../../components/FilterPanel/FilterPanel";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import ChatGroup from "../../components/ChatGroup/ChatGroup";
 import { Plus, UserRoundPlus, Filter } from "lucide-react";
 import "./UserDashboard.css";
@@ -17,7 +19,13 @@ export default function UserDashboard() {
   const [myGroups, setMyGroups] = useState([]);
   
   const { groupId: selectedGroupId } = useParams(); // This will give the currently selected group ID
+  const [selectedCourses, setSelectedCourses] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [selectedTimes, setSelectedTimes] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
   const navigate = useNavigate();
+
 
   useEffect(() => {
     loadMatchingGroups();
@@ -81,6 +89,72 @@ export default function UserDashboard() {
       )}
     </div>
   );
+
+  const handleSearch = (keyword) => {
+    setSearchKeyword(keyword);
+  };
+
+  const handleFilterChange = useCallback(({ courses, locations, days, times }) => {
+    setSelectedCourses(courses);
+    setSelectedLocations(locations);
+    setSelectedDays(days);
+    setSelectedTimes(times);
+  }, []);
+
+  useEffect(() => {
+    let filtered = allMatchingGroups;
+
+    if (selectedCourses.length > 0) {
+      filtered = filtered.filter((group) =>
+        selectedCourses.includes(group.courseId)
+      );
+    }
+
+    if (selectedLocations.length > 0) {
+      filtered = filtered.filter((group) =>
+        selectedLocations.includes(group.location)
+      );
+    }
+
+   if (selectedDays.length > 0) {
+    filtered = filtered.filter((group) =>
+      Array.isArray(group.selectedTimes) && group.selectedTimes.some((meeting) =>
+        selectedDays.includes(meeting.day)
+      )
+    );
+  }
+
+  if (selectedTimes.length > 0) {
+    filtered = filtered.filter((group) =>
+      Array.isArray(group.selectedTimes) && group.selectedTimes.some((meeting) =>
+        Array.isArray(meeting.times) && meeting.times.some((time) =>
+          selectedTimes.includes(time)
+        )
+      )
+    );
+  }
+
+  if (searchKeyword.trim() !== "") {
+    const keyword = searchKeyword.toLowerCase();
+    filtered = filtered.filter((group) => {
+      const nameMatch = group.name.toLowerCase().includes(keyword);
+      const courseNameMatch = group.courseName.toLowerCase().includes(keyword);
+      const locationMatch = group.location.toLowerCase().includes(keyword);
+      
+      const timesMatch = group.selectedTimes.some((meeting) => {
+        const dayMatch = meeting.day.toLowerCase().includes(keyword);
+        const timeMatch = meeting.times.some((time) =>
+          time.toLowerCase().includes(keyword)
+        );
+        return dayMatch || timeMatch;
+      });
+      
+      return nameMatch || courseNameMatch || locationMatch || timesMatch;
+    });
+  }
+
+    setMatchingGroups(filtered);
+  }, [selectedCourses, selectedLocations, selectedDays, selectedTimes, searchKeyword, allMatchingGroups]);
   
 
   return (
@@ -95,7 +169,7 @@ export default function UserDashboard() {
       <div>
         <div className="header-container">
           <div className="group-search-bar">
-            <input type="text" placeholder="Search" />
+            <SearchBar onSearch={handleSearch} />
             <div className="tooltip-container">
               <button
                 className="filter-button"
@@ -118,21 +192,13 @@ export default function UserDashboard() {
               <span className="tooltip-text">Create Group</span>
             </div>
           </div>
-          
         </div>
-        {isFilterOpen && (
-          <div className="panel">
-            <h3>Filter by:</h3>
-            <div className="filter-list">
-              {["Class: ", "Time: ", "Location: "].map((item) => (
-                <label key={item}>
-                  {item}
-                  <input type="checkbox" name={item} />
-                </label>
-              ))}
-            </div>
-          </div>
-        )}
+
+        <FilterPanel
+          isOpen={isFilterOpen}
+          onFilterChange={handleFilterChange}
+        />
+
         {isCreateGroupPanelOpen && (
           <CreateGroupForm
             onCreateGroup={actionCreateGroup}

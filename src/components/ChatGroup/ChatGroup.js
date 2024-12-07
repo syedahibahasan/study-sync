@@ -135,6 +135,7 @@ const handleKeyPress = (e) => {
     try {
       
       await leaveGroup(user._id, group._id);
+      navigate("/userdashboard")
 
     } catch (error) {
         console.error("Error deleting group:", error);
@@ -191,6 +192,21 @@ const handleKeyPress = (e) => {
             <p>
               <strong>Time:</strong> {group.time}
             </p>
+
+            <div className="scrollable-context">
+              {group.selectedTimes.map((schedule) => (
+                <div key={schedule._id} style={{ marginBottom: "20px" }}>
+                  <h2>{schedule.day}</h2>
+                  <ul>
+                    {schedule.times.map((time, index) => (
+                    <li key={index}>{time}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+        
+        <p><solid>_________________________________________</solid></p>
             <p>
               <strong>Location:</strong> {group.location}
             </p>
