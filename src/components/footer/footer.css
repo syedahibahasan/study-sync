@@ -1,0 +1,61 @@
+.footer-container {
+  background: linear-gradient(-180deg, #0055a2 20%, #0761b3 100%);
+  border-top: 5px solid #e5a823;
+  text-align: center;
+  padding-top: 30px;
+  position: relative; /* Allow absolute positioning for the logo */
+  color: white;
+}
+
+.footer-logo {
+  position: absolute; /* Position the logo to float above the footer */
+  top: -45.1px; /* Adjust to overlap the footer's top edge */
+  left: 50%;
+  transform: translateX(-50%); /* Center the logo horizontally */
+}
+
+.footer-logo-image {
+  display: block;
+  margin: 0 auto;
+  width: 91.2px; /* Adjust the logo size */
+  height: auto;
+}
+
+.footer-sections {
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-grow: 1;
+}
+
+.title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'SJSUSpartan', 'Times New Roman', serif;
+  letter-spacing: 1px;
+}
+
+.text {
+  color: #ffffff;
+  font-size: 15px;
+  margin: 0 10px;
+  margin-bottom: 15px;
+}
+
+.social-icon {
+  width: 30px; /* Adjust this value to scale the size of your image */
+  height: auto; /* This will keep the aspect ratio intact */
+  margin-top: 20px; /* Adjust this value to control space between the title and the icons */
+  color: #ffffff;
+  margin: 0 5px;
+}
+
+.social-icon:hover {
+  color: #e5a823;
+  transform: scale(
+    1.1
+  ); /* Optional: makes the icon slightly larger when hovering over it */
+}

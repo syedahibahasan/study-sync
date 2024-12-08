@@ -1,5 +1,6 @@
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { UserRound } from "lucide-react";
 import "../navbar/navbar.css";
 import { useAuth } from "../../hooks/useauth";
 import SearchBar from "../Search/search";
@@ -88,16 +89,22 @@ const Navbar = () => {
             <div className="hamicon">&#8801;</div>
           </div>
           <div className="loginbutton">
-            {user ? (
-              <CustomLink className="headers" to="/profile">
-                {user.username}
-              </CustomLink>
-            ) : (
-              <CustomLink className="headers" to="/login">
-                Login
-              </CustomLink>
-            )}
-          </div>
+          {user ? (
+            <CustomLink className="headers" to="/profile">
+              <button className="profile-button">
+                <UserRound />
+              </button>
+              <span>{user.username}</span> {/* Display the username */}
+            </CustomLink>
+          ) : (
+            <CustomLink className="headers" to="/login">
+               <button className="profile-button">
+                <UserRound />
+              </button>
+              Login
+            </CustomLink>
+          )}
+        </div>
         </ul>
       </nav>
     </div>

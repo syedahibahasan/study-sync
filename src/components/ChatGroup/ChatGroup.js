@@ -190,13 +190,13 @@ const handleKeyPress = (e) => {
               <strong>Course:</strong> {group.courseName}
             </p>
             <p>
-              <strong>Time:</strong> {group.time}
+              <strong>Time:</strong> {group.time} 
             </p>
 
             <div className="scrollable-context">
               {group.selectedTimes.map((schedule) => (
                 <div key={schedule._id} style={{ marginBottom: "20px" }}>
-                  <h2>{schedule.day}</h2>
+                  <p>{schedule.day}</p>
                   <ul>
                     {schedule.times.map((time, index) => (
                     <li key={index}>{time}</li>
@@ -205,8 +205,6 @@ const handleKeyPress = (e) => {
                 </div>
               ))}
             </div>
-        
-        <p><solid>_________________________________________</solid></p>
             <p>
               <strong>Location:</strong> {group.location}
             </p>
@@ -275,7 +273,7 @@ const handleKeyPress = (e) => {
         />
         <div className="tooltip-container info-button-container">
         <button className="send-button" onClick={handleSendMessage}>
-          <PlaneIcon />
+          <SendHorizontal />
         </button>
         <span className="tooltip-text">Send</span>
       </div>

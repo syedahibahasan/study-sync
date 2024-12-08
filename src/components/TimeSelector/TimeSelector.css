@@ -88,7 +88,7 @@
 }
 
 .course-time {
-  background-color: #4CAF50 !important; 
+  background-color: #70B1E0 !important; 
 }
 
 .time-item.cell.selected-group-time {
@@ -148,6 +148,7 @@
 /* Prevent overlap: gray cells remain unclickable */
 .time-item.cell.busy-time {
   opacity: 0.6;
+  background-color: #939597; /* Gray color for busy time */
 }
 
 /* CSS for non-editable cells */

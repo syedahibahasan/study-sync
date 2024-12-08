@@ -19,8 +19,6 @@
     border-right: 1px solid #D2D2D2; /* Divider for sidebar */
     color: white;
     overflow-y: auto;
-
-    background-image: url('../../../public/thumbnail/sjsucampus.png'); 
     background-size: cover;
     background-position: center;
     position: relative;
