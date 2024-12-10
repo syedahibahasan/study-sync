@@ -1,5 +1,6 @@
 import styles from './browsing.module.css'; // Import CSS module
 import Footer from "../../components/footer/footer.js";
+import { Link } from "react-router-dom";
 
 const BrowsingPage = () => {
   return (
@@ -15,8 +16,8 @@ const BrowsingPage = () => {
             <p>StudySync connects SJSU Spartans by matching study groups based on your preferred time and location.</p>
             <p>Join today to elevate your academic success with like-minded peers!</p>
             <div id="centerBody">
-              <a href="/login/" className={styles.customButton}>Log In</a>
-              <a href="/register/" className={styles.customButton}>Sign Up</a>
+              <Link to="/login" className={styles.customButton}>Log In</Link>
+              <Link to="/register" className={styles.customButton}>Sign Up</Link>
             </div>
           </div>
 
