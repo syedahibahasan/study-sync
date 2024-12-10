@@ -55,8 +55,8 @@ export default function Register() {
               {...register("email", {
                 required: "This Field Is Required",
                 pattern: {
-                  value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,63}$/i,
-                  message: "Email Is Not Valid",
+                  value: /^[\w-.]+@sjsu\.edu$/i,
+                  message: "Must Be SJSU Email Address",
                 },
               })}
               error={errors.email}
