@@ -4,7 +4,7 @@ import CreateGroupForm from "../../components/CreateGroupForm/CreateGroupForm";
 import FilterPanel from "../../components/FilterPanel/FilterPanel";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ChatGroup from "../../components/ChatGroup/ChatGroup";
-import { Plus, UserRoundPlus, Filter } from "lucide-react";
+import { Search, Plus, UserRoundPlus, Filter } from "lucide-react";
 import "./UserDashboard.css";
 import { useAuth } from "../../hooks/useauth.js";
 
@@ -85,7 +85,9 @@ export default function UserDashboard() {
           </div>
         ))
       ) : (
-        <div>No Groups Available</div>
+        <div className="sidebar-item">
+          No groups yet. Join or create!
+      </div>
       )}
     </div>
   );
@@ -168,31 +170,50 @@ export default function UserDashboard() {
     element={
       <div>
         <div className="header-container">
-          <div className="group-search-bar">
-            <SearchBar onSearch={handleSearch} />
-            <div className="tooltip-container">
-              <button
-                className="filter-button"
-                onClick={toggleFilter}
-                aria-label="Filter groups"
-              >
-                <Filter />
-              </button>
-              <span className="tooltip-text">Filter</span>
-            </div>
-            
-            <div className="tooltip-container">
-              <button
-                className="action-button"
-                onClick={toggleCreateGroupPanel}
-                aria-label="Create a new group"
-              >
-                <Plus />
-              </button>
-              <span className="tooltip-text">Create Group</span>
-            </div>
-          </div>
-        </div>
+  <div className="group-search-bar">
+    {/* Search Bar with Icon */}
+    <div className="search-bar-container">
+      <input
+        type="text"
+        placeholder="Search for groups..."
+        value={searchKeyword}
+        onChange={(e) => setSearchKeyword(e.target.value)}
+        className="search-input"
+      />
+      <button
+        className="search-icon-button"
+        onClick={() => handleSearch(searchKeyword)}
+        aria-label="Search"
+      >
+        <Search />
+      </button>
+    </div>
+
+    {/* Filter Button */}
+    <div className="tooltip-container">
+      <button
+        className="filter-button"
+        onClick={toggleFilter}
+        aria-label="Filter groups"
+      >
+        <Filter />
+      </button>
+      <span className="tooltip-text">Filter</span>
+    </div>
+
+    {/* Create Group Button */}
+    <div className="tooltip-container">
+      <button
+        className="action-button"
+        onClick={toggleCreateGroupPanel}
+        aria-label="Create a new group"
+      >
+        <Plus />
+      </button>
+      <span className="tooltip-text">Create Group</span>
+    </div>
+  </div>
+</div>
 
         <FilterPanel
           isOpen={isFilterOpen}
@@ -238,7 +259,8 @@ export default function UserDashboard() {
               </div>
             ))
           ) : (
-            <div>No Study Groups Found Matching Your Preferences...</div>
+            <div className="group-item">
+            No Study Groups Found Matching Your Preferences...</div>
           )}
         </div>
       </div>

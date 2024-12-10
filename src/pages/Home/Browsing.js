@@ -1,8 +1,10 @@
 import styles from './browsing.module.css'; // Import CSS module
 import Footer from "../../components/footer/footer.js";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useauth"; // Import useAuth hook
 
 const BrowsingPage = () => {
+  const { user } = useAuth(); 
   return (
     <div className={styles.container}>
       {/* Hero Section */}
@@ -16,8 +18,19 @@ const BrowsingPage = () => {
             <p>StudySync connects SJSU Spartans by matching study groups based on your preferred time and location.</p>
             <p>Join today to elevate your academic success with like-minded peers!</p>
             <div id="centerBody">
-              <Link to="/login" className={styles.customButton}>Log In</Link>
-              <Link to="/register" className={styles.customButton}>Sign Up</Link>
+              {user ? (
+                <>
+                  {/* If the user is logged in, show Profile and Dashboard */}
+                  <Link to="/profile" className={styles.customButton}>Profile</Link>
+                  <Link to="/userdashboard" className={styles.customButton}>Dashboard</Link>
+                </>
+              ) : (
+                <>
+                  {/* If the user is not logged in, show Log In and Sign Up */}
+                  <Link to="/login" className={styles.customButton}>Log In</Link>
+                  <Link to="/register" className={styles.customButton}>Sign Up</Link>
+                </>
+              )}
             </div>
           </div>
 

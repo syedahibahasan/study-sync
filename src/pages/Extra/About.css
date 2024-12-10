@@ -10,14 +10,6 @@ h2 {
   font-family: "Cabin";
 }
 
-.auth-form-container,
-.login-form,
-.register-form {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-}
-
 @media screen and (min-width: 600px) {
 }
 .auth-form-container {
@@ -42,17 +34,6 @@ input {
   border-radius: 10px;
 }
 
-.loginbuttons {
-  border: none;
-  background-color: rgb(205, 221, 205); /*login button*/
-  padding: 20px;
-  border-radius: 10px;
-  font-family: "Cabin";
-  font-weight: bold;
-  cursor: pointer;
-  color: rgb(14, 74, 33);
-}
-
 .link-button {
   padding-top: 15px;
   text-decoration: underline;
@@ -63,7 +44,7 @@ input {
 }
 
 #title {
-  color: #040058;
+  color: #000000;
   font-family: "Cabin";
   text-decoration: underline;
 }
@@ -74,13 +55,13 @@ input {
     height: auto; /* Height set to auto to contain the content */
     margin: 0 auto; /* This will center the container if it's not flexed */
     padding: 20px; /* Padding inside the container */
-    border: 5px solid #040058;
+    border: 5px solid #000000;
     border-radius: 10px;
     text-align: center; /* Center the text inside the container */
     background-color: white;
     font-weight: bold;
     font-size: 20px;
-    color: #040058;
+    color: #000000;
     white-space: nowrap;
 }
 
@@ -98,5 +79,5 @@ input {
   padding: 0; /* Removed the padding to allow true centering */
   min-height: 100vh; /* Minimum height to take full viewport height */
   word-wrap: break-word;
-  background: linear-gradient(to bottom, #7b74ff, white);
+  background: linear-gradient(to bottom, #0055a2, white);
 }

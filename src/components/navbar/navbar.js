@@ -45,11 +45,12 @@ const Navbar = () => {
               {user ? (
                 <div className="logout-container">
                   <CustomLink
-                    className="contentin logout"
-                    onClick={handleLogout}
+                    className="contentin"
+                    to="/profile"
+                    onClick={toggleMenu}
                   >
-                    Logout
-                    </CustomLink>
+                    Profile
+                  </CustomLink>
                   <CustomLink
                     className="contentin"
                     to="/userdashboard"
@@ -57,6 +58,12 @@ const Navbar = () => {
                   >
                     Dashboard
                   </CustomLink>
+                  <CustomLink
+                    className="contentin logout"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                    </CustomLink>
                 </div>
               ) : (
                 <CustomLink className="contentin" to="/login" onClick={toggleMenu}>

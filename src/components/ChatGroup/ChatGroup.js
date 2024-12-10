@@ -215,7 +215,9 @@ const handleKeyPress = (e) => {
               <strong>Members:</strong>
             </p>
             <ul>
-              {group.members?.map((member) => (
+            {group.members
+              ?.filter((member) => member._id !== group.admin?._id) // Exclude the admin
+              .map((member) => (
                 <li key={member._id}>{member.username} {isAdmin && (<button className="close-popup" onClick={() => handleRemoveGroupUser(member)}> × </button>)}</li> 
                 
               ))}
@@ -269,7 +271,7 @@ const handleKeyPress = (e) => {
           placeholder="Type a message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyPress} // Listen for Enter key
+          onKeyDown={handleKeyPress} 
         />
         <div className="tooltip-container info-button-container">
         <button className="send-button" onClick={handleSendMessage}>
