@@ -169,6 +169,12 @@
     width: 100%;
 }
 
+.group-item-description {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .group-item-description p {
     margin: 4px 0;
     font-size: 14px;
