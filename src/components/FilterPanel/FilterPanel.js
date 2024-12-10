@@ -11,6 +11,7 @@ export default function FilterPanel({ isOpen, onFilterChange }) {
   const [selectedTimes, setSelectedTimes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [mousePressed, setMousePressed] = useState(false);
 
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   const timeSlots = [
@@ -18,8 +19,19 @@ export default function FilterPanel({ isOpen, onFilterChange }) {
     "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
     "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM",
     "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM",
-    "8:00 PM", "8:30 PM", "9:00 PM"
+    "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM"
   ];
+
+  useEffect(() => {
+    const handleMouseDown = () => setMousePressed(true);
+    const handleMouseUp = () => setMousePressed(false);
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+        document.removeEventListener("mousedown", handleMouseDown);
+        document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -106,93 +118,117 @@ export default function FilterPanel({ isOpen, onFilterChange }) {
       className={`filter-panel ${isOpen ? "open" : ""}`}
       aria-hidden={!isOpen}
     >
-      {/* Courses Filter */}
-      <h4>Filter by Courses 📚:</h4>
-      {error && <p className="error">{error}</p>}
-      {!loading && !error && (
-        <div className="filter-list">
-          {courses.length > 0 ? (
-            <div className="courses-container">
-              {courses.map((course) => (
-                <label key={course.id || course._id} className="course-label">
-                  <span className="course-name">{course.course_title}</span>
-                  <input
-                    type="checkbox"
-                    name={course.name}
-                    checked={selectedCourses.includes(course.id || course._id)}
-                    onChange={() => handleCheckboxChange(course.id || course._id)}
-                  />
-                </label>
-              ))}
-            </div>
-          ) : (
-            <p>No enrolled courses found.</p>
-          )}
-        </div>
-      )}
 
-      {/* Time Filter */}
-      <div className="filter-section">
-        <h4>Filter by Time ⌚:</h4>
-        <div className="filter-list">
-          <div className="times-container">
-            {timeSlots.map((time) => (
-              <label key={time} className="time-label">
-                <span className="time-name">{time}</span>
-                <input
-                  type="checkbox"
-                  checked={selectedTimes.includes(time)}
-                  onChange={() => handleTimeCheckboxChange(time)}
-                />
-              </label>
-            ))}
+      <div className="left-panel">
+        {/* Courses Filter */}
+        <h4>Filter by Courses 📚:</h4>
+        {error && <p className="error">{error}</p>}
+        {!loading && !error && (
+          <div className="filter-list">
+            {courses.length > 0 ? (
+              <div className="courses-container">
+                {courses.map((course) => (
+                  <label key={course.id || course._id} className="course-label">
+                    <span className="course-name">{course.course_title}</span>
+                    <input
+                      type="checkbox"
+                      name={course.name}
+                      checked={selectedCourses.includes(course.id || course._id)}
+                      onChange={() => handleCheckboxChange(course.id || course._id)}
+                    />
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <p>No enrolled courses found.</p>
+            )}
           </div>
-        </div>
-      </div>
-
-      {/* Days Filter */}
-      <div className="filter-section">
-        <h4>Filter by Day 📅:</h4>
-        <div className="filter-list">
-          {daysOfWeek.length > 0 ? (
-            <div className="days-container">
-              {daysOfWeek.map((day) => (
-                <label key={day} className="day-label">
-                  <span className="day-name">{day}</span>
-                  <input
-                    type="checkbox"
-                    checked={selectedDays.includes(day)}
-                    onChange={() => handleDayCheckboxChange(day)}
-                  />
-                </label>
-              ))}
-            </div>
-          ) : (
-            <p>No days available for filtering.</p>
-          )}
-        </div>
-      </div>
-
-      {/* Locations Filter */}
-      <h4>Filter by Location 📍:</h4>
-      <div className="filter-list">
-        {user.preferredLocations && user.preferredLocations.length > 0 ? (
-          <div className="locations-container">
-            {user.preferredLocations.map((location) => (
-              <label key={location} className="location-label">
-                <span className="location-name">{location}</span>
-                <input
-                  type="checkbox"
-                  checked={selectedLocations.includes(location)}
-                  onChange={() => handleLocationCheckboxChange(location)}
-                />
-              </label>
-            ))}
-          </div>
-        ) : (
-          <p>No preferred locations found.</p>
         )}
+
+        
+
+        {/* Days Filter */}
+        <div className="filter-section">
+          <h4>Filter by Day 📅:</h4>
+          <div className="filter-list">
+            {daysOfWeek.length > 0 ? (
+              <div className="days-container">
+                {daysOfWeek.map((day) => (
+                  <label key={day} className="day-label">
+                    <span className="day-name">{day}</span>
+                    <input
+                      type="checkbox"
+                      checked={selectedDays.includes(day)}
+                      onChange={() => handleDayCheckboxChange(day)}
+                    />
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <p>No days available for filtering.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Locations Filter */}
+        <h4>Filter by Location 📍:</h4>
+        <div className="filter-list">
+          {user.preferredLocations && user.preferredLocations.length > 0 ? (
+            <div className="locations-container">
+              {user.preferredLocations.map((location) => (
+                <label key={location} className="location-label">
+                  <span className="location-name">{location}</span>
+                  <input
+                    type="checkbox"
+                    checked={selectedLocations.includes(location)}
+                    onChange={() => handleLocationCheckboxChange(location)}
+                  />
+                </label>
+              ))}
+            </div>
+          ) : (
+            <p>No preferred locations found.</p>
+          )}
+        </div>
       </div>
+
+      <div className="right-panel">
+        {/* Time Filter */}
+        <div className="filter-section">
+          <h4>Filter by Time ⌚:</h4>
+          <div className="filter-list">
+            <div className="filter-time-container">
+              {timeSlots.map((time) => (
+                <span key={`cell-${time}`}
+                onMouseDown={() => {
+                  selectedTimes.includes(time)
+                  handleTimeCheckboxChange(time)
+                }}
+                onMouseOver={() => {
+                    if (mousePressed) {
+                      selectedTimes.includes(time)
+                      handleTimeCheckboxChange(time)
+                    }
+                }}
+                style={selectedTimes.includes(time) ? {
+                  width: '100%',
+                  height: '30px',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                } : {
+                  width: '100%',
+                  height: '30px',
+                  backgroundColor: 'lightgray',
+                  cursor: 'pointer',
+                }}>
+                  {time}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
