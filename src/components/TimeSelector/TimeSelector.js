@@ -7,6 +7,8 @@ const TimeSelector = ({
     userSchedule = [], // Array of busy times from the backend
     selectedTimes = [], // Array for group times
     setSelectedTimes = () => {}, // Function to update selected group times
+    formatedGroupTime = [], // roundabout fix for different time formats
+    setFormatedGroupTime = () => {}, // roundabout fix for different time formats
     highlightType = "busy", // Default to busy time selector
     editable = false, // Default to false if not provided
     showSaveSchedule = true, // Control visibility of Save Schedule button
@@ -213,13 +215,17 @@ const TimeSelector = ({
         const updatedTimes = isSelectedGroupTime(rowIndex, columnIndex)
             ? selectedTimes.filter((t) => !(t.day === time.day && t.time === time.time))
             : [...selectedTimes, time];
+        console.log(updatedTimes)
         setSelectedTimes(updatedTimes);
+        const updateTimes = [...formatedGroupTime];
+        updateTimes[(columnIndex*7)+rowIndex] = !updateTimes[(columnIndex*7)+rowIndex];
+        setFormatedGroupTime(updateTimes);
     };
 
     const handleSaveSchedule = () => {
         if (highlightType === "busy") {
             const schedule = formatUserTimesForDatabase();
-            saveSchedule(schedule);
+            saveSchedule(schedule, busyTimesState, studyGroupTimesState, courseTimesState);
         } else {
             console.warn("Unsupported highlightType:", highlightType);
         }
@@ -280,6 +286,7 @@ const TimeSelector = ({
                                 key={`cell-${rowIndex}-${columnIndex}`}
                                 onMouseDown={() => {
                                     if (isCourseTime(rowIndex, columnIndex)) return;
+                                    if (isStudyGroupTime(rowIndex, columnIndex)) return;
                                     if (editable && highlightType === "busy") {
                                         toggleBusyTime(rowIndex, columnIndex);
                                     } else if (highlightType === "group") {
@@ -289,6 +296,7 @@ const TimeSelector = ({
                                 onMouseOver={() => {
                                     if (mousePressed) {
                                         if (isCourseTime(rowIndex, columnIndex)) return;
+                                        if (isStudyGroupTime(rowIndex, columnIndex)) return;
                                         if (editable && highlightType === "busy") {
                                             toggleBusyTime(rowIndex, columnIndex);
                                         } else if (highlightType === "group") {

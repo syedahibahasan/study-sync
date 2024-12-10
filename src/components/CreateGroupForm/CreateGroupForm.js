@@ -13,6 +13,11 @@ import { useAuth } from "../../hooks/useauth";
 
 
 export default function CreateGroupForm({ onCreateGroup, onClose, userId, loadMyGroups, loadMatchingGroups}) {
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const times = ["9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", 
+        "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", 
+        "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM"];
+
   const { createGroup } = useAuth();
   const [groupName, setGroupName] = useState("");
   const [course, setCourse] = useState("");
@@ -23,6 +28,7 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId, loadMy
   const [courses, setCourses] = useState([]);
   const [preferredLocations, setPreferredLocations] = useState([]);
   const [selectedTimes, setSelectedTimes] = useState([]);
+  const [formatedGroupTime, setFormatedGroupTime] = useState(new Array(days.length * times.length).fill(false));
   const [userSchedule, setUserSchedule] = useState([]); // User's busy times
 
   const transformScheduleForTimeSelector = (schedule) =>
@@ -93,6 +99,7 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId, loadMy
         meetingType,
         location: meetingType === "In-Person" ? location : "Online",
         selectedTimes: groupedSelectedTimes,
+        formattedGroupTimes: formatedGroupTime,
         userId,
       });
       toast.success("Study group created successfully!");
@@ -151,6 +158,8 @@ export default function CreateGroupForm({ onCreateGroup, onClose, userId, loadMy
       userSchedule={userSchedule}
       selectedTimes={selectedTimes}
       setSelectedTimes={setSelectedTimes}
+      formatedGroupTime={formatedGroupTime}
+      setFormatedGroupTime={setFormatedGroupTime}
       highlightType="group"
       editable={false}
       showSaveSchedule={false} // Hide Save Schedule button in this context

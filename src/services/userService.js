@@ -86,11 +86,11 @@ export const removeCourse = async (userId, courseId) => {
 
 
 //Schedule
-export const saveSchedule = async (userId, schedule) => {
+export const saveSchedule = async (userId, schedule, busyTimes, groupTimes, courseTimes) => {
   const token = localStorage.getItem("token");
   const response = await axios.put(
     `http://localhost:5001/api/users/${userId}/schedule`,
-    { schedule },
+    { schedule, busyTimes, groupTimes, courseTimes },
     { headers: { Authorization: `Bearer ${token}` } }
   );
   return response.data;

@@ -119,10 +119,10 @@ export const AuthProvider = ({ children }) => {
   };
   
 //Schedule
-const saveSchedule = async (schedule) => {
+const saveSchedule = async (schedule, busyTimes, groupTimes, courseTimes) => {
   // Ensure this function is defined here
   try {
-    const updatedUser = await userService.saveSchedule(user._id, schedule);
+    const updatedUser = await userService.saveSchedule(user._id, schedule, busyTimes, groupTimes, courseTimes);
     setUser(updatedUser);
     toast.success("Schedule saved successfully!");
   } catch (err) {
