@@ -216,7 +216,9 @@ export default function UserDashboard() {
                 <div>
                   <div className="group-name">{group.name}</div>
                   <div className="group-item-description">
-                    {group.courseName} - {group.location} - {group.selectedTimes.map(({ day, times }, index) => (
+                    <b>Course: </b>{group.courseName} <br></br>
+                    <b>Location: </b> {group.location} <br></br> 
+                    <b>Times: </b> {group.selectedTimes.map(({ day, times }, index) => (
                       <span key={index}>
                         {day}: {times[0]} to {times[times.length - 1]}
                         {index < group.selectedTimes.length - 1 ? '; ' : ''}
