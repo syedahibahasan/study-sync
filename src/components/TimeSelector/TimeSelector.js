@@ -218,7 +218,7 @@ const TimeSelector = ({
         console.log(updatedTimes)
         setSelectedTimes(updatedTimes);
         const updateTimes = [...formatedGroupTime];
-        updateTimes[(columnIndex*7)+rowIndex] = !updateTimes[(columnIndex*7)+rowIndex];
+        updateTimes[(columnIndex*27)+rowIndex] = !updateTimes[(columnIndex*27)+rowIndex];
         setFormatedGroupTime(updateTimes);
     };
 
